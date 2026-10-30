@@ -8,6 +8,14 @@ assert manifest["name"] == manifest["short_name"] == "Aria piano"
 assert manifest['display'] == 'fullscreen', 'Installed Aria must launch fullscreen'
 assert manifest['start_url'] == './' and manifest['scope'] == './'
 assert manifest['icons'], 'Install icons required'
+assert '<link rel="icon" href="./icons/aria.svg" type="image/svg+xml">' in (ROOT / 'src/app/template.html').read_text()
+assert '<svg' in (ROOT / 'icons/aria.svg').read_text()
+assert 'aria piano' in (ROOT / 'icons/aria.svg').read_text().lower()
+for size in ('192.png', '512.png', 'maskable-512.png'):
+    primary = (ROOT / 'icons' / ('aria-' + size)).read_bytes()
+    beta = (ROOT / 'icons' / ('aria-beta-' + size)).read_bytes()
+    assert primary == beta, f'Stable and beta need identical icon artwork for {size}'
+assert "aria-piano-shell-v2" in (ROOT / 'sw.js').read_text()
 for icon in manifest['icons']:
     path = ROOT / icon['src']
     assert path.is_file(), f'Missing icon: {path}'
@@ -18,7 +26,7 @@ assert "shutil.copytree(ROOT / 'icons', site / 'icons')" in build
 page = (ROOT / 'src/app/template.html').read_text()
 assert 'rel="manifest" href="./manifest.webmanifest"' in page
 assert 'class="app-nav home-nav"' in page
-assert 'src="./icons/aria-192.png"' in page, 'Home screen should show the installed app icon'
+assert 'src="./icons/aria.svg"' in page, 'Home screen should show the canonical SVG A icon'
 assert 'class="brand-name">ria piano</span>' in page
 assert 'class="brand-version">v__ARIA_VERSION__</span>' in page, 'Show the current stable version after Aria'
 assert 'id="homeFullscreen"' in page, 'Fullscreen must be accessible from the home screen'

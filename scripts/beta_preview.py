@@ -87,9 +87,9 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     # Otherwise a stable service worker could delete a beta's cached app.
     sw_path = site / "sw.js"
     worker = sw_path.read_text(encoding="utf-8")
-    if "'aria-piano-shell-v1'" not in worker or "name.startsWith('aria-piano-shell-')" not in worker:
+    if not re.search(r"'aria-piano-shell-v[0-9]+'", worker) or "name.startsWith('aria-piano-shell-')" not in worker:
         raise ValueError("Unexpected service-worker cache format")
-    worker = worker.replace("'aria-piano-shell-v1'", "'aria-piano-beta-shell-v1'")
+    worker = re.sub(r"aria-piano-shell-v([0-9]+)", r"aria-piano-beta-shell-v\1", worker)
     worker = worker.replace("name.startsWith('aria-piano-shell-')", "name.startsWith('aria-piano-beta-shell-')")
     # The worker's HOME and URLs are relative to its /beta/ registration scope.
     if "new URL('./', self.registration.scope)" not in worker or "ARIA_CHECK_UPDATE" not in worker:
