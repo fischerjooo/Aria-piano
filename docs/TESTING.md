@@ -1,21 +1,22 @@
 # Automated testing
 
-The repository uses three complementary checks. All of the **supported release gates** must pass before publishing.
+Every supported regression check and browser flow runs in GitHub Actions before live publishing. No historical tests are excluded from the regular release gate.
 
 | Layer | Command | Validates |
 | --- | --- | --- |
-| Source and unit/integration regression | `python scripts/test.py` | PWA configuration, releases, BLE reconnection, source/curriculum fidelity, MIDI data conversion, timing, progression, rendering and selected stable runtime scenarios |
-| Browser navigation and screenshot smoke | `node e2e/capture.cjs` | Tablet and phone navigation through 16 UI states each; release mode `--capture` regenerates screenshots |
-| Browser behavioral flows | `node e2e/flows.cjs` | Course filters, melody searching/filtering, opening and closing controls, focus persistence over reload, sheet navigation and return home |
+| Source, unit and integration regressions | `python scripts/test.py` | Source/curriculum validation, MIDI import/export and negative cases, version/PWA/beta configuration, BLE recovery, experimental engine tests, and **all 24 maintained stable regression files** |
+| Stable regression files, standalone | `python scripts/test_snapshot.py` | Runs all 24 maintained `tests/*-tests.cjs` cases and exits nonzero if any fail; already included in `test.py` |
+| Responsive browser smoke and gallery | `node e2e/capture.cjs` | Phone and tablet screen navigation; `--capture` generates the release screenshot gallery |
+| Behavioral Playwright flows | `node e2e/flows.cjs` | Filters and search, lesson selection, menus, persisted focus preference across reload, sheet navigation and returning to the correct collection |
 
-Use `python scripts/build.py` first, and install pinned Chromium tooling as in `.github/workflows/ci.yml` before browser tests. CI runs all three layers on branches and pull requests. `.github/workflows/pages.yml` runs them before a stable release.
+Run `python scripts/build.py` before the tests. Install the pinned browser package and Chromium as configured in `.github/workflows/ci.yml` before running Playwright. Validation on PRs and branches and release verification both use the same supported regression and browser checks.
 
-## Historical snapshot — preserved but not part of the supported release suite
+## Historical regression reconciliation
 
-`python scripts/test_snapshot.py` runs the original 24 v5.26 test files against today's application. Eleven files contain legacy assumptions (catalogue sizes, old indices, UI dimensions and timing expectations), and **currently fail**. See [TEST-STATUS.md](../tests/TEST-STATUS.md) and the [file-by-file historical test audit](HISTORICAL-TEST-AUDIT.md), which records whether each failing test should be adapted or retired. The original source files under `archive/tests-v5.26-original/` remain byte-identical.
+The 24 portable files in `tests/` have been updated to the current 68-course / 142-melody stable application and **passed 24/24 in GitHub Actions on 30 October 2026**. The 11 previously failing or excluded files were repaired, retained and included in the mandatory test runner. See [the current status](../tests/TEST-STATUS.md) and [file-by-file reconciliation](HISTORICAL-TEST-AUDIT.md).
 
-These failures must **not** be relabelled as passing, silently skipped in the snapshot runner, or resolved by deleting assertions. Reconcile each legacy expectation with the current application contract, migrate meaningful checks into supported regression tests, and only then retire redundant legacy cases.
+The original v5.26 snapshot under `archive/tests-v5.26-original/` remains untouched as historical evidence. It is **not** the maintained regression suite; its original assumptions need not match the current app. No portable files were deleted and none is skipped by the supported regression runner.
 
-## Remaining hardware and flow coverage
+## Remaining hardware and interaction limits
 
-The Playwright tests exercise the app in Chromium, not a real connected piano. The next priority is full lesson completion with simulated MIDI/touch, wrong-note and timing scenarios, settings changes during practice, and results/progress reloads. Real Bluetooth, Web MIDI hardware and microphone permission/pitch behavior also require device testing. Browser navigation checks do not substitute for those tests.
+These green tests validate simulated inputs and app logic, not real USB MIDI, Bluetooth MIDI pairing or physical microphone acoustics. Full touch/MIDI song completion in a real browser, progress/results persistence after full sessions, and true visual baseline diffing would further strengthen coverage. Browser screenshots show rendering rather than guaranteeing physical-device behavior.
