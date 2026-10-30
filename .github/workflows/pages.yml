@@ -52,6 +52,22 @@ jobs:
         run: python scripts/test.py
       - name: Verify generated scores and experimental app remain unchanged
         run: git diff --exit-code -- aria-piano-v6.0-candidate.html src/repertoire data
+      - name: Keep the latest validated beta on the fixed /beta/ URL
+        run: |
+          if git ls-remote --exit-code --heads origin beta-preview >/dev/null; then
+            git fetch origin beta-preview:refs/remotes/origin/beta-preview
+            git worktree add --detach "$RUNNER_TEMP/aria-beta-source" refs/remotes/origin/beta-preview
+            python -m pip install --requirement "$RUNNER_TEMP/aria-beta-source/requirements-build.txt"
+            python "$RUNNER_TEMP/aria-beta-source/scripts/build.py"
+            python "$RUNNER_TEMP/aria-beta-source/scripts/test.py"
+            git -C "$RUNNER_TEMP/aria-beta-source" diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
+            BETA_SHA="$(git rev-parse refs/remotes/origin/beta-preview)"
+            python scripts/beta_preview.py --site "$RUNNER_TEMP/aria-beta-source/_site" --version-file version.json --sha "$BETA_SHA"
+            cp -a "$RUNNER_TEMP/aria-beta-source/_site" _site/beta
+            test -f _site/beta/index.html
+          else
+            echo "No beta-preview branch yet; stable release only."
+          fi
       - name: Record verified release version in main
         run: |
           git config user.name 'github-actions[bot]'
