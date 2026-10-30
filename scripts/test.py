@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-for test in ['pwa-install-tests.py', 'ble-reconnect-tests.py', 'data-build-tests.py', 'data-midi-negative.py', 'data-validation-negative.py']:
+for test in ['pwa-install-tests.py', 'version-tests.py', 'ble-reconnect-tests.py', 'data-build-tests.py', 'data-midi-negative.py', 'data-validation-negative.py']:
     subprocess.run([sys.executable, str(ROOT / 'tests' / test)], cwd=ROOT, check=True)
 subprocess.run(['node', str(ROOT / 'tests/data-runtime-parity.cjs')], cwd=ROOT, check=True)
 for name in ['validate_sources.py', 'validate_curriculum.py']:

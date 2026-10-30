@@ -2,7 +2,7 @@
 
 Piano teach web app with a self-contained HTML download, sheet music, local progress, touch, microphone, MIDI and Bluetooth input.
 
-**Stable default: v5.26.** The root `index.html` and `dist/index.html` now compile from modular app sources plus MIDI/YAML/JSON data, preserving the established interface and features. `aria-piano-v5.26.html` remains the immutable historical archive. The v6 source-first rewrite is experimental: it has useful score provenance and timing work, but it is not a feature-complete replacement for v5.26. Its separate downloadable file is `aria-piano-v6.0-candidate.html`; the Pages build also exposes `experimental/v6.html`.
+**Stable default: the v5.26 interface and curriculum, with the published app version tracked in `version.json`.** The root `index.html` and `dist/index.html` now compile from modular app sources plus MIDI/YAML/JSON data, preserving the established interface and features. `aria-piano-v5.26.html` remains the immutable historical archive. The v6 source-first rewrite is experimental: it has useful score provenance and timing work, but it is not a feature-complete replacement for v5.26. Its separate downloadable file is `aria-piano-v6.0-candidate.html`; the Pages build also exposes `experimental/v6.html`.
 
 Next development direction: bring the verified v6 score model and source-bound learning path into the polished v5 experience, preserving existing controls, notation readability, learning flow and input options. Compare both versions in a real browser before changing the stable default. The experimental rewrite must not silently replace the stable app.
 
@@ -28,6 +28,16 @@ See [data/README.md](data/README.md) for authoring boundaries, exact legacy timi
 All 24 original v5.26 test files from commit `612273319a4e70a1b9b7b10ff7e5b6fc8f736b76` are preserved byte-for-byte under `archive/tests-v5.26-original/`. Portable copies in `tests/` target the stable root, use the retained v3.1 DSP fixture and write optional diagnostics to ignored `test-results/`. Run `python scripts/test_snapshot.py` to execute every file; it reports 13 passing files and 11 known historical failures, then exits nonzero. See `tests/TEST-STATUS.md`. Assertions were not rewritten to make those historical tests pass.
 
 Later v5.27 releases/tests remain in `archive/`; v6 source, research and checks remain under their original development directories. Neither later version replaces the stable v5.26 entrypoint.
+
+## Release versioning
+
+The release version has one source of truth: `version.json`, currently starting at `v5.26`. The stable music content is independently preserved byte-for-byte against the frozen v5.26 archive; incrementing a release number does not claim that the content or music has changed.
+
+**Normal development/publishing:** Work on a feature branch and open a pull request. CI builds and tests at the **current** release number; PR checks do not bump versions. After a change is merged or pushed to `main`, **Build and deploy Pages** automatically increments the **minor** version (for example `5.26 → 5.27`), rebuilds and tests the app, commits the version and generated HTML back to `main`, and publishes that same tested build. The GitHub Actions bot uses `GITHUB_TOKEN`; its release commit does not start another publish run, so it cannot loop.
+
+**Major release option:** Open **Actions → Build and deploy Pages → Run workflow** on `main` and select **major**. That increments the major number and resets minor to **0** (for example `5.27 → 6.0`). Selecting **minor** instead publishes another minor release. Both options run the same build, validation, commit and GitHub Pages deployment process.
+
+The browser title, home header and HTML application-version metadata are generated from `version.json` by `scripts/build.py`. Do not hand-edit these generated labels or the historical v5.26 archive. For local testing, run `python scripts/version.py show`; to exercise version increments in a temporary copy, run `python scripts/version.py bump --part minor --file /tmp/aria-version-test.json` on a copy of the version file. A published release is recorded on `main` only after checks pass. Release automation requires Actions to have permission to push version commits to `main`.
 
 ## GitHub Pages
 
