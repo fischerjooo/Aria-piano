@@ -109,6 +109,9 @@ async function test(browser,base,device,viewport){
     await page.locator('#quickHandsModal').waitFor({state:'hidden'});
     await page.locator('#settings').click();
     await page.locator('#settingsModal:not([hidden])').waitFor();
+    for(const duplicate of ['#inputMode','#bleSettings','#mic','#allowEarlyNotes','#tempo'])assert.equal(await page.locator('#settingsModal '+duplicate).count(),0,duplicate+' should live outside general settings');
+    assert.equal(await page.locator('#settingsModal #metro').count(),1,'metronome remains available because it has no dedicated menu');
+    assert.equal(await page.locator('#practiceControlState').isVisible(),false,'runtime state controls stay hidden');
     await page.locator('#settingsModal [data-close="settingsModal"]').first().click();
     await page.locator('#scoreFocus').click();
     assert.equal(await page.locator('#scoreFocus').getAttribute('aria-pressed'),'true');
