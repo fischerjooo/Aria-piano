@@ -1,6 +1,10 @@
 # Historical regression test reconciliation — 30 October 2026
 
-## Decision and scope
+## Resolution (completed)
+
+**All 11 previously failing portable files have now been adapted and pass** as part of the full 24/24 maintained regression suite. The audit table below records the initial failure analysis and planned remedies, which were implemented in the maintained `tests/` files. No test file was deleted, skipped, or removed from the release gate. Original archived v5.26 copies remain unchanged. GitHub Actions also passed the two Playwright browser suites with the expanded regression runner.
+
+## Original decision and scope
 
 **Decision: adapt all 11 failing portable tests for today's stable app, retire none yet.** Every failing file still checks a real user-facing behavior; deleting a whole test would discard useful protection. The originals in `archive/tests-v5.26-original/` are immutable historical evidence and must not be edited. Changes belong in the maintained portable tests under `tests/`, with old and new expectations reviewed explicitly. A failing historical snapshot is **not** evidence of a production bug until the scenario is reproduced against the current contract.
 
@@ -32,4 +36,4 @@ This audit compares the archived v5.26 expectations with the current stable app'
 4. Replace the maintained test runner's hardcoded list of 13 with discovery of all 24 passing portable tests and require them in GitHub Actions. Keep the frozen original archive for historical comparison.
 5. Only delete a portable test if a reviewer identifies the exact removed feature, confirms no current functionality depends on it and records which current test replaces any remaining protection. Never remove the historical originals.
 
-**Status of this PR: an audit and migration decision.** No historical failure is falsely declared repaired, no assertions are weakened, and no test files are deleted.
+**Final disposition:** all 11 are repaired and included in CI; 24/24 portable files pass. No tests deleted. The originals are retained as historical artifacts.
