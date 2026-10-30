@@ -15,7 +15,7 @@ for size in ('192.png', '512.png', 'maskable-512.png'):
     primary = (ROOT / 'icons' / ('aria-' + size)).read_bytes()
     beta = (ROOT / 'icons' / ('aria-beta-' + size)).read_bytes()
     assert primary == beta, f'Stable and beta need identical icon artwork for {size}'
-assert "aria-piano-shell-v2" in (ROOT / 'sw.js').read_text()
+assert "aria-piano-shell-v3" in (ROOT / 'sw.js').read_text()
 for icon in manifest['icons']:
     path = ROOT / icon['src']
     assert path.is_file(), f'Missing icon: {path}'
