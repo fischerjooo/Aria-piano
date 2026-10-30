@@ -38,4 +38,13 @@ with tempfile.TemporaryDirectory() as folder:
         except ValueError:
             pass
 
-print("PASS release version source, displayed title/header, minor bump, major reset and invalid inputs")
+workflow = (ROOT / ".github/workflows/pages.yml").read_text()
+assert "branches: [main]" in workflow, "Normal main publishes must bump the version"
+assert "workflow_dispatch:" in workflow and "options:" in workflow, "Manual release selection required"
+assert "- minor" in workflow and "- major" in workflow
+assert 'python scripts/version.py bump --part "$RELEASE_PART"' in workflow
+assert "git add version.json index.html dist/index.html" in workflow
+assert "git push origin HEAD:main" in workflow
+assert "needs: build" in workflow, "Deployment must wait for the verified release"
+
+print("PASS release version source, displayed title/header, automatic minor, manual major reset and invalid inputs")
