@@ -78,6 +78,10 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     entry.write_text(html, encoding="utf-8")
     html = html.replace('./icons/aria-192.png', './icons/aria-beta-192.png')
     entry.write_text(html, encoding='utf-8')
+    # Make the beta channel unmistakable in the homepage wordmark.
+    html = html.replace('<span class="brand-name">ria piano</span>',
+                        '<span class="brand-name">ria piano <small>(beta)</small></span>')
+    entry.write_text(html, encoding="utf-8")
     # Cache Storage is origin-wide: separate beta and stable offline caches.
     # Otherwise a stable service worker could delete a beta's cached app.
     sw_path = site / "sw.js"
