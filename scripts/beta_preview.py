@@ -58,6 +58,15 @@ def mark_beta(site, version_path, sha):
         raise ValueError("No HTML head to isolate beta progress")
     html = html.replace('<head>', '<head><meta name="robots" content="noindex">' + BETA_STORAGE_SHIM, 1)
     entry.write_text(html, encoding="utf-8")
+    # Cache Storage is origin-wide even with distinct service-worker scopes.
+    # Isolate beta's offline cache to prevent stable SW activation from evicting it.
+    sw_path = site / "sw.js"
+    worker = sw_path.read_text(encoding="utf-8")
+    if "'aria-piano-shell-v1'" not in worker or "name.startsWith('aria-piano-shell-')" not in worker:
+        raise ValueError("Unexpected service worker cache format")
+    worker = worker.replace("'aria-piano-shell-v1'", "'aria-piano-beta-shell-v1'")
+    worker = worker.replace("name.startsWith('aria-piano-shell-')", "name.startsWith('aria-piano-beta-shell-')")
+    sw_path.write_text(worker, encoding="utf-8")
     manifest_path = site / "manifest.webmanifest"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest["name"] = "Aria Piano Beta"
