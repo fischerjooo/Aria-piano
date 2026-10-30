@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import sys
 from lib.catalogue import compile_stable, compile_learning, runtime_js
+from version import read_version, display_version
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -16,8 +17,8 @@ learning = compile_learning()
 (ROOT / 'src/repertoire/learning-path.json').write_text(json.dumps(learning, ensure_ascii=False, indent=2) + '\n')
 app = ROOT / 'src/app'
 script = (app / 'runtime.js').read_text().replace('/*__CATALOGUE__*/', runtime_js(catalogue))
-html = (app / 'template.html').read_text().replace('/*__STYLES__*/', (app / 'styles.css').read_text()).replace('/*__RUNTIME__*/', script).replace('/*__PWA__*/', (app / 'pwa.js').read_text())
-if any(marker in html for marker in ('/*__STYLES__*/', '/*__RUNTIME__*/', '/*__CATALOGUE__*/', '/*__PWA__*/')):
+html = (app / 'template.html').read_text().replace('/*__STYLES__*/', (app / 'styles.css').read_text()).replace('/*__RUNTIME__*/', script).replace('/*__PWA__*/', (app / 'pwa.js').read_text()).replace('__ARIA_VERSION__', display_version(read_version()))
+if any(marker in html for marker in ('/*__STYLES__*/', '/*__RUNTIME__*/', '/*__CATALOGUE__*/', '/*__PWA__*/', '__ARIA_VERSION__')):
     raise ValueError('Unexpanded stable app template')
 (ROOT / 'index.html').write_text(html)
 (ROOT / 'dist').mkdir(exist_ok=True)
