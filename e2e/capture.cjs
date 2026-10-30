@@ -58,7 +58,7 @@ async function flow(browser, profile, options) {
     await page.locator('#settings').click();
     await visible(page, '#settingsModal:not([hidden])');
     await shot(page, dir, 'settings');
-    await page.locator('#settingsModal [data-close="settingsModal"]').click();
+    await page.locator('#settingsModal [data-close="settingsModal"]').first().click();
     await page.locator('#liveSheet').click();
     await visible(page, '#sheetScreen:not([hidden]) #staticScore');
     await shot(page, dir, 'long-song-sheet');
