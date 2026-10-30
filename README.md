@@ -12,6 +12,16 @@ No account required to get started. Open the app in your browser and start explo
 
 [![Aria piano: learn at your pace, play your way](docs/aria-intro.svg)](https://fischerjooo.github.io/Aria-piano/)
 
+## See Aria in action
+
+The screenshots below are captured automatically from real Chromium sessions during live releases, at phone and tablet portrait sizes.
+
+| Phone · Home | Tablet · Lesson in progress |
+|:--:|:--:|
+| ![Aria mobile home](docs/screenshots/mobile/home.png) | ![Aria tablet lesson](docs/screenshots/tablet/lesson-running.png) |
+
+**[Explore the full mobile and tablet screenshot gallery](docs/SCREENSHOTS.md)**
+
 ## Make time for music
 
 Whether you're just getting comfortable with the keys or returning to piano practice, **Aria piano** brings sheet music and interactive exercises together in one place. Follow along at a pace that works for you, play on a touchscreen, or connect a supported piano and practise hands-on.
