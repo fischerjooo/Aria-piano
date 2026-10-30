@@ -37,6 +37,21 @@ For a fresh launch, Aria can reconnect without the chooser **only if** the brows
 
 A service worker cannot hold or reestablish a Bluetooth connection in the background; Web Bluetooth is unavailable there. The operating system may suspend pages when hidden. Avoid continuous background wake locks or fake worker keep-alive loops. Reliable always-on background BLE would require a native Android app with an appropriate foreground service, not just a GitHub Pages PWA.
 
+## Installable Android beta on a separate hostname
+
+**Important:** Chrome for Android can currently confuse multiple installed PWAs under different subpaths of the same hostname, even with distinct manifest IDs. The existing `https://fischerjooo.github.io/Aria-piano/beta/` remains a convenient browser preview, but **cannot guarantee independent installation** alongside stable `https://fischerjooo.github.io/Aria-piano/`.
+
+To install **Aria (beta)** as a separate Android app, host the exact same validated `beta-preview` branch at a **different HTTPS origin** (for example, a Vercel project's own fixed `*.vercel.app` hostname). The repository includes `vercel.json` to build the current branch with `scripts/build.py`, stamp `Aria (beta)` metadata, set the PWA id/start URL/scope to `/`, and publish `_site` as that project's root. The app automatically checks for updated beta builds via its own root-scoped service worker and never shares Chrome's PWA identity with the GitHub Pages stable installation.
+
+**One-time hosting setup in Vercel (required; cannot be done just by merging GitHub code):**
+
+1. Import `fischerjooo/Aria-piano` into a **new** Vercel project (suggested name `aria-piano-beta` if available).
+2. In Project Settings → Environments → Production → Branch Tracking, set the **Production Branch** to **`beta-preview`** (not `main`). Framework preset should be **Other**; the committed `vercel.json` supplies the build command and `_site` output directory.
+3. Deploy the latest `beta-preview` commit. Confirm that the new project's assigned HTTPS root URL serves `/manifest.webmanifest` with `name: "Aria (beta)"`, `id: "/"`, `start_url: "/"`, `scope: "/"`, and serves `/sw.js` plus `/icons/aria-192.png`.
+4. Install from the **Vercel project URL**, not the GitHub Pages `/beta/` URL. Keep that project's hostname fixed for future releases.
+
+Every passing development-branch push already advances the validated `beta-preview` Git branch. With Vercel's Git integration tracking that as its production branch, each update rebuilds the independent-host beta. The GitHub Pages `/beta/` preview continues to work, but it is not the independently installable Android app. Keep the beta GitHub Pages preview link and the production release process unchanged. Do not share or invent a Vercel URL until a project is actually created and deployed.
+
 ## Permanent beta preview
 
 The latest **validated development-branch build** is available at **https://fischerjooo.github.io/Aria-piano/beta/**, while the stable published app stays at **https://fischerjooo.github.io/Aria-piano/**. These are two paths under one GitHub Pages deployment; the production app always lives at the root.
