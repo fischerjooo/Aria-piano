@@ -6,6 +6,7 @@ The built site's relative PWA paths become /Aria-piano/beta/ when copied there.
 import argparse
 import json
 import re
+import shutil
 from pathlib import Path
 
 from version import display_version, next_version, read_version
@@ -50,7 +51,7 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     html = entry.read_text(encoding="utf-8")
     if BETA_STORAGE_SHIM.split('"')[1] in html:
         raise ValueError("Beta branding already applied")
-    title = re.compile(r"(<title>Aria piano v)[^<]+?(?=\s*[—-])")
+    title = re.compile(r"<title>Aria(?: piano)? v[^<]+?(?=\s*[—-])")
     html, changed = title.subn(lambda m: "<title>Aria piano (beta) v" + beta, html, count=1)
     if changed != 1:
         raise ValueError("Cannot find Aria page title for beta branding")
@@ -110,7 +111,18 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     if not all((site / icon["src"]).is_file() for icon in manifest.get("icons", [])):
         raise ValueError("Beta icon assets must exist before publication")
     for icon in manifest["icons"]:
-        icon["src"] = icon["src"].replace("icons/aria-", "icons/aria-beta-")
+        if not icon["src"].startswith("icons/aria-beta-"):
+            icon["src"] = icon["src"].replace("icons/aria-", "icons/aria-beta-", 1)
+    # Previous validated feature commits predate the beta icon generator.
+    # Backfill their asset paths from the currently built main brand icons.
+    for icon in manifest["icons"]:
+        target = site / icon["src"]
+        if not target.exists():
+            source = Path(__file__).resolve().parents[1] / icon["src"]
+            if not source.is_file():
+                raise ValueError(f"Missing beta launcher icon {icon['src']}")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("Aria beta preview v" + beta)
 
