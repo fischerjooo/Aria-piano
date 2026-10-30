@@ -28,6 +28,8 @@ Current v6 limitations: basic score engraving (flagged eighths, limited collisio
 
 ## Workflow and publication
 
+Published app versions are generated from `version.json` by `scripts/build.py`, not from hardcoded labels. PR and non-main branch validation must not increment versions. The `pages.yml` workflow increments the minor release on normal main publishes or accepts an explicit manual major choice that resets the minor number to zero; it rebuilds, tests, commits `version.json` plus generated `index.html`/`dist/index.html`, and then deploys that tested artifact. The workflow uses a bot-generated `GITHUB_TOKEN` commit to avoid a second push-triggered release; protect against version/publish loops. Keep frozen v5.26 historical archive untouched and do not mistake the release number for changes to the historical content.
+
 All development source, plans and checks belong in this repository. Exclude credentials, `.openai` identity/configuration, local caches, dependencies and temporary QA outputs. Keep deployments limited to `_site/`. Maintain the existing application MIT license and each source edition's own license/attribution. Do not relabel all bundled music MIT.
 
 Use `.github/workflows/ci.yml` for every non-main branch push and PR validation, and `pages.yml` for tested main-branch Pages deployment (both merges and direct pushes). Failed builds, selected tests or generated-file checks must block publication. Manual publication is restricted to main. The repository owner must initially enable Settings → Pages → GitHub Actions. Do not claim Pages is live until a deployment succeeds.
