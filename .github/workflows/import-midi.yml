@@ -1,0 +1,34 @@
+name: Import standard MIDI assets
+on:
+  push:
+    branches: [refactor/standard-data-build]
+    paths: [migration/midi-import.json]
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - name: Materialize exact MIDI bytes
+        run: |
+          python3 - <<'PY'
+          import json,base64,pathlib,hashlib
+          rows=json.loads(pathlib.Path('migration/midi-import.json').read_text())
+          assert len(rows)==346
+          for row in rows:
+              p=pathlib.PurePosixPath(row['path'])
+              assert len(p.parts)==4 and p.parts[:3]==('data','stable','midi') and p.suffix=='.mid'
+              b=base64.b64decode(row['content'],validate=True)
+              assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==row['sha']
+              assert b.startswith(b'MThd')
+              target=pathlib.Path(p); target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes(b)
+          PY
+      - name: Store imported MIDI assets on this branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/stable/midi
+          git diff --cached --quiet || git commit -m "Import exact standard MIDI assets for the data build"
+          git push origin HEAD:refactor/standard-data-build
