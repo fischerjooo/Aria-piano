@@ -47,7 +47,7 @@ def mark_beta(site, version_path, sha):
     if BETA_STORAGE_SHIM.split('"')[1] in html:
         raise ValueError("Beta branding already applied")
     title = re.compile(r"(<title>Aria v)[^<]+?(?=\s*[—-])")
-    html, changed = title.subn(lambda m: m.group(1) + beta, html, count=1)
+    html, changed = title.subn(lambda m: "<title>Aria (beta) v" + beta, html, count=1)
     if changed != 1:
         raise ValueError("Cannot find Aria page title for beta branding")
     metadata = re.compile(r'(<meta name="application-version" content=")[^"]*(")')
@@ -56,16 +56,48 @@ def mark_beta(site, version_path, sha):
     html = label.sub(lambda m: m.group(1) + "v" + beta + m.group(2), html, count=1)
     if '<head>' not in html:
         raise ValueError("No HTML head to isolate beta progress")
-    html = html.replace('<head>', '<head><meta name="robots" content="noindex">' + BETA_STORAGE_SHIM, 1)
+    # Android's installed-app label comes from the manifest; these metadata fields
+    # also make the beta identity visible in browser tabs and on other platforms.
+    apple_title = re.compile(r'(<meta name="apple-mobile-web-app-title" content=")[^"]*(")')
+    html, apple_count = apple_title.subn(lambda m: m.group(1) + "Aria (beta)" + m.group(2), html, count=1)
+    if apple_count != 1:
+        raise ValueError("Expected Apple installed-app title in beta HTML")
+    if 'rel="manifest" href="./manifest.webmanifest"' not in html:
+        raise ValueError("Beta must link its own scoped PWA manifest")
+    html = html.replace(
+        '<head>',
+        '<head><meta name="robots" content="noindex">'
+        '<meta name="application-name" content="Aria (beta)">'
+        + BETA_STORAGE_SHIM,
+        1,
+    )
     entry.write_text(html, encoding="utf-8")
+    # Cache Storage is origin-wide: separate beta and stable offline caches.
+    # Otherwise a stable service worker could delete a beta's cached app.
+    sw_path = site / "sw.js"
+    worker = sw_path.read_text(encoding="utf-8")
+    if "'aria-piano-shell-v1'" not in worker or "name.startsWith('aria-piano-shell-')" not in worker:
+        raise ValueError("Unexpected service-worker cache format")
+    worker = worker.replace("'aria-piano-shell-v1'", "'aria-piano-beta-shell-v1'")
+    worker = worker.replace("name.startsWith('aria-piano-shell-')", "name.startsWith('aria-piano-beta-shell-')")
+    # The worker's HOME and URLs are relative to its /beta/ registration scope.
+    if "new URL('./', self.registration.scope)" not in worker or "ARIA_CHECK_UPDATE" not in worker:
+        raise ValueError("Beta needs scoped, auto-updating, network-first service worker")
+    sw_path.write_text(worker, encoding="utf-8")
     manifest_path = site / "manifest.webmanifest"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["name"] = "Aria Piano Beta"
-    manifest["short_name"] = "Aria Beta"
-    # Relative app identity, start URL, service worker and icons remain inside /beta/.
-    manifest["id"] = "./"
-    manifest["start_url"] = "./"
-    manifest["scope"] = "./"
+    manifest["name"] = "Aria (beta)"
+    manifest["short_name"] = "Aria (beta)"
+    manifest["description"] = "Aria Piano beta preview. Updates automatically from the beta channel."
+    # Explicitly different from the stable app id (/Aria-piano/).
+    # Identity and launch path never change between rolling beta releases.
+    manifest["id"] = "/Aria-piano/beta/"
+    manifest["start_url"] = "/Aria-piano/beta/"
+    manifest["scope"] = "/Aria-piano/beta/"
+    if manifest.get("display") != "fullscreen":
+        raise ValueError("Beta must keep immersive fullscreen when installed")
+    if not all((site / icon["src"]).is_file() for icon in manifest.get("icons", [])):
+        raise ValueError("Beta icon assets must exist before publication")
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("Aria beta preview v" + beta)
 
