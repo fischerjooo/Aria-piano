@@ -9,7 +9,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from lib.catalogue import DATA, compile_stable, compile_learning, read_json, read_yaml
+from lib.catalogue import DATA, compile_stable, read_json, read_yaml
 from lib.midi import decode, encode
 from catalogue import import_midi
 
@@ -18,7 +18,6 @@ reference = json.loads(subprocess.check_output(['node', str(ROOT / 'scripts/expo
 assert stable == reference, 'Every materialized property must match the frozen app'
 provenance = read_yaml(DATA / 'stable/descriptions.yaml')['provenance']
 assert hashlib.sha256((ROOT / provenance['archive']).read_bytes()).hexdigest() == provenance['sha256']
-assert compile_learning() == read_json(ROOT / 'src/repertoire/learning-path.json')
 for path in sorted((DATA / 'stable/midi').glob('*.mid')):
     original = decode(path.read_bytes())
     tempo = original['tempos'][0]['microsecondsPerQuarter']
@@ -47,4 +46,4 @@ with tempfile.TemporaryDirectory(prefix='aria-data-test-') as temporary:
     assert target['seq'] == [n + 1 for n in old['seq']]
     assert target['f'] == old['f'], 'MIDI import cannot invent fingering'
     assert target['beats'] == old['beats'], 'MIDI contact must not guess written notation'
-print('PASS exact catalogue/archive parity, all 346 MIDI round trips, 23 task compile, and editable MIDI import/dry run')
+print('PASS exact catalogue/archive parity, all 346 MIDI round trips and editable MIDI import/dry run')

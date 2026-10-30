@@ -50,8 +50,8 @@ jobs:
         run: python scripts/build.py
       - name: Validate versioned app and regression suite
         run: python scripts/test.py
-      - name: Verify generated scores and experimental app remain unchanged
-        run: git diff --exit-code -- aria-piano-v6.0-candidate.html src/repertoire data
+      - name: Verify stable authored data remain unchanged
+        run: git diff --exit-code -- data
       - name: Install Chromium for screenshot and E2E testing
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
@@ -68,7 +68,7 @@ jobs:
             python -m pip install --requirement "$RUNNER_TEMP/aria-beta-source/requirements-build.txt"
             python "$RUNNER_TEMP/aria-beta-source/scripts/build.py"
             python "$RUNNER_TEMP/aria-beta-source/scripts/test.py"
-            git -C "$RUNNER_TEMP/aria-beta-source" diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
+            git -C "$RUNNER_TEMP/aria-beta-source" diff --exit-code -- index.html dist/index.html data
             BETA_SHA="$(git rev-parse refs/remotes/origin/beta-preview)"
             python scripts/beta_preview.py --site "$RUNNER_TEMP/aria-beta-source/_site" --version-file version.json --sha "$BETA_SHA"
             cp -a "$RUNNER_TEMP/aria-beta-source/_site" _site/beta

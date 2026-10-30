@@ -1,6 +1,6 @@
 # Maintained stable regression suite — 30 October 2026
 
-**Current status: 24/24 maintained portable regression files pass in GitHub Actions.** `python scripts/test_snapshot.py` runs them all; `python scripts/test.py` invokes that runner in addition to source, app, MIDI, version, data, PWA, BLE and experimental checks. The former 13-file allowlist was removed.
+**Current status: 24/24 maintained portable regression files pass in GitHub Actions.** `python scripts/test_snapshot.py` runs them all; `python scripts/test.py` invokes that runner in addition to stable app, MIDI, version, data, PWA, BLE and build-isolation checks. The former 13-file allowlist was removed.
 
 All 11 previously failing portable regressions were reconciled with the actual stable application contract: 68 courses / 204 levels, 142 melodies, present lesson indices, current responsive sizing, release windows and score animation. No file was deleted or hidden. The 24 byte-identical **historical originals** remain under `archive/tests-v5.26-original/`, separate from the maintained portable tests.
 

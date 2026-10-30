@@ -221,13 +221,3 @@ def runtime_js(catalogue):
             'const levelLabels=catalogue.levelLabels;\n')
 
 
-def compile_learning():
-    descriptions = read_yaml(DATA / 'experimental' / 'learning-descriptions.yaml')
-    bindings = read_json(DATA / 'experimental' / 'learning-bindings.json')
-    validate_document(descriptions, 'learning-descriptions.schema.json')
-    validate_document(bindings, 'learning-bindings.schema.json')
-    if set(descriptions['lessons']) != {item['id'] for item in bindings['lessons']}:
-        raise ValueError('Experimental lesson descriptions/bindings differ')
-    value = deepcopy(descriptions['path'])
-    value['lessons'] = [{**item, **descriptions['lessons'][item['id']]} for item in bindings['lessons']]
-    return value

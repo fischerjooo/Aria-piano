@@ -4,7 +4,7 @@ Every supported regression check and browser flow runs in GitHub Actions before 
 
 | Layer | Command | Validates |
 | --- | --- | --- |
-| Source, unit and integration regressions | `python scripts/test.py` | Source/curriculum validation, MIDI import/export and negative cases, version/PWA/beta configuration, BLE recovery, experimental engine tests, and **all 24 maintained stable regression files** |
+| Source, unit and integration regressions | `python scripts/test.py` | Stable catalogue/MIDI validation and negative cases, version/PWA/beta configuration, BLE recovery, and **all 24 maintained stable regression files** |
 | Stable regression files, standalone | `python scripts/test_snapshot.py` | Runs all 24 maintained `tests/*-tests.cjs` cases and exits nonzero if any fail; already included in `test.py` |
 | Responsive browser smoke and gallery | `node e2e/capture.cjs` | Phone and tablet screen navigation; `--capture` generates the release screenshot gallery |
 | Behavioral Playwright flows | `node e2e/flows.cjs` | Filters and search, lesson selection, menus, persisted focus preference across reload, sheet navigation and returning to the correct collection |

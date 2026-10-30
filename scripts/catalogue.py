@@ -7,7 +7,7 @@ import shutil
 import tempfile
 
 import yaml
-from lib.catalogue import DATA, PPQ, compile_stable, compile_learning, read_json, read_yaml, safe_path
+from lib.catalogue import DATA, PPQ, compile_stable, read_json, read_yaml, safe_path
 from lib.midi import decode, encode
 
 
@@ -19,7 +19,7 @@ def import_midi(directory, record_id, midi_bytes, written_values=None, apply=Fal
     """Import a reviewed performance without inferring notation or fingering.
 
     Stable v5 steps require one primary event, optionally one simultaneous second
-    event. Other polyphony belongs to the experimental score model and is rejected.
+    event. More complex polyphony is unsupported by this stable importer.
     """
     compile_stable(directory)
     descriptions = read_yaml(directory / 'descriptions.yaml')
@@ -85,8 +85,8 @@ def main():
     importer.add_argument('--apply', action='store_true', help='Write after validating the complete staged catalogue (default: validate only)')
     args = parser.parse_args()
     if args.command == 'validate':
-        stable, learning = compile_stable(), compile_learning()
-        print(f"PASS {len(stable['lessonLevels']) * 3} course levels, {len(stable['melodyData'])} melodies, {len(learning['lessons'])} experimental bindings")
+        stable = compile_stable()
+        print(f"PASS {len(stable['lessonLevels']) * 3} course levels, {len(stable['melodyData'])} melodies")
     elif args.command == 'inspect-midi':
         print(json.dumps(decode(args.file.read_bytes()), indent=2))
     elif args.command == 'export-midi':

@@ -45,7 +45,7 @@ jobs:
         run: |
           python scripts/build.py
           python scripts/test.py
-          git diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
+          git diff --exit-code -- index.html dist/index.html data
       - name: Check out exact tested development commit
         env:
           TESTED_SHA: ${{ github.event.workflow_run.head_sha }}
@@ -58,7 +58,7 @@ jobs:
         run: |
           python "$RUNNER_TEMP/aria-beta-source/scripts/build.py"
           python "$RUNNER_TEMP/aria-beta-source/scripts/test.py"
-          git -C "$RUNNER_TEMP/aria-beta-source" diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
+          git -C "$RUNNER_TEMP/aria-beta-source" diff --exit-code -- index.html dist/index.html data
       - name: Stamp beta version, isolate progress and compose one Pages site
         env:
           TESTED_SHA: ${{ github.event.workflow_run.head_sha }}

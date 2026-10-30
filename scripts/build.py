@@ -1,10 +1,9 @@
-"""Build data-driven stable app, canonical source scores and experimental app."""
+"""Build the stable Aria piano app and its Pages assets."""
 from pathlib import Path
-import json
 import shutil
 import subprocess
 import sys
-from lib.catalogue import compile_stable, compile_learning, runtime_js
+from lib.catalogue import compile_stable, runtime_js
 from version import read_version, display_version
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,8 +13,6 @@ def run(*args):
 
 run(ROOT / 'scripts/branding_icons.py')
 catalogue = compile_stable()
-learning = compile_learning()
-(ROOT / 'src/repertoire/learning-path.json').write_text(json.dumps(learning, ensure_ascii=False, indent=2) + '\n')
 app = ROOT / 'src/app'
 script = (app / 'runtime.js').read_text().replace('/*__CATALOGUE__*/', runtime_js(catalogue))
 html = (app / 'template.html').read_text().replace('/*__STYLES__*/', (app / 'styles.css').read_text()).replace('/*__RUNTIME__*/', script).replace('/*__PWA__*/', (app / 'pwa.js').read_text()).replace('__ARIA_VERSION__', display_version(read_version()))
@@ -24,24 +21,15 @@ if any(marker in html for marker in ('/*__STYLES__*/', '/*__RUNTIME__*/', '/*__C
 (ROOT / 'index.html').write_text(html)
 (ROOT / 'dist').mkdir(exist_ok=True)
 (ROOT / 'dist/index.html').write_text(html)
-run(ROOT / 'src/repertoire/export_engine_scores.py')
-run(ROOT / 'v6/build.py', ROOT / 'src/repertoire/mutopia-519-blue-danube.json',
-    ROOT / 'src/repertoire/mutopia-528-ode-satb.json')
-candidate = ROOT / 'aria-piano-v6.0-candidate.html'
 site = ROOT / '_site'
 if site.exists():
     shutil.rmtree(site)
 site.mkdir()
-for name in ['index.html', 'aria-piano-v5.26.html', candidate.name]:
+for name in ['index.html', 'aria-piano-v5.26.html']:
     shutil.copyfile(ROOT / name, site / name)
-(site / 'experimental').mkdir()
-shutil.copyfile(candidate, site / 'experimental/v6.html')
-# Retain license notices and the exact score source beside the downloadable app.
-shutil.copytree(ROOT / 'src/repertoire', site / 'src/repertoire',
-                ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.py'))
 # Install assets are deployed beside the stable GitHub Pages entrypoint.
 shutil.copyfile(ROOT / 'manifest.webmanifest', site / 'manifest.webmanifest')
 shutil.copyfile(ROOT / 'sw.js', site / 'sw.js')
 shutil.copytree(ROOT / 'icons', site / 'icons')
 (site / '.nojekyll').touch()
-print('Built data-driven stable index.html, experimental candidate, and _site/')
+print('Built stable index.html, dist/index.html, and production _site/ only')

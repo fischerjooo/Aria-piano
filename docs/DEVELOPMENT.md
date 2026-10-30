@@ -13,15 +13,13 @@ python scripts/test.py
 python -m http.server 8000
 ```
 
-The root app is assembled from `src/app/` and `data/`. The default stable interface preserves the v5.26 learning experience; `aria-piano-v5.26.html` is a frozen historical archive. The independent `aria-piano-v6.0-candidate.html` / `experimental/v6.html` source-first prototype is experimental, not a feature-complete replacement.
-
-The catalogue includes 346 existing studies. Experimental score-source work has 23 source-bound practice tasks based on two separately attributed source editions. Do not present the experimental catalogue as verified for all legacy studies.
+The root application is assembled from `src/app/` and `data/stable/`, using the established interface and preserved progression data. `aria-piano-v5.26.html` is a frozen historical archive; current released HTML is generated from `version.json`. The 346 MIDI records represent 204 lesson variants and 142 melody records. No separate score-engine prototype is built or published.
 
 `scripts/branding_icons.py` produces stable and beta 192px, 512px and maskable Android PNGs from `icons/aria.svg`. The same SVG is the homepage icon and favicon. `scripts/build.py` regenerates these assets and stages the `_site/` deployment.
 
-The core `scripts/test.py` suite checks validated selected regressions, catalogue parity and source data. The optional `python scripts/test_snapshot.py` executes all 24 preserved historical v5.26 test files, including 11 documented historical failures; see `tests/TEST-STATUS.md`. Passing automation is not equivalent to real-device, visual, microphone or hardware testing.
+The core `scripts/test.py` runs stable catalogue and MIDI parity, app/version/PWA tests, BLE regression checks and all 24 maintained portable stable regressions. `python scripts/test_snapshot.py` runs those same maintained 24 files; original v5.26 historical fixtures remain in `archive/tests-v5.26-original/`. Passing automation is not equivalent to physical MIDI/BLE/microphone testing.
 
-See [data/README.md](../data/README.md), [AGENTS.md](../AGENTS.md) and `plans/` for the exact catalogue, edition, development and acceptance constraints.
+See [data/README.md](../data/README.md), [AGENTS.md](../AGENTS.md) and [docs/TESTING.md](TESTING.md) for the current catalogue, development workflow and acceptance constraints.
 
 ## Channels and publishing
 
@@ -38,12 +36,10 @@ The site service worker caches the icon and app resources for offline use; chang
 
 - `src/app/`: app markup, styles, runtime and browser integrations.
 - `data/`: stable MIDI/YAML/JSON study material and schemas.
-- `src/repertoire/`: source score representations and license metadata.
-- `v6/`: separate experimental score engine and tests.
 - `archive/`: historical HTML and test baselines.
 - `scripts/`: builders, validators and release helpers.
 - `tests/`: current regression checks, with known historical limitations recorded.
 
 ## Licensing and music provenance
 
-Application code uses [MIT](../LICENSE). Third-party scores and extracted musical works retain individual permissions, attribution and license terms. The Blue Danube Mutopia 519 arrangement is credited to Nikos Kouremenos, derived from Christian Mondrup/WIMA, under CC BY-SA 4.0; the Ode to Joy Mutopia 528 SATB setting is typeset by Peter Chubb and identified as Public Domain. Inspect retained source manifests and per-score attribution before redistribution.
+Application code uses [MIT](../LICENSE). Existing study data retains the notices recorded in `data/stable/descriptions.yaml`; this does not establish a new license for third-party works. Future music imports require a separate edition-level copyright and attribution review.
