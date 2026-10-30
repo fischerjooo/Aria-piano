@@ -48,7 +48,7 @@ async function flow(browser, profile, options) {
     await visible(page, '#courseScreen:not([hidden]) #resume');
     await shot(page, options.viewport.width===412?'mobile':'tablet', 'home');
     await page.locator('#melodyMenu').click();
-    await visible(page, '#melodiesScreen:not([hidden]) #melodyCards [data-lesson]');
+    await page.locator('#melodiesScreen:not([hidden]) #melodyCards [data-lesson]').first().waitFor({state:'visible',timeout:12000});
     await shot(page, options.viewport.width===412?'mobile':'tablet', 'lesson-selection');
     // Start a known melody; its sheet view is longer than the introductory exercise.
     await page.locator('#melodyCards [data-lesson]').last().click();
