@@ -12,8 +12,14 @@ for name in ['validate_sources.py', 'validate_curriculum.py']:
 for test in sorted((ROOT / 'v6/tests').glob('*.cjs')):
     subprocess.run(['node', str(test)], cwd=ROOT, check=True)
 # Run every maintained portable stable regression, including the historical cases.
+failed = []
 for name in [p.name for p in sorted((ROOT / 'tests').glob('piano-*-tests.cjs'))]:
-    subprocess.run(['node', str(ROOT / 'tests' / name)], cwd=ROOT, check=True)
+    result = subprocess.run(['node', str(ROOT / 'tests' / name)], cwd=ROOT)
+    if result.returncode:
+        failed.append(name)
+if failed:
+    print('FAILED historical regressions: ' + ', '.join(failed), file=sys.stderr)
+    sys.exit(1)
 # Prevent a stale deployment or a silently unexpanded build template.
 stable = (ROOT / 'index.html').read_bytes()
 assert stable == (ROOT / 'dist/index.html').read_bytes()
