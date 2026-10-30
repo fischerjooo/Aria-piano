@@ -370,4 +370,3 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 .library-view .rhythm-status{color:var(--muted)!important}
 .input-choices button[aria-pressed=true]{background:#e6efda;border-color:var(--green);color:var(--ink)}
 .connection-modal .connect-bar{background:#edf2e7}
-\n
