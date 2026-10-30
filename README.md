@@ -29,6 +29,14 @@ All 24 original v5.26 test files from commit `612273319a4e70a1b9b7b10ff7e5b6fc8f
 
 Later v5.27 releases/tests remain in `archive/`; v6 source, research and checks remain under their original development directories. Neither later version replaces the stable v5.26 entrypoint.
 
+## Bluetooth MIDI on Android
+
+Pair your BLE MIDI piano once with **Connect & pair piano**. Aria remembers the permitted piano locally and reuses the already-authorized `BluetoothDevice` for reconnection if it disconnects while the same app page is still alive. Returning to the active app after switching away attempts that reconnection when needed.
+
+For a fresh launch, Aria can reconnect without the chooser **only if** the browser supports `navigator.bluetooth.getDevices()` and retains permission. Chrome for Android may not expose that API, even though initial pairing works. In that case, press **Connect & pair piano** on each fresh launch; Aria should not claim that session-level reconnection is unavailable. Manually pressing Disconnect disables automatic retries until you connect again.
+
+A service worker cannot hold or reestablish a Bluetooth connection in the background; Web Bluetooth is unavailable there. The operating system may suspend pages when hidden. Avoid continuous background wake locks or fake worker keep-alive loops. Reliable always-on background BLE would require a native Android app with an appropriate foreground service, not just a GitHub Pages PWA.
+
 ## Release versioning
 
 The release version has one source of truth: `version.json`, currently starting at `v5.26`. The stable music content is independently preserved byte-for-byte against the frozen v5.26 archive; incrementing a release number does not claim that the content or music has changed.
