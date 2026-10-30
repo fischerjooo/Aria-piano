@@ -17,6 +17,7 @@ with tempfile.TemporaryDirectory() as folder:
     (site / "sw.js").write_text("const CACHE = 'aria-piano-shell-v1';\\nconst HOME = new URL('./', self.registration.scope).href;\\nconst cleanup = name.startsWith('aria-piano-shell-');\\nconst message = 'ARIA_CHECK_UPDATE';\\n")
     (site / "icons").mkdir()
     (site / "icons/aria-192.png").write_bytes(b"fake icon")
+    (site / "icons/aria-beta-192.png").write_bytes(b"fake beta icon")
     (site / "manifest.webmanifest").write_text(json.dumps({"name": "Aria piano", "short_name": "Aria", "id": "./", "start_url": "./", "scope": "./", "display": "fullscreen", "icons": [{"src": "icons/aria-192.png"}]}))
     version = base / "version.json"
     version.write_text('{"major":5,"minor":27}')
