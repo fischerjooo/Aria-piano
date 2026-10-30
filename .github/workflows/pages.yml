@@ -23,7 +23,7 @@ jobs:
   build:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     permissions:
       contents: write
     steps:
@@ -52,6 +52,12 @@ jobs:
         run: python scripts/test.py
       - name: Verify generated scores and experimental app remain unchanged
         run: git diff --exit-code -- aria-piano-v6.0-candidate.html src/repertoire data
+      - name: Install Chromium for screenshot and E2E testing
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Capture and validate release screenshots
+        run: node e2e/capture.cjs --capture
       - name: Keep the latest validated beta on the fixed /beta/ URL
         run: |
           if git ls-remote --exit-code --heads origin beta-preview >/dev/null; then
@@ -72,7 +78,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add version.json index.html dist/index.html icons/aria-192.png icons/aria-512.png icons/aria-maskable-512.png icons/aria-beta-192.png icons/aria-beta-512.png icons/aria-beta-maskable-512.png
+          git add version.json index.html dist/index.html icons/aria-192.png icons/aria-512.png icons/aria-maskable-512.png icons/aria-beta-192.png icons/aria-beta-512.png icons/aria-beta-maskable-512.png docs/screenshots
           git diff --cached --quiet && exit 1 || status=$?
           if [ "$status" -ne 1 ]; then
             echo "Unexpected error checking generated release files"
