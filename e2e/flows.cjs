@@ -69,7 +69,7 @@ async function test(browser,base,device,viewport){
     await page.locator('#sheetClose').evaluate(el=>el.click());
     await page.locator('#studioScreen:not([hidden])').waitFor();
     await page.locator('#studioBack').evaluate(el=>el.click());
-    await page.locator('#courseScreen:not([hidden])').waitFor();
+    await page.locator('#melodiesScreen:not([hidden])').waitFor();
     console.log('PASS '+device+': filters, search, selection, overlays, focus preference, reload and navigation');
   }finally{await ctx.close();}
 }
