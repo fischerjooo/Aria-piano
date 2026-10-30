@@ -27,5 +27,5 @@ assert(html.includes('id="allowEarlyNotes" type="checkbox" checked'));assert(htm
 // A saved explicit false survives a new document load.
 const sandbox2={...sandbox,localStorage:{getItem:k=>k==='aria-allow-early-v1'?'false':null,setItem(){}}};vm.createContext(sandbox2);vm.runInContext(script,sandbox2);assert.equal(el('allowEarlyNotes').checked,false);
 // Refresh resumes the remaining portion of a demonstration step (including rests).
-run('mode="ble";demoing=true;demoIndex=0;demoStartedAt=10000');el('tempo').value='60';sandbox.performance.now=()=>10400;sandbox.refreshScoreMotion();assert.equal(el('scoreCursor').style.transition,'transform 600ms linear');assert.equal(run('demoing'),true);
+run('mode="ble";demoing=true;demoIndex=0;demoStartedAt=10000');el('tempo').value='60';sandbox.performance.now=()=>10400;sandbox.refreshScoreMotion();assert.equal(el('scoreSvg').style.transition,'transform 600ms linear');assert.equal(run('demoing'),true);
 console.log('87 mapped rhythms, 108 course levels, early option, fresh repeats, onset grid, approach/due cues, Mario articulation and speed, touch placement, and cursor resumption pass');
