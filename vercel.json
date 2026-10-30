@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "python3 -m pip install --requirement requirements-build.txt && python3 scripts/build.py && python3 scripts/beta_preview.py --site _site --version-file version.json --sha \"${VERCEL_GIT_COMMIT_SHA:-preview}\" --install-base /",
+  "installCommand": "true",
+  "outputDirectory": "_site",
+  "headers": [
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json"
+        }
+      ]
+    }
+  ]
+}
