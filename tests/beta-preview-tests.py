@@ -14,6 +14,7 @@ with tempfile.TemporaryDirectory() as folder:
     site.mkdir()
     entry = '<!doctype html><html lang="en"><head><meta name="application-version" content="5.27"><title>Aria v5.27 — A little music.</title></head><body><span class="brand-version">v5.27</span><script>localStorage.setItem("aria-progress-v1","ok")</script></body></html>'
     (site / "index.html").write_text(entry, encoding="utf-8")
+    (site / "sw.js").write_text("const CACHE = 'aria-piano-shell-v1';\nconst cleanup = name.startsWith('aria-piano-shell-');\n")
     (site / "manifest.webmanifest").write_text(json.dumps({"name": "Aria Piano", "short_name": "Aria", "id": "./", "start_url": "./", "scope": "./", "display": "fullscreen", "icons": [{"src": "icons/aria-192.png"}]}))
     version = base / "version.json"
     version.write_text('{"major":5,"minor":27}')
@@ -25,6 +26,10 @@ with tempfile.TemporaryDirectory() as folder:
     assert 'id="aria-beta-storage-isolation"' in beta_html
     assert beta_html.index('id="aria-beta-storage-isolation"') < beta_html.index('localStorage.setItem("aria-progress-v1"')
     assert "aria-beta::" in beta_html, "Separate lesson progress from live stable app"
+    sw = (site / "sw.js").read_text()
+    assert "aria-piano-beta-shell-v1" in sw and "aria-piano-beta-shell-" in sw
+    assert "aria-piano-shell-v1" not in sw, "Beta must not share Cache Storage keys with stable"
+
     assert (site / "manifest.webmanifest").exists()
     beta_manifest = json.loads((site / "manifest.webmanifest").read_text())
     assert beta_manifest["name"] == "Aria Piano Beta"
