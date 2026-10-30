@@ -21,6 +21,48 @@ async function test(browser,base,device,viewport){
     await page.goto(base);
     await page.locator('#courseScreen:not([hidden]) #resume').waitFor();
     assert.equal(await page.locator('#melodiesScreen').isVisible(),false);
+    // The icon rail exposes named controls; details stay available on demand.
+    for(const id of ['navCourses','melodyMenu','navSaved','navSearch','navSettings','pianoConnection']) {
+      assert(await page.locator('#'+id).isVisible(),id+' visible');
+      assert(await page.locator('#'+id).getAttribute('aria-label'),id+' has an accessible name');
+    }
+    assert.equal(await page.locator('#lessons .level-completion-strip').first().isVisible(),false);
+    await page.locator('#lessons .card-details summary').first().click();
+    assert(await page.locator('#lessons .level-completion-strip').first().isVisible());
+    await page.locator('#lessons .card-details summary').first().click();
+    // Each input choice survives reload without requesting microphone/Bluetooth permission.
+    for(const input of ['touch','mic','ble']) {
+      await page.locator('#pianoConnection').click();
+      await page.locator('[data-input-choice="'+input+'"]').click();
+      assert.equal(await page.locator('[data-input-choice="'+input+'"]').getAttribute('aria-pressed'),'true');
+      await page.locator('#connectionDone').click();
+      await page.reload();
+      await page.locator('#courseScreen:not([hidden])').waitFor();
+      assert.equal(await page.evaluate(()=>mode),input);
+      assert.equal(await page.evaluate(()=>!!stream||micPending||bleConnecting),false);
+      await page.locator('#pianoConnection').click();
+      assert.equal(await page.locator('[data-input-choice="'+input+'"]').getAttribute('aria-pressed'),'true');
+      await page.locator('#connectionModal').press('Escape');
+      assert.equal(await page.locator('#connectionModal').isVisible(),false);
+    }
+    // Save an existing catalogue song, return through My Songs, and restore it after reload.
+    await page.locator('#melodyMenu').click();
+    const savedIndex=await page.locator('[data-save-song]').first().getAttribute('data-save-song');
+    await page.locator('[data-save-song]').first().click();
+    await page.locator('#navSaved').click();
+    assert.equal(await page.locator('#melodyCards .melody-card').count(),1);
+    assert.equal(await page.locator('[data-save-song]').getAttribute('aria-pressed'),'true');
+    await page.reload();
+    await page.locator('#navSaved').click();
+    assert.equal(await page.locator('[data-save-song]').getAttribute('data-save-song'),savedIndex);
+    await page.locator('[data-save-song]').click();
+    assert.equal(await page.locator('#melodyCards .melody-card').count(),0);
+    await page.locator('#navSearch').click();
+    assert.equal(await page.locator('#melodySearch').evaluate(el=>el===document.activeElement),true);
+    await page.locator('#navCourses').click();
+    await page.locator('#navSettings').click();
+    assert(await page.locator('#settingsModal').isVisible());
+    await page.locator('#settingsModal [data-close="settingsModal"]').first().click();
     // Course filters must change their actual state, not merely open a screenshot.
     await page.locator('#filters [data-filter="reading"]').click();
     assert.equal(await page.locator('#filters [data-filter="reading"]').getAttribute('aria-pressed'),'true');
@@ -81,5 +123,6 @@ async function test(browser,base,device,viewport){
  try{
   await test(browser,url,'tablet',{width:1280,height:800});
   await test(browser,url,'phone',{width:915,height:412});
+  await test(browser,url,'phone-portrait',{width:390,height:844});
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(e=>{console.error(e);process.exitCode=1});
