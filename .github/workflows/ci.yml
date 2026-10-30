@@ -25,5 +25,11 @@ jobs:
         run: python -m pip install --requirement requirements-build.txt
       - run: python scripts/build.py
       - run: python scripts/test.py
+      - name: Install browser automation
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: End-to-end responsive UI smoke tests
+        run: node e2e/capture.cjs
       - name: Check committed generated app and scores
         run: git diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
