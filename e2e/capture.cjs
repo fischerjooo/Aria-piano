@@ -112,7 +112,7 @@ async function flow(browser,url,device,options){
     await page.locator('#liveSheet').click();
     await visible(page,'#sheetScreen:not([hidden]) #staticScore svg');
     await take(page,device,'lesson-sheet');
-    await page.locator('#sheetSizing').click();
+    await page.locator('#sheetSizing').evaluate(el=>el.click());
     await page.waitForTimeout(120);
     await take(page,device,'sheet-controls');
     await page.setViewportSize(portraits[device]);
