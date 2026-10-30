@@ -9,18 +9,18 @@
   <rect width="512" height="512" fill="url(#bg)"/>
   <path d="M 19 378 Q 256 332 493 378 L 493 495 L 19 495 Z" fill="#051e1b"/>
   <path d="M 22 406 Q 247 324 489 408 L 489 465 Q 250 511 22 464 Z" fill="#f9f7e9"/>
-  <path d="M 31 420 Q 250 351 480 420" fill="none" stroke="#dde2d4" stroke-width="4"/>
-  <path d="M 80 385 L 64 476 M 145 365 L 131 486 M 215 355 L 211 492 M 289 355 L 296 492 M 357 366 L 371 484 M 426 387 L 444 472" stroke="#a4b2a8" stroke-width="3" fill="none"/>
-  <g fill="#09231f" stroke="#09231f" stroke-width="4" stroke-linejoin="round">
-    <path d="M116 377 L148 372 L134 427 L106 427 Z"/>
-    <path d="M183 358 L210 356 L207 423 L182 423 Z"/>
-    <path d="M230 354 L257 354 L259 424 L234 424 Z"/>
-    <path d="M304 356 L330 361 L343 430 L317 430 Z"/>
-    <path d="M373 375 L404 383 L421 433 L391 433 Z"/>
+  <path d="M 31 420 Q 250 351 480 420" fill="none" stroke="#dde2d4" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 80 385 L 64 476 M 145 365 L 131 486 M 215 355 L 211 492 M 289 355 L 296 492 M 357 366 L 371 484 M 426 387 L 444 472" stroke="#9eada3" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <g fill="#09231f" stroke="#09231f" stroke-width="4.5" stroke-linejoin="round">
+    <path d="M65 386 L95 382 L90 435 L62 435 Z"/>
+    <path d="M131 366 L159 363 L157 430 L130 430 Z"/>
+    <path d="M275 355 L304 355 L309 425 L281 425 Z"/>
+    <path d="M343 362 L372 366 L381 431 L351 431 Z"/>
+    <path d="M412 379 L440 385 L452 436 L424 436 Z"/>
   </g>
   <path d="M 70 354 C 112 398 143 330 180 266 C 207 219 229 170 261 112 C 273 90 292 74 306 78 C 289 100 291 142 292 183 C 295 250 309 321 344 340 C 360 351 375 352 390 355 C 326 371 287 338 271 282 C 256 226 260 175 260 141 C 231 197 202 273 159 328 C 123 375 93 377 70 354 Z" fill="url(#ivory)"/>
-  <path d="M 73 351 C 43 326 66 266 121 247 C 166 232 218 244 262 253" fill="none" stroke="url(#gold)" stroke-width="7.5" stroke-linecap="round"/>
-  <g fill="url(#gold)">
+  <path d="M 73 351 C 43 326 66 266 121 247 C 166 232 218 244 262 253" fill="none" stroke="url(#gold)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="url(#gold)" transform="translate(13 -2) translate(390 215) scale(1.16) translate(-390 -215)">
     <ellipse cx="366" cy="267" rx="29" ry="22" transform="rotate(-25 366 267)"/>
     <path d="M387 257 L398 147 Q401 139 405 156 C408 171 427 189 420 210 C416 223 412 230 406 237 C421 204 401 198 396 190 L393 253 Z"/>
   </g>
