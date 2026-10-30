@@ -1,0 +1,82 @@
+# Publish the last tested development-branch commit at a permanent /beta/ path.
+# workflow_run executes on default branch, never from an unreviewed feature workflow.
+name: Publish validated beta preview
+on:
+  workflow_run:
+    workflows: [Validate]
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  publish-beta:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      github.event.workflow_run.head_branch != 'main' &&
+      github.event.workflow_run.head_branch != 'beta-preview'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install stable build dependencies
+        run: python -m pip install --requirement requirements-build.txt
+      - name: Build released main without incrementing its version
+        run: |
+          python scripts/build.py
+          python scripts/test.py
+          git diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
+      - name: Check out exact tested development commit
+        env:
+          TESTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          git fetch origin "$TESTED_SHA"
+          git worktree add --detach "$RUNNER_TEMP/aria-beta-source" "$TESTED_SHA"
+      - name: Install development build dependencies
+        run: python -m pip install --requirement "$RUNNER_TEMP/aria-beta-source/requirements-build.txt"
+      - name: Build and retest exact beta commit
+        run: |
+          python "$RUNNER_TEMP/aria-beta-source/scripts/build.py"
+          python "$RUNNER_TEMP/aria-beta-source/scripts/test.py"
+          git -C "$RUNNER_TEMP/aria-beta-source" diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
+      - name: Stamp beta version, isolate progress and compose one Pages site
+        env:
+          TESTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          python scripts/beta_preview.py --site "$RUNNER_TEMP/aria-beta-source/_site" --version-file version.json --sha "$TESTED_SHA"
+          cp -a "$RUNNER_TEMP/aria-beta-source/_site" _site/beta
+          test -f _site/beta/index.html
+          test -f _site/beta/manifest.webmanifest
+          test -f _site/index.html
+      - name: Save last tested beta source for future main deployments
+        env:
+          TESTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          git push --force origin "$TESTED_SHA":refs/heads/beta-preview
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy stable and beta together
+        id: deployment
+        uses: actions/deploy-pages@v4
