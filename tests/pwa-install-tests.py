@@ -33,4 +33,20 @@ assert 'id="homeFullscreen"' in page, 'Fullscreen must be accessible from the ho
 runtime = (ROOT / 'src/app/runtime.js').read_text()
 assert "$('homeFullscreen').onclick" in runtime
 assert "(display-mode: fullscreen)" in runtime, 'Already-fullscreen PWAs must not request fullscreen again'
+# Guard against icon regressions: the monogram must remain a broad, bright shape
+# at actual phone launcher/favicon sizes, not disappear into hairline details.
+from io import BytesIO
+import cairosvg
+from PIL import Image
+svg_source = (ROOT / 'icons/aria.svg').read_bytes()
+for icon_size in (24, 32):
+    preview = Image.open(BytesIO(cairosvg.svg2png(
+        bytestring=svg_source, output_width=icon_size, output_height=icon_size
+    ))).convert('RGB')
+    bright = sum(1 for red, green, blue in preview.getdata() if max(red, green, blue) > 165)
+    assert bright >= icon_size * icon_size * 0.085, (
+        f'Letter A is too thin at {icon_size}px: only {bright} illuminated pixels'
+    )
+assert 'aria-192.png' in (ROOT / 'manifest.webmanifest').read_text()
+assert 'aria.svg' in (ROOT / 'src/app/template.html').read_text()
 print('PASS immersive fullscreen PWA manifest, icons and Pages build configuration')
