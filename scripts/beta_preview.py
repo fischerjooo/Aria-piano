@@ -50,8 +50,8 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     html = entry.read_text(encoding="utf-8")
     if BETA_STORAGE_SHIM.split('"')[1] in html:
         raise ValueError("Beta branding already applied")
-    title = re.compile(r"(<title>Aria v)[^<]+?(?=\s*[—-])")
-    html, changed = title.subn(lambda m: "<title>Aria (beta) v" + beta, html, count=1)
+    title = re.compile(r"(<title>Aria piano v)[^<]+?(?=\s*[—-])")
+    html, changed = title.subn(lambda m: "<title>Aria piano (beta) v" + beta, html, count=1)
     if changed != 1:
         raise ValueError("Cannot find Aria page title for beta branding")
     metadata = re.compile(r'(<meta name="application-version" content=")[^"]*(")')
@@ -63,7 +63,7 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     # Android's installed-app label comes from the manifest; these metadata fields
     # also make the beta identity visible in browser tabs and on other platforms.
     apple_title = re.compile(r'(<meta name="apple-mobile-web-app-title" content=")[^"]*(")')
-    html, apple_count = apple_title.subn(lambda m: m.group(1) + "Aria (beta)" + m.group(2), html, count=1)
+    html, apple_count = apple_title.subn(lambda m: m.group(1) + "Aria piano (beta)" + m.group(2), html, count=1)
     if apple_count != 1:
         raise ValueError("Expected Apple installed-app title in beta HTML")
     if 'rel="manifest" href="./manifest.webmanifest"' not in html:
@@ -71,11 +71,13 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     html = html.replace(
         '<head>',
         '<head><meta name="robots" content="noindex">'
-        '<meta name="application-name" content="Aria (beta)">'
+        '<meta name="application-name" content="Aria piano (beta)">'
         + BETA_STORAGE_SHIM,
         1,
     )
     entry.write_text(html, encoding="utf-8")
+    html = html.replace('./icons/aria-192.png', './icons/aria-beta-192.png')
+    entry.write_text(html, encoding='utf-8')
     # Cache Storage is origin-wide: separate beta and stable offline caches.
     # Otherwise a stable service worker could delete a beta's cached app.
     sw_path = site / "sw.js"
@@ -90,8 +92,8 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     sw_path.write_text(worker, encoding="utf-8")
     manifest_path = site / "manifest.webmanifest"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["name"] = "Aria (beta)"
-    manifest["short_name"] = "Aria (beta)"
+    manifest["name"] = "Aria piano (beta)"
+    manifest["short_name"] = "Aria piano (beta)"
     manifest["description"] = "Aria Piano beta preview. Updates automatically from the beta channel."
     # Fixed identity and launch path for each hosting origin. A separate beta
     # hostname + "/" is the reliable Android install route; same-origin nested
@@ -103,6 +105,8 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
         raise ValueError("Beta must keep immersive fullscreen when installed")
     if not all((site / icon["src"]).is_file() for icon in manifest.get("icons", [])):
         raise ValueError("Beta icon assets must exist before publication")
+    for icon in manifest["icons"]:
+        icon["src"] = icon["src"].replace("icons/aria-", "icons/aria-beta-")
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("Aria beta preview v" + beta)
 
