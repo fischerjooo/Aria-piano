@@ -270,19 +270,87 @@ function saveListening(){try{localStorage.setItem('aria-listening-v1',JSON.strin
 // An 8 ms envelope follower detects a fresh attack independently of note pitch.
 // A sustained note cannot retrigger from pitch-estimator dropouts alone.
 const BLE_SERVICE='03b80e5a-ede8-4b33-a751-6ce34ec4c700',BLE_CHARACTERISTIC='7772e5db-3868-4112-a1a9-f2669d106bf3';
+const BLE_MEMORY_KEY='aria-ble-midi-v1';
 let bleDevice=null,bleCharacteristic=null,bleConnecting=false,bleEpoch=0,bleTimer=null,bleReleaseTimer=null;
+let bleRetryTimer=null,bleRestoreBusy=false;
 const midiHeld=new Set(),midiPedals=new Set();let bleRunningStatus=0;
+function rememberedBLE(){try{const saved=JSON.parse(localStorage.getItem(BLE_MEMORY_KEY)||'null');return saved&&typeof saved.id==='string'&&saved.id? saved:null}catch(e){return null}}
+function rememberBLE(device){try{localStorage.setItem(BLE_MEMORY_KEY,JSON.stringify({id:device.id,name:device.name||'piano',auto:true}))}catch(e){}}
+function disableBLEAutoReconnect(){const saved=rememberedBLE();if(saved){try{localStorage.setItem(BLE_MEMORY_KEY,JSON.stringify({...saved,auto:false}))}catch(e){}}}
 function bleReady(){return !!(bleDevice?.gatt?.connected&&bleCharacteristic)}
 function bleUI(message){$('bleStatus').textContent=message;$('bleConnect').textContent=bleConnecting?'Connecting…':bleReady()?'Pair another piano':'Connect & pair piano';$('bleConnect').disabled=bleConnecting;$('bleQuick').textContent=bleReady()?'♫ MIDI connected':'♫ Connect piano';$('bleDisconnect').hidden=!bleReady();$('bleSettings').disabled=bleConnecting;if(mode==='ble'){$('micState').textContent=bleReady()?'Bluetooth MIDI ready':'Bluetooth not connected';$('micDot').classList.toggle('live',bleReady())}}
-function disconnectedBLE(){bleEpoch++;bleCharacteristic?.removeEventListener('characteristicvaluechanged',bleNotification);bleCharacteristic=null;midiHeld.clear();midiPedals.clear();bleRunningStatus=0;clearInterval(bleTimer);clearTimeout(bleReleaseTimer);if(mode==='ble'){stopRun();resultReplay=null;$('feedback').textContent='Piano disconnected. Tap Connect piano to continue.';if(screen==='results'){$('replayStatus').textContent='Bluetooth disconnected · use Play again or reconnect.';}}bleUI('Piano disconnected. Turn it on and tap Connect & pair piano.');}
-function disconnectBLE(){bleDevice?.removeEventListener('gattserverdisconnected',disconnectedBLE);bleDevice?.gatt?.disconnect();disconnectedBLE();bleDevice=null;}
-async function connectBLE(){if(bleConnecting)return false;if(!navigator.bluetooth?.requestDevice||!window.isSecureContext){bleUI('Bluetooth MIDI needs a supported Chrome browser and the live HTTPS page. You can use microphone input instead.');$('feedback').textContent=$('bleStatus').textContent;return false}bleConnecting=true;const epoch=++bleEpoch,originLesson=lessonEpoch,originScreen=screen;bleUI('Choose your piano’s BLE MIDI device in Chrome’s pairing window.');let device,characteristic;try{
-// Invoke the chooser directly inside the click call chain, before any await.
-device=await navigator.bluetooth.requestDevice({filters:[{services:[BLE_SERVICE]},{namePrefix:'YDP'}],optionalServices:[BLE_SERVICE]});if(epoch!==bleEpoch){device.gatt?.disconnect();return false;}
-if(bleDevice&&bleDevice!==device){bleDevice.removeEventListener('gattserverdisconnected',disconnectedBLE);bleDevice.gatt?.disconnect()}
-bleCharacteristic?.removeEventListener('characteristicvaluechanged',bleNotification);bleDevice=device;device.removeEventListener('gattserverdisconnected',disconnectedBLE);device.addEventListener('gattserverdisconnected',disconnectedBLE);bleUI('Connecting to '+(device.name||'your piano')+'…');
-const server=await device.gatt.connect();const service=await server.getPrimaryService(BLE_SERVICE);characteristic=await service.getCharacteristic(BLE_CHARACTERISTIC);if(characteristic.properties?.read){try{await characteristic.readValue()}catch(e){/* Optional empty pairing read; notifications remain usable. */}}characteristic.addEventListener('characteristicvaluechanged',bleNotification);await characteristic.startNotifications();if(epoch!==bleEpoch){characteristic.removeEventListener('characteristicvaluechanged',bleNotification);device.gatt.disconnect();return false}bleCharacteristic=characteristic;midiHeld.clear();midiPedals.clear();bleRunningStatus=0;stopMic();mode='ble';fitViewport();$('inputMode').value='ble';bleUI('Connected to '+(device.name||'piano')+' · play a key to test.');if(screen==='studio'&&originScreen==='studio'&&originLesson===lessonEpoch&&!running)await beginPractice();if(screen==='results')initialiseResultsReplay();return true;
-}catch(e){characteristic?.removeEventListener('characteristicvaluechanged',bleNotification);if(device&&epoch===bleEpoch){device.removeEventListener('gattserverdisconnected',disconnectedBLE);device.gatt?.disconnect();bleCharacteristic=null}bleUI(e.name==='NotFoundError'?'No piano selected. Tap Connect & pair piano to try again.':'Connection failed. Close the MIDI test page, check piano Bluetooth and Chrome Nearby devices permission, then retry.');$('feedback').textContent=$('bleStatus').textContent;return false}finally{bleConnecting=false;$('bleConnect').disabled=false;$('bleSettings').disabled=false;$('bleConnect').textContent=bleReady()?'Pair another piano':'Connect & pair piano'}}
+function scheduleBLEReconnect(delay=12000){
+ clearTimeout(bleRetryTimer);bleRetryTimer=null;
+ if(document.hidden||mode!=='ble'||!rememberedBLE()?.auto||!navigator.bluetooth?.getDevices)return;
+ bleRetryTimer=setTimeout(()=>{bleRetryTimer=null;autoConnectBLE()},delay);
+}
+function disconnectedBLE(retry=true){
+ bleEpoch++;bleCharacteristic?.removeEventListener('characteristicvaluechanged',bleNotification);bleCharacteristic=null;midiHeld.clear();midiPedals.clear();bleRunningStatus=0;
+ clearInterval(bleTimer);clearTimeout(bleReleaseTimer);
+ if(mode==='ble'){stopRun();resultReplay=null;$('feedback').textContent='Piano disconnected. Reconnection will be attempted automatically while Aria is open.';if(screen==='results'){$('replayStatus').textContent='Bluetooth disconnected · waiting for reconnection.';}}
+ bleUI(retry&&rememberedBLE()?.auto?'Piano disconnected. Reconnecting automatically when available…':'Piano disconnected. Tap Connect & pair piano.');
+ if(retry)scheduleBLEReconnect(3000);
+}
+function disconnectBLE(userInitiated=true){
+ if(userInitiated===true)disableBLEAutoReconnect();
+ clearTimeout(bleRetryTimer);bleRetryTimer=null;
+ bleDevice?.removeEventListener('gattserverdisconnected',disconnectedBLE);
+ bleDevice?.gatt?.disconnect();disconnectedBLE(false);bleDevice=null;
+}
+async function connectBLECore(rememberedDevice=null,automatic=false){
+ if(bleConnecting||bleReady())return bleReady();
+ if(!navigator.bluetooth?.requestDevice||!window.isSecureContext){if(!automatic)bleUI('Bluetooth MIDI needs a supported Chrome browser and the live HTTPS page. You can use microphone input instead.');return false}
+ bleConnecting=true;const epoch=++bleEpoch,originLesson=lessonEpoch,originScreen=screen;
+ bleUI(automatic?'Reconnecting to your saved Bluetooth piano…':'Choose your piano’s BLE MIDI device in Chrome’s pairing window.');
+ let device,characteristic;
+ try{
+ // A new device chooser must be called during the user's click, before any await.
+ device=rememberedDevice||await navigator.bluetooth.requestDevice({filters:[{services:[BLE_SERVICE]},{namePrefix:'YDP'}],optionalServices:[BLE_SERVICE]});
+ if(epoch!==bleEpoch){device.gatt?.disconnect();return false}
+ if(bleDevice&&bleDevice!==device){bleDevice.removeEventListener('gattserverdisconnected',disconnectedBLE);bleDevice.gatt?.disconnect()}
+ bleCharacteristic?.removeEventListener('characteristicvaluechanged',bleNotification);bleDevice=device;
+ device.removeEventListener('gattserverdisconnected',disconnectedBLE);device.addEventListener('gattserverdisconnected',disconnectedBLE);
+ bleUI('Connecting to '+(device.name||'your piano')+'…');
+ const server=await device.gatt.connect(),service=await server.getPrimaryService(BLE_SERVICE);
+ characteristic=await service.getCharacteristic(BLE_CHARACTERISTIC);
+ if(characteristic.properties?.read){try{await characteristic.readValue()}catch(e){/* Optional read; notifications remain usable. */}}
+ characteristic.addEventListener('characteristicvaluechanged',bleNotification);
+ await characteristic.startNotifications();
+ if(epoch!==bleEpoch){characteristic.removeEventListener('characteristicvaluechanged',bleNotification);device.gatt.disconnect();return false}
+ bleCharacteristic=characteristic;midiHeld.clear();midiPedals.clear();bleRunningStatus=0;
+ // Only remember a piano once GATT MIDI notifications actually work.
+ rememberBLE(device);stopMic();mode='ble';fitViewport();$('inputMode').value='ble';
+ bleUI('Connected to '+(device.name||'piano')+' · automatic reconnection enabled.');
+ if(!automatic&&screen==='studio'&&originScreen==='studio'&&originLesson===lessonEpoch&&!running)await beginPractice();
+ if(screen==='results')initialiseResultsReplay();
+ return true;
+ }catch(e){
+ characteristic?.removeEventListener('characteristicvaluechanged',bleNotification);
+ if(device&&epoch===bleEpoch){device.removeEventListener('gattserverdisconnected',disconnectedBLE);device.gatt?.disconnect();bleCharacteristic=null}
+ if(automatic)bleUI('Saved piano unavailable. Aria will retry while the app is open.');
+ else{bleUI(e.name==='NotFoundError'?'No piano selected. Tap Connect & pair piano to try again.':'Connection failed. Check piano Bluetooth, permissions, and other MIDI apps, then retry.');$('feedback').textContent=$('bleStatus').textContent}
+ return false;
+ }finally{
+ bleConnecting=false;bleUI($('bleStatus').textContent);
+ if(automatic&&!bleReady()&&epoch===bleEpoch)scheduleBLEReconnect(20000);
+ }
+}
+function connectBLE(){return connectBLECore()}
+async function autoConnectBLE(){
+ if(bleRestoreBusy||bleConnecting||bleReady()||mode!=='ble'||document.hidden||!window.isSecureContext)return false;
+ const saved=rememberedBLE();if(!saved?.auto)return false;
+ if(!navigator.bluetooth?.getDevices){bleUI('Automatic reconnect is unavailable in this browser. Tap Connect & pair piano.');return false}
+ bleRestoreBusy=true;
+ try{
+ const devices=await navigator.bluetooth.getDevices();
+ // Only reconnect the exact piano the user previously selected and authorized.
+ if(bleConnecting||bleReady()||document.hidden||mode!=='ble'||!rememberedBLE()?.auto)return false;
+ const device=devices.find(d=>d.id===saved.id);
+ if(!device){bleUI('Piano permission is no longer available. Tap Connect & pair piano once to restore it.');return false}
+ return await connectBLECore(device,true);
+ }catch(e){bleUI('Could not restore Bluetooth permission. Tap Connect & pair piano if needed.');return false}
+ finally{bleRestoreBusy=false}
+}
 function decodeBLE(value,emit){const bytes=new Uint8Array(value.buffer,value.byteOffset,value.byteLength);if(bytes.length<3||!(bytes[0]&128))return;let i=1,status=0;while(i<bytes.length){if(bytes[i]&128)i++; // timestamp-low before a status or a timestamped running-status message
 if(i>=bytes.length)break;
 if(bytes[i]&128){status=bytes[i++];if(status>=0xf8)continue;if(status>=0xf0){bleRunningStatus=0;return}bleRunningStatus=status}else status=status||bleRunningStatus;
@@ -353,7 +421,7 @@ async function requestImmersion(){if(!document.fullscreenElement&&!window.matchM
 function resetExercise(){stepHits.clear();resultsReady=false;stopRun();stopDemo();stopMetro();pos=0;tries=0;mistakes=0;totalMatched=0;totalReminders=0;currentRound=1;targetRounds=+$('rounds').value||1;lastAccepted=-1;noteCooldownUntil=0;consumeAttack();releaseReady=true;lastWrong=-1;stableNote=-1;wrongAt=-Infinity;lastWrong=-1;renderNotes();$('feedback').textContent='A fresh start. Press Start practice when you’re ready.';$('start').textContent=studioPhase==='demo'?'Start practice →':'Start practice'}
 async function playDemo(startIndex=0){startIndex=Number.isInteger(startIndex)?Math.max(0,Math.min(lessons[li].seq.length-1,startIndex)):0;if(demoing){stopDemo();beginPractice();return}enterStudio('demo');stopRun();stopMetro();const attempt=actionEpoch;await audio();if(attempt!==actionEpoch||screen!=='studio')return;demoing=true;demoIndex=startIndex;$('noteHints').disabled=true;$('tempo').disabled=true;document.body.classList.remove('no-hints');$('demo').textContent='■ Stop example';$('feedback').textContent='Watch the highlighted key. Follow the moving note below.';let i=startIndex;function step(){if(!demoing)return;const l=lessons[li];if(i>=l.seq.length){stopDemo();$('practiceProgress').style.width='100%';$('feedback').textContent='Your turn — listening automatically.';beginPractice();return}demoIndex=i;demoStartedAt=performance.now();const timing=noteTiming(l,i),d=timing.stepMs;syncKeyboard(i,true);animateScore(i,d);updateProgress(i);stepNotes(l,i).forEach(n=>tone(n,timing.holdMs/1000));i++;demoTimer=setTimeout(step,d)}step()}
 async function beginPractice(){if(completionPending)return;if(studioPhase==='demo'){studioPhase='practice';$('studioMode').textContent='03 · YOUR TURN';$('demoStep').classList.remove('active');$('practiceStep').classList.add('active');renderNotes()}await startPractice();updateProgress()}
-function chooseMode(value){endAllTouches();if(screen==='studio'&&studioPhase==='practice')modalResume=true;if(bleConnecting){bleEpoch++;bleDevice?.gatt?.disconnect();}clearInterval(bleTimer);clearTimeout(bleReleaseTimer);stopRun();stopDemo();stopMic();mode=value;fitViewport();$('inputMode').value=value;$('mic').disabled=value==='touch';resetExercise();$('status').textContent=value==='ble'?'Bluetooth MIDI · tap Connect piano, then play.':value==='touch'?'On-screen practice · tap the piano keys below the score. Progress is saved separately.':'Acoustic practice · allow microphone access, then play one note at a time.';$('settingsStatus').textContent=$('status').textContent;}
+function chooseMode(value){endAllTouches();if(screen==='studio'&&studioPhase==='practice')modalResume=true;if(bleConnecting){bleEpoch++;bleDevice?.gatt?.disconnect();}clearInterval(bleTimer);clearTimeout(bleReleaseTimer);stopRun();stopDemo();stopMic();mode=value;fitViewport();$('inputMode').value=value;$('mic').disabled=value==='touch';resetExercise();if(value==='ble'&&!bleReady())autoConnectBLE();$('status').textContent=value==='ble'?'Bluetooth MIDI · tap Connect piano, then play.':value==='touch'?'On-screen practice · tap the piano keys below the score. Progress is saved separately.':'Acoustic practice · allow microphone access, then play one note at a time.';$('settingsStatus').textContent=$('status').textContent;}
 $('melodyMenu').onclick=()=>navigate('melodies');$('melodiesBack').onclick=()=>navigate('course');$('melodySearch').oninput=$('melodyFilter').onchange=$('melodyGroup').onchange=$('melodySkill').onchange=renderMelodies;$('melodyCards').onclick=e=>{const info=e.target.closest('[data-info]');if(info){showBrief(+info.dataset.info);return}const play=e.target.closest('[data-lesson]'),prep=e.target.closest('[data-prepare]');if(play)openLesson(+play.dataset.lesson);if(prep){const n=+prep.dataset.prepare;let i=lessonLevels.slice(0,n).findIndex((_,index)=>!coursePassed(index));const index=i<0?n-1:i;openLesson(index,[0,1,2].find(level=>!levelPassed(index,level))??0)}};
 $('lessons').onclick=e=>{const info=e.target.closest('[data-info]');if(info){showBrief(+info.dataset.info);return}const b=e.target.closest('[data-lesson]');if(b){const index=+b.dataset.lesson;openLesson(index,[0,1,2].find(n=>!levelPassed(index,n))??0)}};
 $('curriculumUnit').onchange=()=>{courseFilter='all';document.querySelectorAll('[data-filter]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter==='all'?'true':'false'));renderNav()};$('planOpen').onclick=()=>{$('curriculumPlan').open=true;$('curriculumPlan').scrollIntoView({behavior:'smooth',block:'start'})};$('filters').onclick=e=>{const b=e.target.closest('[data-filter]');if(!b)return;courseFilter=b.dataset.filter;$('curriculumUnit').value='all';document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));renderNav()};
@@ -395,7 +463,7 @@ $('settingsLessonInfo').onclick=()=>{$('settingsModal').hidden=true;$('guide').o
 $('again').onclick=()=>openLesson(li);$('next').onclick=nextLevelOrLesson;
 $('resetProgress').onclick=()=>{if(confirm('Reset all saved lesson progress on this browser?')){progress={};save();renderNav()}};
 document.addEventListener('keydown',e=>{const modal=[...document.querySelectorAll('.overlay')].find(m=>!m.hidden);if(modal){if(e.key==='Escape'){closeModal(modal.id);return}if(e.key==='Tab'){const fs=[...modal.querySelectorAll('button,select,input,a,summary')].filter(el=>el.getClientRects().length&&!el.disabled),a=fs[0],b=fs[fs.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();b.focus()}else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus()}}return}if(e.key==='Escape'&&screen==='studio'){stopRun();stopDemo();stopMetro();$('feedback').textContent='Paused. Continue whenever you’re ready.'}});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){stopRun();stopDemo();stopMetro();stopMic();clearInterval(bleTimer);clearTimeout(bleReleaseTimer);resultReplay=null;if(screen==='results')$('replayStatus').textContent='Listening paused · tap Play again to continue.';}});window.addEventListener('pagehide',()=>{stopMic();disconnectBLE()});window.addEventListener('unhandledrejection',e=>{$('status').textContent='Audio could not start. Check your browser audio permissions and try again.';$('settingsStatus').textContent=$('status').textContent;stopRun();stopDemo();e.preventDefault()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stopRun();stopDemo();stopMetro();stopMic();clearInterval(bleTimer);clearTimeout(bleReleaseTimer);resultReplay=null;clearTimeout(bleRetryTimer);bleRetryTimer=null;if(screen==='results')$('replayStatus').textContent='Listening paused · tap Play again to continue.';}else if(!bleReady())autoConnectBLE();});window.addEventListener('pageshow',()=>{if(!bleReady())autoConnectBLE()});window.addEventListener('pagehide',()=>{stopMic();disconnectBLE(false)});window.addEventListener('unhandledrejection',e=>{$('status').textContent='Audio could not start. Check your browser audio permissions and try again.';$('settingsStatus').textContent=$('status').textContent;stopRun();stopDemo();e.preventDefault()});
 
 let scoreFocus=false;
 function viewportMetrics(){const w=window.visualViewport?.width||window.innerWidth||1024,h=window.visualViewport?.height||window.innerHeight||768,compact=h<=540,phone=Math.min(w,h)<600,head=compact?50:60,dock=li>=courseLength?(compact?58:64):(compact?100:112),stage=scoreFocus&&mode!=='touch'?(compact?44:56):Math.min(compact?124:210,Math.max(compact?100:156,Math.round(h*.24))),score=Math.max(48,h-head-dock-stage-40);if(phone){const landscape=w>h,ph=48,pd=landscape?52:60,ps=scoreFocus&&mode!=='touch'?36:landscape?100:Math.min(220,Math.round(h*.27));return{w,h,head:ph,dock:pd,stage:ps,score:Math.max(48,h-ph-pd-ps-40)}}return{w,h,head,dock,stage,score}}
@@ -448,7 +516,10 @@ $('notationReset').onclick=()=>{$('notationMode').value='paper';$('notationZoom'
 
 selectLesson(0);navigate('course');
 
-bleUI('Bluetooth MIDI recommended · tap Connect & pair piano.');
+bleUI(rememberedBLE()?.auto?'Remembered Bluetooth piano · reconnecting when available…':'Bluetooth MIDI recommended · tap Connect & pair piano.');
+// Only a running, visible page can hold Web Bluetooth; no background service can run once closed.
+autoConnectBLE();
+setInterval(()=>{if(!document.hidden&&!bleReady()&&!bleConnecting)autoConnectBLE()},30000);
 </script><script>/* PWA install and update checks. Safe in the standalone HTML download too. */
 (() => {
   if (!('serviceWorker' in navigator) || !/^https?:$/.test(location.protocol)) return;
