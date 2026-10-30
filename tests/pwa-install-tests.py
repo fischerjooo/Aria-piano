@@ -1,0 +1,19 @@
+"""Validate installed Aria fullscreen PWA configuration and deployment assets."""
+from pathlib import Path
+import json
+
+ROOT = Path(__file__).resolve().parents[1]
+manifest = json.loads((ROOT / 'manifest.webmanifest').read_text())
+assert manifest['display'] == 'fullscreen', 'Installed Aria must launch fullscreen'
+assert manifest['start_url'] == './' and manifest['scope'] == './'
+assert manifest['icons'], 'Install icons required'
+for icon in manifest['icons']:
+    path = ROOT / icon['src']
+    assert path.is_file(), f'Missing icon: {path}'
+    assert path.read_bytes().startswith(bytes.fromhex('89504e470d0a1a0a')), f'Invalid PNG: {path}'
+build = (ROOT / 'scripts/build.py').read_text()
+assert "shutil.copyfile(ROOT / 'manifest.webmanifest', site / 'manifest.webmanifest')" in build
+assert "shutil.copytree(ROOT / 'icons', site / 'icons')" in build
+page = (ROOT / 'src/app/template.html').read_text()
+assert 'rel="manifest" href="./manifest.webmanifest"' in page
+print('PASS immersive fullscreen PWA manifest, icons and Pages build configuration')
