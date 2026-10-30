@@ -11,9 +11,8 @@ for name in ['validate_sources.py', 'validate_curriculum.py']:
     subprocess.run([sys.executable, str(ROOT / 'src/repertoire' / name)], cwd=ROOT, check=True)
 for test in sorted((ROOT / 'v6/tests').glob('*.cjs')):
     subprocess.run(['node', str(test)], cwd=ROOT, check=True)
-# Passing v5.26 baseline; see tests/TEST-STATUS.md for all 24 snapshot results.
-for name in ['piano-center-playhead-tests.cjs', 'piano-curriculum-tests.cjs', 'piano-dsp-tests.cjs', 'piano-early-holds-tests.cjs', 'piano-independent-rhythm-tests.cjs', 'piano-melody-cleanup-tests.cjs', 'piano-notation-sizing-tests.cjs', 'piano-quick-controls-tests.cjs', 'piano-release-window-tests.cjs', 'piano-replay-midi-tests.cjs', 'piano-tests.cjs', 'piano-timing-option-tests.cjs', 'piano-timing-sync-tests.cjs']:
-    subprocess.run(['node', str(ROOT / 'tests' / name)], cwd=ROOT, check=True)
+# Run the full maintained stable regression suite once (all 24 portable files).
+subprocess.run([sys.executable, str(ROOT / 'scripts/test_snapshot.py')], cwd=ROOT, check=True)
 # Prevent a stale deployment or a silently unexpanded build template.
 stable = (ROOT / 'index.html').read_bytes()
 assert stable == (ROOT / 'dist/index.html').read_bytes()

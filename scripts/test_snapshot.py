@@ -1,4 +1,4 @@
-"""Run every retained v5.26 regression; exits nonzero for known historical failures."""
+"""Run all maintained portable stable regressions; preserve frozen originals separately."""
 from pathlib import Path
 import subprocess
 import sys
@@ -8,5 +8,6 @@ for test in sorted((ROOT / 'tests').glob('*-tests.cjs')):
     result = subprocess.run(['node', str(test)], cwd=ROOT)
     if result.returncode:
         failed.append(test.name)
-print(f'{24-len(failed)}/24 test files passed; failing files: {", ".join(failed)}')
+total = len(list((ROOT / 'tests').glob('*-tests.cjs')))
+print(f'{total-len(failed)}/{total} portable stable test files passed; failing files: {", ".join(failed) or "none"}')
 sys.exit(bool(failed))

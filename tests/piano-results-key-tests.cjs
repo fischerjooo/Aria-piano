@@ -15,5 +15,5 @@ ready();sandbox.receiveMidi(0x90,61,100);assert.equal(run('resultReplay.action')
 ready(0,2);const high=sandbox.resultSplit()+1;sandbox.receiveMidi(0x90,high,100);await release(high);assert.equal(run('li'),1);assert.equal(run('currentLevel'),0);
 ready(1,1);el('resultsKeyNavigation').checked=false;sandbox.receiveMidi(0x90,100,100);assert.equal(run('resultReplay.action'),'replay');await release(100);assert.equal(run('li'),1);assert.equal(run('currentLevel'),1);
 ready(0,0);run('midiHeld.add("0:80")');sandbox.receiveMidi(0x90,80,100);assert.equal(run('resultReplay.phase'),'ready');sandbox.receiveMidi(0x80,80,0);sandbox.receiveMidi(0x90,80,100);assert.equal(run('resultReplay.action'),'next');sandbox.navigate('course');assert.equal(run('resultReplay'),null);
-ready(36);sandbox.receiveMidi(0x90,sandbox.resultSplit()+1,100);await release(sandbox.resultSplit()+1);assert.equal(run('li'),37);assert.equal(run('currentLevel'),0);
+ready(run('courseLength'));sandbox.receiveMidi(0x90,sandbox.resultSplit()+1,100);await release(sandbox.resultSplit()+1);assert.equal(run('li'),run('courseLength')+1);assert.equal(run('currentLevel'),0);
 console.log('Lower/equal split replays, upper advances level, level3 advances next lesson level1, action latching, disable option, held-key filtering and melody navigation pass');})().catch(e=>{console.error(e);process.exitCode=1});
