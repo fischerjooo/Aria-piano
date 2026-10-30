@@ -28,7 +28,7 @@ Later v5.27 releases/tests remain in `archive/`; v6 source, research and checks 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` builds and validates on pushes to `main`, then deploys `_site/` with the official Pages artifact actions. Pull requests run validation through `ci.yml`. Neither workflow uses a personal access token.
+Branch commits run **Validate** automatically; pull requests also validate the proposed merge. Merges and direct pushes to `main` run **Build and deploy Pages**: build → selected regression/source tests → generated-file consistency check → upload `_site/` → deploy. Any failed check blocks publication. Main commits use the Pages workflow's checks rather than duplicating the branch-push run. Both workflows support manual runs; publication is restricted to `main`. Concurrent branch validations cancel older runs for the same event/ref; Pages deployments run serially. No personal access token is required. The full historical snapshot still contains 11 documented failures; these are preserved in `tests/TEST-STATUS.md`, not silently treated as passing.
 
 One-time repository setup: open **Settings → Pages → Build and deployment → Source → GitHub Actions**. After enabling this source, push to `main` or manually run **Build and deploy Pages** from the Actions tab. The expected project URL is `https://fischerjooo.github.io/Aria-piano/`; it becomes available only after Pages is enabled and deployment succeeds. Repository or organization policy may require an administrator to enable Actions or approve the `github-pages` environment.
 
