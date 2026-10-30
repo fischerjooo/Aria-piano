@@ -19,7 +19,7 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  sandbox.openQuickMenu('tempo');assert.equal(run('running'),false);assert.equal(el('quickTempoModal').hidden,false);
  sandbox.chooseQuickTempo(50);await Promise.resolve();await Promise.resolve();
  assert.equal(+el('tempo').value,40);assert.equal(el('quickTempoModal').hidden,true);assert.equal(run('running'),true);assert.equal(run('pos'),1);
- sandbox.openQuickMenu('tempo');sandbox.chooseQuickTempo(0);await Promise.resolve();await Promise.resolve();assert.equal(sandbox.timingEnabled(),false);assert.equal(el('quickTempoLabel').textContent,'Wait');
+ sandbox.openQuickMenu('tempo');assert.equal(sandbox.waitModeEnabled(),true);assert.equal(sandbox.quickModeEnabled(),true);sandbox.toggleQuickWait();assert.equal(sandbox.waitModeEnabled(),false);assert.equal(sandbox.timingEnabled(),true);assert.equal(el('quickTempoLabel').textContent,'40 BPM');sandbox.toggleQuickMode();assert.equal(sandbox.quickModeEnabled(),false);sandbox.closeModal('quickTempoModal');await Promise.resolve();await Promise.resolve();
  sandbox.openQuickMenu('tempo');sandbox.chooseQuickTempo(100);await Promise.resolve();await Promise.resolve();assert.equal(+el('tempo').value,80);assert.equal(sandbox.timingEnabled(),true);
  const index=run('lessons.findIndex(l=>l.left)');assert(index>=0);sandbox.selectLesson(index);run('screen="studio";mode="touch";studioPhase="practice";running=true;pos=3');
  sandbox.openQuickMenu('hands');assert.equal(el('quickHandLeft').disabled,false);sandbox.chooseQuickHand('left');await Promise.resolve();await Promise.resolve();
