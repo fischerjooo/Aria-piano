@@ -16,8 +16,8 @@ learning = compile_learning()
 (ROOT / 'src/repertoire/learning-path.json').write_text(json.dumps(learning, ensure_ascii=False, indent=2) + '\n')
 app = ROOT / 'src/app'
 script = (app / 'runtime.js').read_text().replace('/*__CATALOGUE__*/', runtime_js(catalogue))
-html = (app / 'template.html').read_text().replace('/*__STYLES__*/', (app / 'styles.css').read_text()).replace('/*__RUNTIME__*/', script)
-if any(marker in html for marker in ('/*__STYLES__*/', '/*__RUNTIME__*/', '/*__CATALOGUE__*/')):
+html = (app / 'template.html').read_text().replace('/*__STYLES__*/', (app / 'styles.css').read_text()).replace('/*__RUNTIME__*/', script).replace('/*__PWA__*/', (app / 'pwa.js').read_text())
+if any(marker in html for marker in ('/*__STYLES__*/', '/*__RUNTIME__*/', '/*__CATALOGUE__*/', '/*__PWA__*/')):
     raise ValueError('Unexpanded stable app template')
 (ROOT / 'index.html').write_text(html)
 (ROOT / 'dist').mkdir(exist_ok=True)
@@ -37,5 +37,9 @@ shutil.copyfile(candidate, site / 'experimental/v6.html')
 # Retain license notices and the exact score source beside the downloadable app.
 shutil.copytree(ROOT / 'src/repertoire', site / 'src/repertoire',
                 ignore=shutil.ignore_patterns('__pycache__', '*.pyc', '*.py'))
+# Install assets are deployed beside the stable GitHub Pages entrypoint.
+shutil.copyfile(ROOT / 'manifest.webmanifest', site / 'manifest.webmanifest')
+shutil.copyfile(ROOT / 'sw.js', site / 'sw.js')
+shutil.copytree(ROOT / 'icons', site / 'icons')
 (site / '.nojekyll').touch()
 print('Built data-driven stable index.html, experimental candidate, and _site/')
