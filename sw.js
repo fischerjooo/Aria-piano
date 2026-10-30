@@ -1,5 +1,5 @@
 /* Aria Piano: network-first updates and offline support for GitHub Pages. */
-const CACHE = 'aria-piano-shell-v2';
+const CACHE = 'aria-piano-shell-v3';
 const HOME = new URL('./', self.registration.scope).href;
 const ASSETS = [
   HOME,
