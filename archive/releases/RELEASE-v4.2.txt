@@ -1,0 +1,8 @@
+Aria v4.2
+36 progressive lessons and32 original miniature melodies with lesson milestones.
+Bluetooth LE MIDI default input, microphone and touch alternatives.
+Hands-free replay:2-second wait, fresh note, release before restarting.
+Microphone attack detection distinguishes new strikes from held decay; synthetic repeated-note tests at200/250/300ms pass.
+Validation:89 regression checks,15 extension checks,11 octave DSP groups pass. Hardware BLE and Android visual verification remain outstanding.
+Open the live HTTPS page in Android Chrome for Bluetooth. Tap Connect & pair piano and select your BLE MIDI piano/adapter. Close other MIDI test pages first.
+Course references are linked inside the first-year practice map.

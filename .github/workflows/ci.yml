@@ -1,0 +1,21 @@
+name: Validate
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/build.py
+      - run: python scripts/test.py
+      - name: Check committed generated app and scores
+        run: git diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire

@@ -1,0 +1,7 @@
+Aria v5.19 — melody library and complete sheet view
+
+142 studies:100classical/traditional,30games,6pop motifs,6internet/meme studies. New pop/meme entries are brief simplified learning motifs, not complete songs or authoritative score transcriptions. Catalogue sorted by course milestone with new skill labels and skill filter. Prerequisite milestones account for reading, skips, black keys, short rhythms, bass and two-hand coordination; advanced originals still exceed beginner preparation. Existing IDs and saved progress retained.
+
+Full static score renders every step, with dynamic vertical pitch/stem/ledger bounds. End marker after last row. Readable scrolling view retains generous bottom space; Fit whole sheet option shows the entire score at once, with Readable size toggle to return.
+
+Validation:89main regressions,204course-level checks, all142melodies and per-step full-sheet coverage,4width geometry checks,Pop/Meme filters,fit toggle. Browser/device QA unavailable.

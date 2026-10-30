@@ -1,0 +1,1 @@
+MIDI results replay is ready immediately on entry. Existing held keys are ignored until released and struck again. A fresh note triggers replay, then all keys and pedal must be released before practice resumes. Microphone retains its2-second guard.89 regression checks and targeted MIDI held/restrike checks pass.

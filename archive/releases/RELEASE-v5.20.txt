@@ -1,0 +1,1 @@
+Removed the circular backdrop from score note highlighting in practice, examples and static sheets. Notehead colours and the single black timing line remain.89 application regressions pass.

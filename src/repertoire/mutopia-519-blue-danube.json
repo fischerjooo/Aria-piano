@@ -1,0 +1,4212 @@
+{
+  "id": "mutopia-519-blue-danube",
+  "composer": "Johann Strauss II",
+  "arranger": "Nikos Kouremenos",
+  "sourceUrl": "https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=519",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "scope": "Entire published main-theme piano arrangement in C major; not the full orchestral waltz",
+  "instrumentation": "Piano",
+  "parts": [
+    "right",
+    "left"
+  ],
+  "title": "The Blue Danube Waltz — published main-theme piano arrangement",
+  "meter": {
+    "beats": 3,
+    "beatType": 4
+  },
+  "key": {
+    "fifths": 0
+  },
+  "ticksPerQuarter": 480,
+  "tempo": 150,
+  "pickup": 480,
+  "totalDuration": 48000,
+  "measures": [
+    {
+      "number": 1,
+      "start": 0,
+      "duration": 480
+    },
+    {
+      "number": 2,
+      "start": 480,
+      "duration": 1440
+    },
+    {
+      "number": 3,
+      "start": 1920,
+      "duration": 1440
+    },
+    {
+      "number": 4,
+      "start": 3360,
+      "duration": 1440
+    },
+    {
+      "number": 5,
+      "start": 4800,
+      "duration": 1440
+    },
+    {
+      "number": 6,
+      "start": 6240,
+      "duration": 1440
+    },
+    {
+      "number": 7,
+      "start": 7680,
+      "duration": 1440
+    },
+    {
+      "number": 8,
+      "start": 9120,
+      "duration": 1440
+    },
+    {
+      "number": 9,
+      "start": 10560,
+      "duration": 1440
+    },
+    {
+      "number": 10,
+      "start": 12000,
+      "duration": 1440
+    },
+    {
+      "number": 11,
+      "start": 13440,
+      "duration": 1440
+    },
+    {
+      "number": 12,
+      "start": 14880,
+      "duration": 1440
+    },
+    {
+      "number": 13,
+      "start": 16320,
+      "duration": 1440
+    },
+    {
+      "number": 14,
+      "start": 17760,
+      "duration": 1440
+    },
+    {
+      "number": 15,
+      "start": 19200,
+      "duration": 1440
+    },
+    {
+      "number": 16,
+      "start": 20640,
+      "duration": 1440
+    },
+    {
+      "number": 17,
+      "start": 22080,
+      "duration": 1440
+    },
+    {
+      "number": 18,
+      "start": 23520,
+      "duration": 1440
+    },
+    {
+      "number": 19,
+      "start": 24960,
+      "duration": 1440
+    },
+    {
+      "number": 20,
+      "start": 26400,
+      "duration": 1440
+    },
+    {
+      "number": 21,
+      "start": 27840,
+      "duration": 1440
+    },
+    {
+      "number": 22,
+      "start": 29280,
+      "duration": 1440
+    },
+    {
+      "number": 23,
+      "start": 30720,
+      "duration": 1440
+    },
+    {
+      "number": 24,
+      "start": 32160,
+      "duration": 1440
+    },
+    {
+      "number": 25,
+      "start": 33600,
+      "duration": 1440
+    },
+    {
+      "number": 26,
+      "start": 35040,
+      "duration": 1440
+    },
+    {
+      "number": 27,
+      "start": 36480,
+      "duration": 1440
+    },
+    {
+      "number": 28,
+      "start": 37920,
+      "duration": 1440
+    },
+    {
+      "number": 29,
+      "start": 39360,
+      "duration": 1440
+    },
+    {
+      "number": 30,
+      "start": 40800,
+      "duration": 1440
+    },
+    {
+      "number": 31,
+      "start": 42240,
+      "duration": 1440
+    },
+    {
+      "number": 32,
+      "start": 43680,
+      "duration": 1440
+    },
+    {
+      "number": 33,
+      "start": 45120,
+      "duration": 1440
+    },
+    {
+      "number": 34,
+      "start": 46560,
+      "duration": 1440
+    }
+  ],
+  "sections": [
+    {
+      "id": "opening",
+      "label": "Opening theme",
+      "start": 0,
+      "end": 6240,
+      "sourceBarStart": 1,
+      "sourceBarEnd": 5
+    },
+    {
+      "id": "answer",
+      "label": "Answer",
+      "start": 6240,
+      "end": 12000,
+      "sourceBarStart": 6,
+      "sourceBarEnd": 9
+    },
+    {
+      "id": "dominant",
+      "label": "Dominant phrases",
+      "start": 12000,
+      "end": 23520,
+      "sourceBarStart": 10,
+      "sourceBarEnd": 17
+    },
+    {
+      "id": "higher-theme",
+      "label": "Theme in the higher register",
+      "start": 23520,
+      "end": 35040,
+      "sourceBarStart": 18,
+      "sourceBarEnd": 25
+    },
+    {
+      "id": "sustained",
+      "label": "Sustained melody",
+      "start": 35040,
+      "end": 42240,
+      "sourceBarStart": 26,
+      "sourceBarEnd": 30
+    },
+    {
+      "id": "cadence",
+      "label": "Closing cadence",
+      "start": 42240,
+      "end": 48000,
+      "sourceBarStart": 31,
+      "sourceBarEnd": 34
+    }
+  ],
+  "events": [
+    {
+      "id": "upper-1",
+      "measure": 1,
+      "tick": 0,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c4"
+    },
+    {
+      "id": "upper-2",
+      "measure": 2,
+      "tick": 480,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c",
+      "slurStart": true
+    },
+    {
+      "id": "upper-3",
+      "measure": 2,
+      "tick": 960,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 64,
+          "step": "E",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "E4"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "upper-4",
+      "measure": 2,
+      "tick": 1440,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g",
+      "slurStop": true
+    },
+    {
+      "id": "upper-5",
+      "measure": 3,
+      "tick": 1920,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g2"
+    },
+    {
+      "id": "upper-6",
+      "measure": 3,
+      "tick": 2880,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        },
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        }
+      ],
+      "sourceToken": "<e' g>4"
+    },
+    {
+      "id": "upper-7",
+      "measure": 4,
+      "tick": 3360,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        },
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        }
+      ],
+      "sourceToken": "<e g>2"
+    },
+    {
+      "id": "upper-8",
+      "measure": 4,
+      "tick": 4320,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        },
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        }
+      ],
+      "sourceToken": "<c e>4"
+    },
+    {
+      "id": "upper-9",
+      "measure": 5,
+      "tick": 4800,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        },
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        }
+      ],
+      "sourceToken": "<c e>2"
+    },
+    {
+      "id": "upper-10",
+      "measure": 5,
+      "tick": 5760,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c,4"
+    },
+    {
+      "id": "upper-11",
+      "measure": 6,
+      "tick": 6240,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c",
+      "slurStart": true
+    },
+    {
+      "id": "upper-12",
+      "measure": 6,
+      "tick": 6720,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 64,
+          "step": "E",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "E4"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "upper-13",
+      "measure": 6,
+      "tick": 7200,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g",
+      "slurStop": true
+    },
+    {
+      "id": "upper-14",
+      "measure": 7,
+      "tick": 7680,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g2"
+    },
+    {
+      "id": "upper-15",
+      "measure": 7,
+      "tick": 8640,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        },
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        }
+      ],
+      "sourceToken": "<f' g>4"
+    },
+    {
+      "id": "upper-16",
+      "measure": 8,
+      "tick": 9120,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        },
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        }
+      ],
+      "sourceToken": "<f g>2"
+    },
+    {
+      "id": "upper-17",
+      "measure": 8,
+      "tick": 10080,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 71,
+          "step": "B",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "B4"
+        },
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        }
+      ],
+      "sourceToken": "<b, f'>4"
+    },
+    {
+      "id": "upper-18",
+      "measure": 9,
+      "tick": 10560,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 71,
+          "step": "B",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "B4"
+        },
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        }
+      ],
+      "sourceToken": "<b f'>2"
+    },
+    {
+      "id": "upper-19",
+      "measure": 9,
+      "tick": 11520,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 59,
+          "step": "B",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "B3"
+        }
+      ],
+      "sourceToken": "b,4"
+    },
+    {
+      "id": "upper-20",
+      "measure": 10,
+      "tick": 12000,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 59,
+          "step": "B",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "B3"
+        }
+      ],
+      "sourceToken": "b",
+      "slurStart": true
+    },
+    {
+      "id": "upper-21",
+      "measure": 10,
+      "tick": 12480,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "upper-22",
+      "measure": 10,
+      "tick": 12960,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4"
+        }
+      ],
+      "sourceToken": "a'",
+      "slurStop": true
+    },
+    {
+      "id": "upper-23",
+      "measure": 11,
+      "tick": 13440,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4"
+        }
+      ],
+      "sourceToken": "a2"
+    },
+    {
+      "id": "upper-24",
+      "measure": 11,
+      "tick": 14400,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        },
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        }
+      ],
+      "sourceToken": "<f' a>4"
+    },
+    {
+      "id": "upper-25",
+      "measure": 12,
+      "tick": 14880,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        },
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        }
+      ],
+      "sourceToken": "<f a>2"
+    },
+    {
+      "id": "upper-26",
+      "measure": 12,
+      "tick": 15840,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 71,
+          "step": "B",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "B4"
+        },
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        }
+      ],
+      "sourceToken": "<b, f'>4"
+    },
+    {
+      "id": "upper-27",
+      "measure": 13,
+      "tick": 16320,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 71,
+          "step": "B",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "B4"
+        },
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        }
+      ],
+      "sourceToken": "<b f'>2"
+    },
+    {
+      "id": "upper-28",
+      "measure": 13,
+      "tick": 17280,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 59,
+          "step": "B",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "B3"
+        }
+      ],
+      "sourceToken": "b,4"
+    },
+    {
+      "id": "upper-29",
+      "measure": 14,
+      "tick": 17760,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 59,
+          "step": "B",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "B3"
+        }
+      ],
+      "sourceToken": "b",
+      "slurStart": true
+    },
+    {
+      "id": "upper-30",
+      "measure": 14,
+      "tick": 18240,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "upper-31",
+      "measure": 14,
+      "tick": 18720,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4"
+        }
+      ],
+      "sourceToken": "a'",
+      "slurStop": true
+    },
+    {
+      "id": "upper-32",
+      "measure": 15,
+      "tick": 19200,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4"
+        }
+      ],
+      "sourceToken": "a2"
+    },
+    {
+      "id": "upper-33",
+      "measure": 15,
+      "tick": 20160,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        },
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        }
+      ],
+      "sourceToken": "<e' a>4"
+    },
+    {
+      "id": "upper-34",
+      "measure": 16,
+      "tick": 20640,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        },
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        }
+      ],
+      "sourceToken": "<e a>2"
+    },
+    {
+      "id": "upper-35",
+      "measure": 16,
+      "tick": 21600,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        },
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        }
+      ],
+      "sourceToken": "<c e>4"
+    },
+    {
+      "id": "upper-36",
+      "measure": 17,
+      "tick": 22080,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        },
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        }
+      ],
+      "sourceToken": "<c e>2"
+    },
+    {
+      "id": "upper-37",
+      "measure": 17,
+      "tick": 23040,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c,4"
+    },
+    {
+      "id": "upper-38",
+      "measure": 18,
+      "tick": 23520,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c",
+      "slurStart": true
+    },
+    {
+      "id": "upper-39",
+      "measure": 18,
+      "tick": 24000,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 64,
+          "step": "E",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "E4"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "upper-40",
+      "measure": 18,
+      "tick": 24480,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g",
+      "slurStop": true
+    },
+    {
+      "id": "upper-41",
+      "measure": 19,
+      "tick": 24960,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        }
+      ],
+      "sourceToken": "c2"
+    },
+    {
+      "id": "upper-42",
+      "measure": 19,
+      "tick": 25920,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        },
+        {
+          "midi": 84,
+          "step": "C",
+          "alter": 0,
+          "octave": 6,
+          "spelling": "C6"
+        }
+      ],
+      "sourceToken": "<g' c>4"
+    },
+    {
+      "id": "upper-43",
+      "measure": 20,
+      "tick": 26400,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        },
+        {
+          "midi": 84,
+          "step": "C",
+          "alter": 0,
+          "octave": 6,
+          "spelling": "C6"
+        }
+      ],
+      "sourceToken": "<g c>2"
+    },
+    {
+      "id": "upper-44",
+      "measure": 20,
+      "tick": 27360,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        },
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        }
+      ],
+      "sourceToken": "<e g>4"
+    },
+    {
+      "id": "upper-45",
+      "measure": 21,
+      "tick": 27840,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5"
+        },
+        {
+          "midi": 79,
+          "step": "G",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "G5"
+        }
+      ],
+      "sourceToken": "<e g>2"
+    },
+    {
+      "id": "upper-46",
+      "measure": 21,
+      "tick": 28800,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c,4"
+    },
+    {
+      "id": "upper-47",
+      "measure": 22,
+      "tick": 29280,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c",
+      "slurStart": true
+    },
+    {
+      "id": "upper-48",
+      "measure": 22,
+      "tick": 29760,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 64,
+          "step": "E",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "E4"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "upper-49",
+      "measure": 22,
+      "tick": 30240,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g",
+      "slurStop": true
+    },
+    {
+      "id": "upper-50",
+      "measure": 23,
+      "tick": 30720,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        }
+      ],
+      "sourceToken": "c2"
+    },
+    {
+      "id": "upper-51",
+      "measure": 23,
+      "tick": 31680,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        },
+        {
+          "midi": 84,
+          "step": "C",
+          "alter": 0,
+          "octave": 6,
+          "spelling": "C6"
+        }
+      ],
+      "sourceToken": "<a' c>4"
+    },
+    {
+      "id": "upper-52",
+      "measure": 24,
+      "tick": 32160,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        },
+        {
+          "midi": 84,
+          "step": "C",
+          "alter": 0,
+          "octave": 6,
+          "spelling": "C6"
+        }
+      ],
+      "sourceToken": "<a c>2"
+    },
+    {
+      "id": "upper-53",
+      "measure": 24,
+      "tick": 33120,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        },
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        }
+      ],
+      "sourceToken": "<f a>4"
+    },
+    {
+      "id": "upper-54",
+      "measure": 25,
+      "tick": 33600,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 77,
+          "step": "F",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "F5"
+        },
+        {
+          "midi": 81,
+          "step": "A",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "A5"
+        }
+      ],
+      "sourceToken": "<f a>2"
+    },
+    {
+      "id": "upper-55",
+      "measure": 25,
+      "tick": 34560,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "d,4"
+    },
+    {
+      "id": "upper-56",
+      "measure": 26,
+      "tick": 35040,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "d",
+      "slurStart": true
+    },
+    {
+      "id": "upper-57",
+      "measure": 26,
+      "tick": 35520,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 65,
+          "step": "F",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "F4"
+        }
+      ],
+      "sourceToken": "f"
+    },
+    {
+      "id": "upper-58",
+      "measure": 26,
+      "tick": 36000,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4"
+        }
+      ],
+      "sourceToken": "a",
+      "slurStop": true
+    },
+    {
+      "id": "upper-59",
+      "measure": 27,
+      "tick": 36480,
+      "duration": 1440,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4",
+          "tieStart": true
+        }
+      ],
+      "sourceToken": "a2."
+    },
+    {
+      "id": "upper-60",
+      "measure": 28,
+      "tick": 37920,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4",
+          "tieStop": true
+        }
+      ],
+      "sourceToken": "a4"
+    },
+    {
+      "id": "upper-61",
+      "measure": 28,
+      "tick": 38400,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 66,
+          "step": "F",
+          "alter": 1,
+          "octave": 4,
+          "spelling": "F#4"
+        }
+      ],
+      "sourceToken": "fis",
+      "slurStart": true
+    },
+    {
+      "id": "upper-62",
+      "measure": 28,
+      "tick": 38880,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g",
+      "slurStop": true
+    },
+    {
+      "id": "upper-63",
+      "measure": 29,
+      "tick": 39360,
+      "duration": 1440,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5",
+          "tieStart": true
+        }
+      ],
+      "sourceToken": "e'2."
+    },
+    {
+      "id": "upper-64",
+      "measure": 30,
+      "tick": 40800,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 76,
+          "step": "E",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "E5",
+          "tieStop": true
+        }
+      ],
+      "sourceToken": "e4"
+    },
+    {
+      "id": "upper-65",
+      "measure": 30,
+      "tick": 41280,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        }
+      ],
+      "sourceToken": "c",
+      "slurStart": true
+    },
+    {
+      "id": "upper-66",
+      "measure": 30,
+      "tick": 41760,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 64,
+          "step": "E",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "E4"
+        }
+      ],
+      "sourceToken": "e,",
+      "slurStop": true
+    },
+    {
+      "id": "upper-67",
+      "measure": 31,
+      "tick": 42240,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 64,
+          "step": "E",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "E4"
+        }
+      ],
+      "sourceToken": "e2",
+      "slurStart": true
+    },
+    {
+      "id": "upper-68",
+      "measure": 31,
+      "tick": 43200,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "d4",
+      "slurStop": true
+    },
+    {
+      "id": "upper-69",
+      "measure": 32,
+      "tick": 43680,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 69,
+          "step": "A",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "A4"
+        }
+      ],
+      "sourceToken": "a'2",
+      "slurStart": true
+    },
+    {
+      "id": "upper-70",
+      "measure": 32,
+      "tick": 44640,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 67,
+          "step": "G",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "G4"
+        }
+      ],
+      "sourceToken": "g4",
+      "slurStop": true
+    },
+    {
+      "id": "upper-71",
+      "measure": 33,
+      "tick": 45120,
+      "duration": 720,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "c,4.",
+      "slurStart": true
+    },
+    {
+      "id": "upper-72",
+      "measure": 33,
+      "tick": 45840,
+      "duration": 240,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        }
+      ],
+      "sourceToken": "c'8",
+      "articulations": [
+        "accent"
+      ],
+      "slurStop": true
+    },
+    {
+      "id": "upper-73",
+      "measure": 33,
+      "tick": 46080,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        }
+      ],
+      "sourceToken": "c4",
+      "articulations": [
+        "accent"
+      ]
+    },
+    {
+      "id": "upper-74",
+      "measure": 34,
+      "tick": 46560,
+      "duration": 480,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 72,
+          "step": "C",
+          "alter": 0,
+          "octave": 5,
+          "spelling": "C5"
+        }
+      ],
+      "sourceToken": "c4",
+      "articulations": [
+        "accent"
+      ]
+    },
+    {
+      "id": "upper-75",
+      "measure": 34,
+      "tick": 47040,
+      "duration": 960,
+      "staff": "RH",
+      "part": "right",
+      "voice": 1,
+      "type": "rest",
+      "pitches": [],
+      "sourceToken": "r2"
+    },
+    {
+      "id": "lower-1",
+      "measure": 1,
+      "tick": 0,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "rest",
+      "pitches": [],
+      "sourceToken": "r4"
+    },
+    {
+      "id": "lower-2",
+      "measure": 2,
+      "tick": 480,
+      "duration": 1440,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "rest",
+      "pitches": [],
+      "sourceToken": "r2."
+    },
+    {
+      "id": "lower-3",
+      "measure": 3,
+      "tick": 1920,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c4",
+      "dynamics": [
+        "p"
+      ]
+    },
+    {
+      "id": "lower-4",
+      "measure": 3,
+      "tick": 2400,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-5",
+      "measure": 3,
+      "tick": 2880,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-6",
+      "measure": 4,
+      "tick": 3360,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-7",
+      "measure": 4,
+      "tick": 3840,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-8",
+      "measure": 4,
+      "tick": 4320,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-9",
+      "measure": 5,
+      "tick": 4800,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-10",
+      "measure": 5,
+      "tick": 5280,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-11",
+      "measure": 5,
+      "tick": 5760,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-12",
+      "measure": 6,
+      "tick": 6240,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-13",
+      "measure": 6,
+      "tick": 6720,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-14",
+      "measure": 6,
+      "tick": 7200,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-15",
+      "measure": 7,
+      "tick": 7680,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-16",
+      "measure": 7,
+      "tick": 8160,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-17",
+      "measure": 7,
+      "tick": 8640,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-18",
+      "measure": 8,
+      "tick": 9120,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-19",
+      "measure": 8,
+      "tick": 9600,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-20",
+      "measure": 8,
+      "tick": 10080,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-21",
+      "measure": 9,
+      "tick": 10560,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-22",
+      "measure": 9,
+      "tick": 11040,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-23",
+      "measure": 9,
+      "tick": 11520,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-24",
+      "measure": 10,
+      "tick": 12000,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-25",
+      "measure": 10,
+      "tick": 12480,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-26",
+      "measure": 10,
+      "tick": 12960,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-27",
+      "measure": 11,
+      "tick": 13440,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-28",
+      "measure": 11,
+      "tick": 13920,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-29",
+      "measure": 11,
+      "tick": 14400,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-30",
+      "measure": 12,
+      "tick": 14880,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-31",
+      "measure": 12,
+      "tick": 15360,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-32",
+      "measure": 12,
+      "tick": 15840,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-33",
+      "measure": 13,
+      "tick": 16320,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-34",
+      "measure": 13,
+      "tick": 16800,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-35",
+      "measure": 13,
+      "tick": 17280,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-36",
+      "measure": 14,
+      "tick": 17760,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-37",
+      "measure": 14,
+      "tick": 18240,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-38",
+      "measure": 14,
+      "tick": 18720,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-39",
+      "measure": 15,
+      "tick": 19200,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-40",
+      "measure": 15,
+      "tick": 19680,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-41",
+      "measure": 15,
+      "tick": 20160,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-42",
+      "measure": 16,
+      "tick": 20640,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-43",
+      "measure": 16,
+      "tick": 21120,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-44",
+      "measure": 16,
+      "tick": 21600,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-45",
+      "measure": 17,
+      "tick": 22080,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-46",
+      "measure": 17,
+      "tick": 22560,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-47",
+      "measure": 17,
+      "tick": 23040,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-48",
+      "measure": 18,
+      "tick": 23520,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-49",
+      "measure": 18,
+      "tick": 24000,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-50",
+      "measure": 18,
+      "tick": 24480,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-51",
+      "measure": 19,
+      "tick": 24960,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "lower-52",
+      "measure": 19,
+      "tick": 25440,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-53",
+      "measure": 19,
+      "tick": 25920,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-54",
+      "measure": 20,
+      "tick": 26400,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "lower-55",
+      "measure": 20,
+      "tick": 26880,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-56",
+      "measure": 20,
+      "tick": 27360,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-57",
+      "measure": 21,
+      "tick": 27840,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "lower-58",
+      "measure": 21,
+      "tick": 28320,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-59",
+      "measure": 21,
+      "tick": 28800,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-60",
+      "measure": 22,
+      "tick": 29280,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "lower-61",
+      "measure": 22,
+      "tick": 29760,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-62",
+      "measure": 22,
+      "tick": 30240,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-63",
+      "measure": 23,
+      "tick": 30720,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        }
+      ],
+      "sourceToken": "f"
+    },
+    {
+      "id": "lower-64",
+      "measure": 23,
+      "tick": 31200,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 57,
+          "step": "A",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "A3"
+        },
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "<a d>"
+    },
+    {
+      "id": "lower-65",
+      "measure": 23,
+      "tick": 31680,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 57,
+          "step": "A",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "A3"
+        },
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "<a d>"
+    },
+    {
+      "id": "lower-66",
+      "measure": 24,
+      "tick": 32160,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        }
+      ],
+      "sourceToken": "f"
+    },
+    {
+      "id": "lower-67",
+      "measure": 24,
+      "tick": 32640,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 57,
+          "step": "A",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "A3"
+        },
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "<a d>"
+    },
+    {
+      "id": "lower-68",
+      "measure": 24,
+      "tick": 33120,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 57,
+          "step": "A",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "A3"
+        },
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "<a d>"
+    },
+    {
+      "id": "lower-69",
+      "measure": 25,
+      "tick": 33600,
+      "duration": 1440,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 57,
+          "step": "A",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "A3"
+        },
+        {
+          "midi": 62,
+          "step": "D",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "D4"
+        }
+      ],
+      "sourceToken": "<f a d>2."
+    },
+    {
+      "id": "lower-70",
+      "measure": 26,
+      "tick": 35040,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 57,
+          "step": "A",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "A3"
+        }
+      ],
+      "sourceToken": "a4"
+    },
+    {
+      "id": "lower-71",
+      "measure": 26,
+      "tick": 35520,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        }
+      ],
+      "sourceToken": "f"
+    },
+    {
+      "id": "lower-72",
+      "measure": 26,
+      "tick": 36000,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-73",
+      "measure": 27,
+      "tick": 36480,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        }
+      ],
+      "sourceToken": "d"
+    },
+    {
+      "id": "lower-74",
+      "measure": 27,
+      "tick": 36960,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-75",
+      "measure": 27,
+      "tick": 37440,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-76",
+      "measure": 28,
+      "tick": 37920,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 47,
+          "step": "B",
+          "alter": 0,
+          "octave": 2,
+          "spelling": "B2"
+        }
+      ],
+      "sourceToken": "b,"
+    },
+    {
+      "id": "lower-77",
+      "measure": 28,
+      "tick": 38400,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f' g>"
+    },
+    {
+      "id": "lower-78",
+      "measure": 28,
+      "tick": 38880,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<f g>"
+    },
+    {
+      "id": "lower-79",
+      "measure": 29,
+      "tick": 39360,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        }
+      ],
+      "sourceToken": "c"
+    },
+    {
+      "id": "lower-80",
+      "measure": 29,
+      "tick": 39840,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-81",
+      "measure": 29,
+      "tick": 40320,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<e g>"
+    },
+    {
+      "id": "lower-82",
+      "measure": 30,
+      "tick": 40800,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        }
+      ],
+      "sourceToken": "e"
+    },
+    {
+      "id": "lower-83",
+      "measure": 30,
+      "tick": 41280,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-84",
+      "measure": 30,
+      "tick": 41760,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<g c>"
+    },
+    {
+      "id": "lower-85",
+      "measure": 31,
+      "tick": 42240,
+      "duration": 1440,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 53,
+          "step": "F",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "F3"
+        },
+        {
+          "midi": 57,
+          "step": "A",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "A3"
+        },
+        {
+          "midi": 60,
+          "step": "C",
+          "alter": 0,
+          "octave": 4,
+          "spelling": "C4"
+        }
+      ],
+      "sourceToken": "<f a c>2."
+    },
+    {
+      "id": "lower-86",
+      "measure": 32,
+      "tick": 43680,
+      "duration": 1440,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 50,
+          "step": "D",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "D3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        },
+        {
+          "midi": 59,
+          "step": "B",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "B3"
+        }
+      ],
+      "sourceToken": "<d g b>2."
+    },
+    {
+      "id": "lower-87",
+      "measure": 33,
+      "tick": 45120,
+      "duration": 960,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        },
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<c e g>2"
+    },
+    {
+      "id": "lower-88",
+      "measure": 33,
+      "tick": 46080,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        },
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<c e gACCENT >4",
+      "articulations": [
+        "accent"
+      ]
+    },
+    {
+      "id": "lower-89",
+      "measure": 34,
+      "tick": 46560,
+      "duration": 480,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "note",
+      "pitches": [
+        {
+          "midi": 48,
+          "step": "C",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "C3"
+        },
+        {
+          "midi": 52,
+          "step": "E",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "E3"
+        },
+        {
+          "midi": 55,
+          "step": "G",
+          "alter": 0,
+          "octave": 3,
+          "spelling": "G3"
+        }
+      ],
+      "sourceToken": "<c e gACCENT >",
+      "articulations": [
+        "accent"
+      ]
+    },
+    {
+      "id": "lower-90",
+      "measure": 34,
+      "tick": 47040,
+      "duration": 960,
+      "staff": "LH",
+      "part": "left",
+      "voice": 1,
+      "type": "rest",
+      "pitches": [],
+      "sourceToken": "r2"
+    }
+  ],
+  "fingeringStatus": "No source fingering; no fingering generated",
+  "sourceSha256": "c28063f6166eb058c52a2ff9550d532e17de1297709bdf5719a4faf829d4f575",
+  "sourceAsset": "sources/blue-danube.ly",
+  "conversion": {
+    "method": "Deterministic parsing of actual LilyPond pitches/chords/durations; no newly composed or simplified music",
+    "transformation": "Direct notation conversion",
+    "script": "convert_exact_sources.py",
+    "sourceAuthoritative": true
+  },
+  "dynamics": [
+    {
+      "tick": 0,
+      "value": "mf",
+      "source": "middleDynamics"
+    },
+    {
+      "tick": 22560,
+      "value": "cresc.",
+      "source": "middleDynamics"
+    },
+    {
+      "tick": 30720,
+      "value": "cresc.",
+      "source": "middleDynamics"
+    },
+    {
+      "tick": 34560,
+      "value": "f",
+      "source": "middleDynamics"
+    }
+  ],
+  "sourceAttribution": "The Blue Danube Waltz (main theme), Op. 314, Johann Strauss II; piano arrangement and typesetting © 2014 Nikos Kouremenos, based on Christian Mondrup / WIMA. Mutopia-2014/03/24-519. CC BY-SA 4.0. Converted to timed events; musical notes unchanged."
+}

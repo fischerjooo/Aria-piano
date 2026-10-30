@@ -1,0 +1,9 @@
+Aria v5.15 — arrangement timing and adaptive learning flow
+
+Separate written note values, note-start spacing (including rests), and key-contact durations. 75 rhythm-mapped arrangements (45 classical/traditional, all 30 game motifs); remaining 55 melodies are explicitly labelled pitch studies with timing grading unavailable. These are simplified arrangements, not original full scores or performance tempo claims. Learning speed is 75% of each suggested normal tempo; custom speeds remain saved.
+
+Allow early notes is enabled by default in Setup. An early correct next note advances/reanchors the guide. Disable it for onset timing checks; MIDI hold/release and velocity rules remain independently active. Fresh note-on events only: holding a key cannot count twice. Small late offsets retain the timing grid; a missed note waits and rebases when played. Both-hand steps advance after the complete target chord.
+
+The score guide is a single black line aligned to noteheads. The approaching target becomes amber, and the due target orange. Touch input places the keyboard at the bottom and keeps it visible; MIDI and mic use the top keyboard. Input changes update the layout immediately. Hint, focus, and viewport updates preserve the remaining demonstration/practice cursor motion.
+
+Checks: 89 application regressions; mapped rhythm and all 108 course-level data invariants; adaptive/strict onset, held-repeat suppression, release-window boundaries, saved preference, mode switches, score hints, static sheets, MIDI replay/results navigation, and microphone DSP suites. Independent code review completed; independent tester completed, including additional early-chord and saved-preference edge cases. Browser preview unavailable (preview relay missing); physical Android/BLE/acoustic tests not performed.

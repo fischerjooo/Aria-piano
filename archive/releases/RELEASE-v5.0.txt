@@ -1,0 +1,8 @@
+Aria v5.0
+100 named classical and traditional theme studies.42 include two-hand octave doubling.
+All are short, transposed pitch studies with simplified rhythm, not full authentic editions.
+Two-hand simultaneous feedback requires Bluetooth MIDI. Microphone supports each hand separately; touch supports learning the two-note groups.
+Search title/composer; filter difficulty or two hands.36-course foundation milestones remain visible; advanced studies extend beyond those lessons.
+Validation:89 regression checks,15 extension checks,11 pitch DSP groups, plus100-entry score/keyboard and MIDI simultaneous-release tests pass. Physical piano/Android visual QA remains unverified.
+
+MIDI timing extension: Loose/Normal/Strict early tolerances300/150/80ms, velocity target64(default) with allowed deviations127/45/25, minimum release lengths12/40/70percent of written value. First correct note starts pulse, score advances visually to next note and waits there; missing note after500ms adds one mistake. Timing and touch settings are saved locally. MIDI timing suite passes.

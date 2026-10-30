@@ -1,0 +1,1 @@
+Before you play is now Info-only. Course and melody Play buttons open practice directly. Replay, level advance and next-lesson transitions retain direct-start flow.89 regressions,108-level flow checks, results-key navigation and manual card-click/Info-only verification pass.

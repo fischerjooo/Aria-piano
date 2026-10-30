@@ -1,0 +1,1 @@
+Dialog close buttons now remain pinned in the upper-right of the stationary dialog shell while only the inner content scrolls. Transparent48px controls, keyboard focus ring, mobile padding. Covers Settings, Help, reading guide, and lesson Before You Play/Info. Main89 application regressions and204-level curriculum checks run. Browser rendering unavailable in this session.
