@@ -12,7 +12,7 @@ Use `python scripts/build.py` first, and install pinned Chromium tooling as in `
 
 ## Historical snapshot — preserved but not part of the supported release suite
 
-`python scripts/test_snapshot.py` runs the original 24 v5.26 test files against today's application. Eleven files contain legacy assumptions (catalogue sizes, old indices, UI dimensions and timing expectations), and **currently fail**. See [TEST-STATUS.md](../tests/TEST-STATUS.md). The original source files under `archive/tests-v5.26-original/` remain byte-identical.
+`python scripts/test_snapshot.py` runs the original 24 v5.26 test files against today's application. Eleven files contain legacy assumptions (catalogue sizes, old indices, UI dimensions and timing expectations), and **currently fail**. See [TEST-STATUS.md](../tests/TEST-STATUS.md) and the [file-by-file historical test audit](HISTORICAL-TEST-AUDIT.md), which records whether each failing test should be adapted or retired. The original source files under `archive/tests-v5.26-original/` remain byte-identical.
 
 These failures must **not** be relabelled as passing, silently skipped in the snapshot runner, or resolved by deleting assertions. Reconcile each legacy expectation with the current application contract, migrate meaningful checks into supported regression tests, and only then retire redundant legacy cases.
 
