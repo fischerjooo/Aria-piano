@@ -23,7 +23,7 @@ const mario=run('melodyData.find(l=>/mario/i.test(l.title))');assert(mario);sand
 setup(false);sandbox.receiveMidi(0x90,60,64);sandbox.performance.now=()=>10900;sandbox.receiveMidi(0x80,60,0);sandbox.performance.now=()=>11030;sandbox.receiveMidi(0x90,60,64);assert.equal(run('timingState.due'),12030);run('timingState.missed=true');sandbox.performance.now=()=>12600;sandbox.receiveMidi(0x80,60,0);sandbox.receiveMidi(0x90,60,64);assert.equal(run('timingState.due'),13600);
 // Keyboard remains available at bottom in touch mode even with score focus saved.
 run('scoreFocus=true');sandbox.chooseMode('touch');assert(el('body').classList.contains('touch-input'));assert(!el('body').classList.contains('score-focus'));assert(el('scoreFocus').disabled);assert(sandbox.viewportMetrics().stage>=156);sandbox.chooseMode('mic');assert(!el('body').classList.contains('touch-input'));assert(el('body').classList.contains('score-focus'));
-assert(html.includes('id="allowEarlyNotes" type="checkbox" checked'));assert(html.includes('aria-allow-early-v1'));assert(!html.includes('fill="#b9dfbd"'));assert(html.includes('stroke="#111111"'));
+assert(html.includes('id="allowEarlyNotes" type="checkbox" checked'));assert(html.includes('aria-allow-early-v1'));assert(!html.includes('fill="#b9dfbd"'));assert(html.includes('stroke="#34534f"'));
 // A saved explicit false survives a new document load.
 const sandbox2={...sandbox,localStorage:{getItem:k=>k==='aria-allow-early-v1'?'false':null,setItem(){}}};vm.createContext(sandbox2);vm.runInContext(script,sandbox2);assert.equal(el('allowEarlyNotes').checked,false);
 // Refresh resumes the remaining portion of a demonstration step (including rests).
