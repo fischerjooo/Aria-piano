@@ -22,7 +22,7 @@ concurrency:
 jobs:
   build:
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     permissions:
       contents: write
@@ -58,6 +58,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Capture and validate release screenshots
         run: node e2e/capture.cjs --capture
+      - name: End-to-end functional browser flows
+        run: node e2e/flows.cjs
       - name: Keep the latest validated beta on the fixed /beta/ URL
         run: |
           if git ls-remote --exit-code --heads origin beta-preview >/dev/null; then
@@ -93,7 +95,7 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write

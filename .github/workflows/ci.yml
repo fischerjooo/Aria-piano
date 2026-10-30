@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
@@ -31,5 +31,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: End-to-end responsive UI smoke tests
         run: node e2e/capture.cjs
+      - name: End-to-end functional browser flows
+        run: node e2e/flows.cjs
       - name: Check committed generated app and scores
         run: git diff --exit-code -- index.html dist/index.html aria-piano-v6.0-candidate.html src/repertoire data
