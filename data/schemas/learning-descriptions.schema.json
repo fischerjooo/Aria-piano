@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "path": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "description",
+        "stages",
+        "skills",
+        "policies",
+        "sourceNumbering"
+      ]
+    },
+    "lessons": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "objective": {
+            "type": "string",
+            "minLength": 1
+          },
+          "guide": {
+            "type": "object",
+            "properties": {
+              "beforePlaying": {
+                "type": "string",
+                "minLength": 1
+              },
+              "practiceSteps": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "listenFor": {
+                "type": "string",
+                "minLength": 1
+              },
+              "readyWhen": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceNote": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "beforePlaying",
+              "practiceSteps",
+              "listenFor",
+              "readyWhen"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "title",
+          "objective",
+          "guide"
+        ],
+        "additionalProperties": false
+      },
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "path",
+    "lessons"
+  ],
+  "additionalProperties": false
+}

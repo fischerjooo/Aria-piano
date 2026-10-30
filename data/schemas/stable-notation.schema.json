@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "ticksPerQuarter": {
+      "const": 9600
+    },
+    "records": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "midi": {
+            "type": "string",
+            "pattern": "^midi/[a-z0-9-]+\\.mid$"
+          },
+          "stepCount": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "secondaryLane": {
+            "type": "boolean"
+          },
+          "notation": {
+            "type": "object",
+            "properties": {
+              "f": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 5
+                    },
+                    {
+                      "const": ""
+                    }
+                  ]
+                }
+              },
+              "lf": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 5
+                    },
+                    {
+                      "const": ""
+                    }
+                  ]
+                }
+              },
+              "beats": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
+            },
+            "required": [
+              "f"
+            ],
+            "additionalProperties": false
+          },
+          "timing": {
+            "type": "object",
+            "properties": {
+              "spacingEndTick": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "stepsPresent": {
+                "type": "boolean"
+              },
+              "holdsPresent": {
+                "type": "boolean"
+              },
+              "stepCorrections": {
+                "type": "object",
+                "patternProperties": {
+                  "^[0-9]+$": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "additionalProperties": false
+              },
+              "holdCorrections": {
+                "type": "object",
+                "patternProperties": {
+                  "^[0-9]+$": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "spacingEndTick",
+              "stepsPresent",
+              "holdsPresent",
+              "stepCorrections",
+              "holdCorrections"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "midi",
+          "stepCount",
+          "secondaryLane",
+          "notation",
+          "timing"
+        ],
+        "additionalProperties": false
+      },
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*$"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "ticksPerQuarter",
+    "records"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "lessons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "stageId": {
+            "type": "string"
+          },
+          "fingering": {
+            "type": "object"
+          },
+          "scope": {
+            "type": "object"
+          },
+          "sourceEvidence": {
+            "type": "object"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "developsSkillIds": {
+            "type": "array"
+          },
+          "prerequisiteSkillIds": {
+            "type": "array"
+          },
+          "completion": {
+            "type": "object"
+          },
+          "binding": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "stageId",
+          "fingering",
+          "scope",
+          "sourceEvidence",
+          "kind",
+          "id",
+          "developsSkillIds",
+          "prerequisiteSkillIds",
+          "completion",
+          "binding"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "lessons"
+  ],
+  "additionalProperties": false
+}

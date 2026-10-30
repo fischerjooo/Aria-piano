@@ -1,0 +1,73 @@
+schemaVersion: 1
+scores:
+  mutopia-519:
+    id: mutopia-519-blue-danube
+    composer: Johann Strauss II
+    arranger: Nikos Kouremenos
+    sourceUrl: https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=519
+    license: CC BY-SA 4.0
+    licenseUrl: https://creativecommons.org/licenses/by-sa/4.0/
+    scope: Entire published main-theme piano arrangement in C major; not the full orchestral waltz
+    instrumentation: Piano
+    parts:
+    - right
+    - left
+    ranges:
+    - - opening
+      - Opening theme
+      - 1
+      - 5
+    - - answer
+      - Answer
+      - 6
+      - 9
+    - - dominant
+      - Dominant phrases
+      - 10
+      - 17
+    - - higher-theme
+      - Theme in the higher register
+      - 18
+      - 25
+    - - sustained
+      - Sustained melody
+      - 26
+      - 30
+    - - cadence
+      - Closing cadence
+      - 31
+      - 34
+    sourceAttribution: The Blue Danube Waltz (main theme), Op. 314, Johann Strauss II; piano arrangement and typesetting
+      © 2014 Nikos Kouremenos, based on Christian Mondrup / WIMA. Mutopia-2014/03/24-519. CC BY-SA 4.0. Converted
+      to timed events; musical notes unchanged.
+  mutopia-528-soprano:
+    id: mutopia-528-ode-satb
+    composer: Ludwig van Beethoven
+    arranger: SATB setting, maintained by Peter Chubb
+    sourceUrl: https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=528
+    license: Public Domain
+    licenseUrl: https://www.mutopiaproject.org/legal.html
+    scope: Exact unchanged soprano line from a 16-bar SATB hymn setting; reading study only, not a published piano
+      arrangement
+    instrumentation: Source:SATB voices; extracted part:soprano
+    parts:
+    - soprano
+    ranges:
+    - - phrase1
+      - Opening phrase
+      - 1
+      - 4
+    - - phrase2
+      - Answer phrase
+      - 5
+      - 8
+    - - phrase3
+      - Middle phrase
+      - 9
+      - 12
+    - - phrase4
+      - Closing phrase
+      - 13
+      - 16
+    sourceAttribution: Ode to Joy, Ludwig van Beethoven; SATB hymn setting typeset by Peter Chubb, Mutopia-2009/08/05-528,
+      Public Domain. Soprano line extracted unchanged for a reading study.
