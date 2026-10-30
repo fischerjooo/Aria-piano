@@ -65,7 +65,7 @@ async function test(browser,base,device,viewport){
     await page.locator('#scoreFocus').click();
     assert.equal(await page.locator('#scoreFocus').getAttribute('aria-pressed'),'false');
     await page.locator('#liveSheet').click();
-    await page.locator('#sheetScreen:not([hidden]) #staticScore svg').waitFor();
+    await page.locator('#sheetScreen:not([hidden]) #staticScore svg').first().waitFor();
     await page.locator('#sheetClose').evaluate(el=>el.click());
     await page.locator('#studioScreen:not([hidden])').waitFor();
     await page.locator('#studioBack').evaluate(el=>el.click());
