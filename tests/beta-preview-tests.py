@@ -12,7 +12,7 @@ with tempfile.TemporaryDirectory() as folder:
     base = Path(folder)
     site = base / "site"
     site.mkdir()
-    entry = '<!doctype html><html lang="en"><head><link rel="manifest" href="./manifest.webmanifest"><meta name="apple-mobile-web-app-title" content="Aria piano"><meta name="application-version" content="5.27"><title>Aria piano v5.27 — A little music.</title></head><body><span class="brand-version">v5.27</span><script>localStorage.setItem("aria-progress-v1","ok")</script></body></html>'
+    entry = '<!doctype html><html lang="en"><head><link rel="manifest" href="./manifest.webmanifest"><meta name="apple-mobile-web-app-title" content="Aria piano"><meta name="application-version" content="5.27"><title>Aria v5.27 — A little music.</title></head><body><span class="brand-version">v5.27</span><script>localStorage.setItem("aria-progress-v1","ok")</script></body></html>'
     (site / "index.html").write_text(entry, encoding="utf-8")
     (site / "sw.js").write_text("const CACHE = 'aria-piano-shell-v1';\\nconst HOME = new URL('./', self.registration.scope).href;\\nconst cleanup = name.startsWith('aria-piano-shell-');\\nconst message = 'ARIA_CHECK_UPDATE';\\n")
     (site / "icons").mkdir()
