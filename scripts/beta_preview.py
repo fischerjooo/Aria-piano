@@ -37,7 +37,11 @@ BETA_STORAGE_SHIM = """<script id="aria-beta-storage-isolation">
 </script>"""
 
 
-def mark_beta(site, version_path, sha):
+def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
+    # Same-origin /beta/ is retained for previewing, but a distinct PWA on
+    # Android Chrome requires an independent origin to avoid an install collision.
+    if not install_base.startswith("/") or not install_base.endswith("/") or "//" in install_base:
+        raise ValueError("install_base must be a path beginning and ending in /")
     site = Path(site)
     version = display_version(next_version(read_version(version_path), "minor"))
     suffix = re.sub(r"[^a-fA-F0-9]", "", sha)[:8].lower() or "preview"
@@ -89,11 +93,12 @@ def mark_beta(site, version_path, sha):
     manifest["name"] = "Aria (beta)"
     manifest["short_name"] = "Aria (beta)"
     manifest["description"] = "Aria Piano beta preview. Updates automatically from the beta channel."
-    # Explicitly different from the stable app id (/Aria-piano/).
-    # Identity and launch path never change between rolling beta releases.
-    manifest["id"] = "/Aria-piano/beta/"
-    manifest["start_url"] = "/Aria-piano/beta/"
-    manifest["scope"] = "/Aria-piano/beta/"
+    # Fixed identity and launch path for each hosting origin. A separate beta
+    # hostname + "/" is the reliable Android install route; same-origin nested
+    # GitHub Pages cannot guarantee a second installation.
+    manifest["id"] = install_base
+    manifest["start_url"] = install_base
+    manifest["scope"] = install_base
     if manifest.get("display") != "fullscreen":
         raise ValueError("Beta must keep immersive fullscreen when installed")
     if not all((site / icon["src"]).is_file() for icon in manifest.get("icons", [])):
@@ -107,8 +112,10 @@ def main():
     parser.add_argument("--site", required=True, type=Path)
     parser.add_argument("--version-file", required=True, type=Path)
     parser.add_argument("--sha", required=True)
+    parser.add_argument("--install-base", default="/Aria-piano/beta/",
+                        help="PWA install scope on the deployment origin; use / on a dedicated beta hostname")
     args = parser.parse_args()
-    mark_beta(args.site, args.version_file, args.sha)
+    mark_beta(args.site, args.version_file, args.sha, args.install_base)
 
 
 if __name__ == "__main__":

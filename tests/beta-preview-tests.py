@@ -41,6 +41,26 @@ with tempfile.TemporaryDirectory() as folder:
     assert beta_manifest["scope"] == beta_manifest["start_url"] == beta_manifest["id"] == "/Aria-piano/beta/"
     assert beta_manifest["icons"][0]["src"] == "icons/aria-192.png", "Relative PWA paths must remain scoped"
     assert json.loads(version.read_text()) == {"major": 5, "minor": 27}, "Beta never increments the stable source version"
+    # On a dedicated hostname, the identical app can install as an independent PWA
+    # using root-relative paths, and cannot be mistaken for the stable origin.
+    other_site = base / "separate-origin"
+    import shutil
+    shutil.copytree(site, other_site)
+    # restore the fixture's production title and worker before stamping again
+    (other_site / "index.html").write_text(entry, encoding="utf-8")
+    (other_site / "sw.js").write_text("const CACHE = 'aria-piano-shell-v1';\\nconst HOME = new URL('./', self.registration.scope).href;\\nconst cleanup = name.startsWith('aria-piano-shell-');\\nconst message = 'ARIA_CHECK_UPDATE';\\n")
+    mark_beta(other_site, version, "b1c2d3e4f5", install_base="/")
+    separate_manifest = json.loads((other_site / "manifest.webmanifest").read_text())
+    assert separate_manifest["id"] == separate_manifest["start_url"] == separate_manifest["scope"] == "/"
+    assert separate_manifest["name"] == separate_manifest["short_name"] == "Aria (beta)"
+    assert "Aria (beta) v5.28-beta.b1c2d3e4" in (other_site / "index.html").read_text()
+    assert "aria-piano-beta-shell-v1" in (other_site / "sw.js").read_text()
+    try:
+        mark_beta(other_site, version, "e7f6", install_base="not-rooted")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Beta PWA must reject invalid install scopes")
 
 pipeline = (ROOT / ".github/workflows/beta.yml").read_text()
 pages = (ROOT / ".github/workflows/pages.yml").read_text()
@@ -58,4 +78,11 @@ assert "_site/beta" in pages
 assert "python scripts/version.py bump" in pages, "Stable releases still increment"
 assert "beta-preview" not in (ROOT / ".github/workflows/ci.yml").read_text(), "Beta branch is only created after successful validation"
 
-print("PASS fixed beta path, beta version suffix, isolated data, gated previews and stable preservation")
+vercel = json.loads((ROOT / "vercel.json").read_text())
+assert vercel["outputDirectory"] == "_site"
+assert "--install-base /" in vercel["buildCommand"]
+assert "scripts/beta_preview.py" in vercel["buildCommand"]
+assert "scripts/build.py" in vercel["buildCommand"]
+assert "VERCEL_GIT_COMMIT_SHA" in vercel["buildCommand"]
+assert "installCommand" in vercel
+print("PASS separate-origin beta PWA install, beta version suffix, independent data and normal beta publishing")
