@@ -111,7 +111,8 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     if not all((site / icon["src"]).is_file() for icon in manifest.get("icons", [])):
         raise ValueError("Beta icon assets must exist before publication")
     for icon in manifest["icons"]:
-        icon["src"] = icon["src"].replace("icons/aria-", "icons/aria-beta-")
+        if not icon["src"].startswith("icons/aria-beta-"):
+            icon["src"] = icon["src"].replace("icons/aria-", "icons/aria-beta-", 1)
     # Previous validated feature commits predate the beta icon generator.
     # Backfill their asset paths from the currently built main brand icons.
     for icon in manifest["icons"]:
