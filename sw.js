@@ -1,9 +1,10 @@
 /* Aria Piano: network-first updates and offline support for GitHub Pages. */
-const CACHE = 'aria-piano-shell-v1';
+const CACHE = 'aria-piano-shell-v2';
 const HOME = new URL('./', self.registration.scope).href;
 const ASSETS = [
   HOME,
   new URL('manifest.webmanifest', HOME).href,
+  new URL('icons/aria.svg', HOME).href,
   new URL('icons/aria-192.png', HOME).href,
   new URL('icons/aria-512.png', HOME).href,
   new URL('icons/aria-maskable-512.png', HOME).href,
