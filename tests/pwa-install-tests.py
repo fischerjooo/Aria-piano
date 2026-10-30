@@ -4,6 +4,7 @@ import json
 
 ROOT = Path(__file__).resolve().parents[1]
 manifest = json.loads((ROOT / 'manifest.webmanifest').read_text())
+assert manifest["name"] == manifest["short_name"] == "Aria piano"
 assert manifest['display'] == 'fullscreen', 'Installed Aria must launch fullscreen'
 assert manifest['start_url'] == './' and manifest['scope'] == './'
 assert manifest['icons'], 'Install icons required'
@@ -18,6 +19,7 @@ page = (ROOT / 'src/app/template.html').read_text()
 assert 'rel="manifest" href="./manifest.webmanifest"' in page
 assert 'class="app-nav home-nav"' in page
 assert 'src="./icons/aria-192.png"' in page, 'Home screen should show the installed app icon'
+assert 'class="brand-name">ria piano</span>' in page
 assert 'class="brand-version">v__ARIA_VERSION__</span>' in page, 'Show the current stable version after Aria'
 assert 'id="homeFullscreen"' in page, 'Fullscreen must be accessible from the home screen'
 runtime = (ROOT / 'src/app/runtime.js').read_text()
