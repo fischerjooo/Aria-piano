@@ -9,7 +9,7 @@ const sandbox={console,Float32Array,Math,JSON,Option:function(){},PointerEvent:f
 vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInContext(s,sandbox);
 
 function setup(strict='normal'){sandbox.selectLesson(0);run('mode="ble";screen="studio";running=true;midiHeld.clear()');el('tempo').value='60';el('midiStrictness').value=strict;el('velocityTarget').value='64';sandbox.performance.now=()=>10000;sandbox.receiveMidi(0x90,60,64)}
-setup();sandbox.tickPracticeTiming(10500);assert.equal(el('timingCoach').dataset.phase,'hold');assert(parseFloat(el('holdFill').style.width)>0);sandbox.performance.now=()=>10600;sandbox.receiveMidi(0x80,60,0);assert.equal(run('mistakes'),1);assert.match(el('feedback').textContent,/too soon/);
+setup();sandbox.tickPracticeTiming(10150);assert.equal(el('timingCoach').dataset.phase,'hold');assert(parseFloat(el('holdFill').style.width)>0);sandbox.performance.now=()=>10200;sandbox.receiveMidi(0x80,60,0);assert.equal(run('mistakes'),1);assert.match(el('feedback').textContent,/too soon/);
 setup('strict');sandbox.tickPracticeTiming(11121);assert.equal(run('mistakes'),1);assert.equal(el('timingCoach').dataset.phase,'over');sandbox.tickPracticeTiming(50000);assert.equal(run('mistakes'),1);sandbox.performance.now=()=>50000;sandbox.receiveMidi(0x80,60,0);assert.equal(run('mistakes'),1);
 setup('loose');sandbox.tickPracticeTiming(10999);assert.equal(run('mistakes'),0);sandbox.tickPracticeTiming(11001);assert.equal(run('mistakes'),1);
 setup();sandbox.performance.now=()=>10800;sandbox.receiveMidi(0x80,60,0);assert.equal(run('mistakes'),0);assert.match(el('feedback').textContent,/Good note length/);
