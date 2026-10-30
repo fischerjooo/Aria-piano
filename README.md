@@ -1,10 +1,14 @@
-# Aria-piano
+# Aria piano
 
 Piano teach web app with a self-contained HTML download, sheet music, local progress, touch, microphone, MIDI and Bluetooth input.
 
 **Stable default: the v5.26 interface and curriculum, with the published app version tracked in `version.json`.** The root `index.html` and `dist/index.html` now compile from modular app sources plus MIDI/YAML/JSON data, preserving the established interface and features. `aria-piano-v5.26.html` remains the immutable historical archive. The v6 source-first rewrite is experimental: it has useful score provenance and timing work, but it is not a feature-complete replacement for v5.26. Its separate downloadable file is `aria-piano-v6.0-candidate.html`; the Pages build also exposes `experimental/v6.html`.
 
 Next development direction: bring the verified v6 score model and source-bound learning path into the polished v5 experience, preserving existing controls, notation readability, learning flow and input options. Compare both versions in a real browser before changing the stable default. The experimental rewrite must not silently replace the stable app.
+
+## Branding and icons
+
+Production is **Aria piano**, while beta is **Aria piano (beta)**. The app icon is a broad A monogram and the website wordmark is its A icon plus **ria piano**. The build generates 192/512/maskable icons from scripts/branding_icons.py; beta has a blue accent. Feature requests use a new branch and beta validation before user approval and merging, except when the owner explicitly requests a minor direct-main fix.
 
 ## Local development
 

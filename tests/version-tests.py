@@ -14,7 +14,7 @@ label = "v" + display_version(version)
 template = (ROOT / "src/app/template.html").read_text()
 assert template.count("__ARIA_VERSION__") == 3, "Version marker required in title, metadata and home header"
 app = (ROOT / "index.html").read_text()
-assert f"<title>Aria {label} " in app, "Browser title must contain release version"
+assert f"<title>Aria piano {label} " in app, "Browser title must contain release version"
 assert f'<meta name="application-version" content="{display_version(version)}">' in app
 assert f'class="brand-version">{label}</span>' in app
 assert "__ARIA_VERSION__" not in app

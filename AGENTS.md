@@ -37,3 +37,15 @@ Published app versions are generated from `version.json` by `scripts/build.py`, 
 All development source, plans and checks belong in this repository. Exclude credentials, `.openai` identity/configuration, local caches, dependencies and temporary QA outputs. Keep deployments limited to `_site/`. Maintain the existing application MIT license and each source edition's own license/attribution. Do not relabel all bundled music MIT.
 
 Use `.github/workflows/ci.yml` for every non-main branch push and PR validation, and `pages.yml` for tested main-branch Pages deployment (both merges and direct pushes). Failed builds, selected tests or generated-file checks must block publication. Manual publication is restricted to main. The repository owner must initially enable Settings → Pages → GitHub Actions. Do not claim Pages is live until a deployment succeeds.
+
+## Required feature development and owner approval
+
+Repository: `fischerjooo/Aria-piano`. In new sessions inspect this repo and this file first. Do not claim account authorization is permanent: GitHub app permissions and confirmation prompts are managed by ChatGPT and the GitHub integration, not by this repository.
+
+**Feature requests:** Create a new `feature/*` or `fix/*` branch from `main` by default, implement in the branch, run `python scripts/build.py` and `python scripts/test.py`, and wait for the push-triggered Validate workflow to pass. The validated development commit is published to the rolling `/Aria-piano/beta/` preview by the beta workflow. Offer the user the beta URL for hands-on testing. **Do not merge a new feature into main before the user explicitly reviews and approves it**, even if CI passes. PR approval must be user approval, not merely a green CI status. When the user asks to merge an already tested feature or explicitly approves merging, merge the validated PR.
+
+**Exception for direct main:** If the user explicitly requests a minor fix or change to go straight into `main`, it is permitted to commit/push directly to main without beta review. Run relevant checks and preserve the automatic release/versioning workflow, and make sure production still deploys. Do not infer this exception from routine wording.
+
+**Release flow:** feature branch → source and generated outputs → Validate CI → publish fixed beta preview → user tests/reviews → explicit approval → merge → normal main minor release and Pages deployment. Major releases are opt-in through the existing manual workflow. Do not alter historical v5.26 archives; source of truth for app version is version.json. Do not confuse GitHub Pages beta browser preview with a separately installable Android PWA on a distinct hostname.
+
+**Brand identity:** Production is named `Aria piano` and beta is named `Aria piano (beta)`. Homepage logo is the A monogram followed directly by `ria piano`, i.e. the icon supplies the letter A. The icon uses a broad single-letter form legible at small sizes, not micro-details. Generate launcher icons for both channels with `scripts/branding_icons.py` during the normal build.

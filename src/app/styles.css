@@ -129,14 +129,14 @@ body:not(.has-level-control):not(.no-timing-coach) #studioScreen .transport,body
 body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 
 /* Home branding and fullscreen fallback: PWA manifest fullscreen applies on app launch. */
-.home-nav .brand-home{display:flex;align-items:center;gap:9px;white-space:nowrap;min-width:0}
+.home-nav .brand-home{display:flex;align-items:center;gap:2px;white-space:nowrap;min-width:0}
 .home-nav .brand-app-icon{display:block;width:42px;height:42px;flex:0 0 42px;object-fit:cover;border-radius:11px}
-.home-nav .brand-name{white-space:nowrap}
+.home-nav .brand-name{white-space:nowrap;letter-spacing:-.8px}
 .home-nav .brand-version{font:600 12px/1.2 system-ui,-apple-system,sans-serif;letter-spacing:0;color:var(--muted);margin-left:1px;white-space:nowrap}
 .home-nav .home-fullscreen{min-width:44px;min-height:44px;display:inline-grid;place-items:center;padding:8px;font-size:20px}
 @media(max-width:560px){
   .app-nav.home-nav{height:auto;min-height:70px;flex-wrap:wrap;justify-content:flex-start;padding:10px 16px;row-gap:8px}
-  .home-nav .brand-home{width:100%;gap:8px}
+  .home-nav .brand-home{width:100%;gap:2px}
   .home-nav .brand-app-icon{width:36px;height:36px;flex-basis:36px}
   .home-nav .brand-name{font-size:29px}
   .home-nav .nav-right{width:100%;justify-content:space-between;gap:6px}
