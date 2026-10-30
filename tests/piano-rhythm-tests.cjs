@@ -11,7 +11,7 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
 // Rhythm data invariants and adaptive note-onset behaviour.
 let checked=0;
 for(const l of run('melodyData')){if(l.rhythmReady){checked++;for(const k of ['beats','steps','holds'])assert.equal(l[k].length,l.seq.length,l.id+' '+k);l.beats.forEach((b,i)=>{assert(b>0&&l.steps[i]>=b&&l.holds[i]>0&&l.holds[i]<=b,l.id+' '+i)});}else assert.equal(sandbox.rhythmAvailable(l),false);}
-assert.equal(checked,75);
+assert.equal(checked,87);
 for(const row of run('lessonLevels'))for(const l of row)for(const k of ['beats','steps','holds','left','lf'])if(l[k])assert.equal(l[k].length,l.seq.length,l.id+' '+k);
 function setup(early=true){sandbox.selectLesson(0);run('screen="studio";mode="ble";running=true;midiHeld.clear()');el('midiStrictness').value='normal';el('velocityTarget').value='64';el('tempo').value='60';el('allowEarlyNotes').checked=early;sandbox.performance.now=()=>10000;}
 setup();sandbox.receiveMidi(0x90,60,64);assert.equal(run('pos'),1);assert.equal(run('timingState.due'),11000);sandbox.performance.now=()=>10720;sandbox.receiveMidi(0x80,60,0);assert.equal(run('mistakes'),0);sandbox.performance.now=()=>10750;sandbox.receiveMidi(0x90,60,64);assert.equal(run('pos'),2);assert.equal(run('timingState.due'),11750);assert.equal(run('mistakes'),0);sandbox.receiveMidi(0x90,60,64);assert.equal(run('pos'),2,'held repeat cannot double count');
@@ -28,4 +28,4 @@ assert(html.includes('id="allowEarlyNotes" type="checkbox" checked'));assert(htm
 const sandbox2={...sandbox,localStorage:{getItem:k=>k==='aria-allow-early-v1'?'false':null,setItem(){}}};vm.createContext(sandbox2);vm.runInContext(script,sandbox2);assert.equal(el('allowEarlyNotes').checked,false);
 // Refresh resumes the remaining portion of a demonstration step (including rests).
 run('mode="ble";demoing=true;demoIndex=0;demoStartedAt=10000');el('tempo').value='60';sandbox.performance.now=()=>10400;sandbox.refreshScoreMotion();assert.equal(el('scoreCursor').style.transition,'transform 600ms linear');assert.equal(run('demoing'),true);
-console.log('75 mapped rhythms, 108 course levels, early option, fresh repeats, onset grid, approach/due cues, Mario articulation and speed, touch placement, and cursor resumption pass');
+console.log('87 mapped rhythms, 108 course levels, early option, fresh repeats, onset grid, approach/due cues, Mario articulation and speed, touch placement, and cursor resumption pass');
