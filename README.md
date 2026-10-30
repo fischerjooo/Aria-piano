@@ -37,6 +37,18 @@ For a fresh launch, Aria can reconnect without the chooser **only if** the brows
 
 A service worker cannot hold or reestablish a Bluetooth connection in the background; Web Bluetooth is unavailable there. The operating system may suspend pages when hidden. Avoid continuous background wake locks or fake worker keep-alive loops. Reliable always-on background BLE would require a native Android app with an appropriate foreground service, not just a GitHub Pages PWA.
 
+## Permanent beta preview
+
+The latest **validated development-branch build** is available at **https://fischerjooo.github.io/Aria-piano/beta/**, while the stable published app stays at **https://fischerjooo.github.io/Aria-piano/**. These are two paths under one GitHub Pages deployment; the production app always lives at the root.
+
+**Every feature-branch push:** The existing **Validate** workflow builds and tests the branch. After a successful *push* run in this repository (not a pull-request workflow or fork), the trusted **Publish validated beta preview** workflow checks out the exact tested commit, builds and retests it, and deploys a combined site: current released `main` in the root and the branch build in `/beta/`. Failed development builds never replace the last working beta. The shared `pages` concurrency group prevents overlapping beta and stable deployments. The latest successfully validated development branch becomes the rolling beta; successive pushes replace it at the same link. Branch and pull-request tests do not increment `version.json`.
+
+**On normal main releases:** The regular **Build and deploy Pages** workflow keeps the latest beta by rebuilding from the saved `beta-preview` branch reference and overlays that preview under `/beta/`. The `beta-preview` ref is managed by the beta workflow and records the latest validated development commit. Publishing a stable release does not replace beta with stable or remove its fixed URL.
+
+Beta has an unmistakable version such as **v5.29-beta.a1b2c3d4**: the next minor release candidate plus the first eight characters of the validated commit SHA. Beta's page title, visible header label, and HTML application-version metadata all use this suffix. Its web-app manifest names it **Aria Piano Beta** and its service worker, installed app identity, and icons use relative `/beta/` paths. Beta's browser-local lesson/progress settings are automatically namespaced separately from stable. **Do not treat beta as your primary progress store**, and always test on the correct URL.
+
+**Important:** The repository Settings → Pages must use **GitHub Actions** and Actions must have the required Pages deployment / branch-write permissions. The first beta build appears after the beta workflow is on `main` and a development branch passes validation (or a validated beta source ref is seeded). GitHub Pages deployments do not allow unrelated workflow runs to host two sites independently; both workflows publish a combined artifact.
+
 ## Release versioning
 
 The release version has one source of truth: `version.json`, currently starting at `v5.26`. The stable music content is independently preserved byte-for-byte against the frozen v5.26 archive; incrementing a release number does not claim that the content or music has changed.
@@ -49,7 +61,7 @@ The browser title, home header and HTML application-version metadata are generat
 
 ## GitHub Pages
 
-Branch commits run **Validate** automatically; pull requests also validate the proposed merge. Merges and direct pushes to `main` run **Build and deploy Pages**: build → selected regression/source tests → generated-file consistency check → upload `_site/` → deploy. Any failed check blocks publication. Main commits use the Pages workflow's checks rather than duplicating the branch-push run. Both workflows support manual runs; publication is restricted to `main`. Concurrent branch validations cancel older runs for the same event/ref; Pages deployments run serially. No personal access token is required. The full historical snapshot still contains 11 documented failures; these are preserved in `tests/TEST-STATUS.md`, not silently treated as passing.
+Branch commits run **Validate** automatically; pull requests also validate the proposed merge. Passing development-branch pushes publish the rolling **/beta/** preview without altering stable. Merges and direct pushes to `main` run **Build and deploy Pages**: build → selected regression/source tests → generated-file consistency check → upload `_site/` → deploy. Any failed check blocks publication. Main commits use the Pages workflow's checks rather than duplicating the branch-push run. Both workflows support manual runs; publication is restricted to `main`. Concurrent branch validations cancel older runs for the same event/ref; Pages deployments run serially. No personal access token is required. The full historical snapshot still contains 11 documented failures; these are preserved in `tests/TEST-STATUS.md`, not silently treated as passing.
 
 One-time repository setup: open **Settings → Pages → Build and deployment → Source → GitHub Actions**. After enabling this source, push to `main` or manually run **Build and deploy Pages** from the Actions tab. The expected project URL is `https://fischerjooo.github.io/Aria-piano/`; it becomes available only after Pages is enabled and deployment succeeds. Repository or organization policy may require an administrator to enable Actions or approve the `github-pages` environment.
 
