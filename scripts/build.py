@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def run(*args):
     subprocess.run([sys.executable, *map(str, args)], cwd=ROOT, check=True)
 
+run(ROOT / 'scripts/branding_icons.py')
 catalogue = compile_stable()
 learning = compile_learning()
 (ROOT / 'src/repertoire/learning-path.json').write_text(json.dumps(learning, ensure_ascii=False, indent=2) + '\n')
