@@ -320,3 +320,54 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 @media(prefers-reduced-motion:reduce){.rail-button>span{transition:none}
 .library-view .lesson-card:hover{transform:none}
 }
+
+/* Restore the original Aria palette while keeping the redesigned library layout. */
+.library-view{background:var(--paper)}
+.library-view .app-sidebar{background:var(--dark);border-right-color:#456455;color:#bdd0b9}
+.rail-button{color:#bdd0b9}
+.rail-button:hover,.rail-button[aria-current=page]{background:#25483c;color:var(--lime)}
+.rail-button[aria-current=page]:before{background:var(--lime)}
+.rail-button>span{background:var(--white);color:var(--ink)}
+.connection-dot{background:#7b8981}
+.connected .connection-dot{background:var(--lime)}
+.piano-connection{border-color:#476056}
+.library-view #courseScreen,.library-view #melodiesScreen{--ink:#173833;--muted:#71807b;--paper:#f5f5ef;--white:#fffef9;--line:#dce2d9;color:var(--ink);background:var(--paper)}
+.library-view .brand-name{color:var(--green)}
+.library-view .brand-version{color:var(--muted)}
+.library-view .screen button:hover{background:#e7edde}
+.library-view .hero{background:var(--dark);border-color:#456455;color:#f7f9ef}
+.library-view .hero p{color:#bdd0b9}
+.library-view .hero .eyebrow{color:#bdd0b9}
+.library-view .art-notes{color:var(--lime)}
+.library-view .primary{background:var(--green);border-color:var(--green);color:white}
+.library-view .primary:hover{background:#195542}
+.library-view .filters button{color:var(--muted)}
+.library-view .filters button[aria-pressed=true]{background:var(--dark);color:white}
+.library-view .curriculum-tools label{color:var(--muted)}
+.library-view .screen select,.library-view .screen input{background:var(--white);color:var(--ink);border-color:var(--line)}
+.library-view .lesson-card{border-color:var(--line);background:var(--white)}
+.library-view .lesson-card:hover{background:#edf2e7;border-color:#bacab5}
+.library-view .lesson-number{color:#88998a}
+.library-view .lesson-card h3{color:var(--ink)}
+.library-view .lesson-card p{color:var(--muted)}
+.library-view .badge{background:#edf1e6;color:#45634e}
+.library-view .melody-actions button{border-color:var(--line)}
+.library-view .melody-actions .primary{border-color:var(--green)}
+.library-view .card-foot{color:var(--muted)}
+.library-view .level-completion-chip{background:#edf1e6;color:#45634e;border-color:var(--line)}
+.library-view .level-completion-chip.done{background:#e3edcf;color:var(--green)}
+.library-view .year-plan{background:var(--white);border-color:var(--line);color:var(--muted)}
+.library-view .screen a{color:var(--green)}
+.library-view .home-footer{color:var(--muted)}
+.library-view .collection-tools>label{color:var(--muted)}
+.song-filters summary{border-color:var(--line);color:var(--ink)}
+.library-view #melodyCount{color:var(--muted)}
+.song-save{color:#71807b}
+.song-save[aria-pressed=true]{color:var(--green)}
+.song-save[aria-pressed=true] svg{fill:#236d5933}
+.library-view .requirement{background:#f6f8f0;color:#45634e;border-color:var(--line)}
+.library-view .melody-skills span{background:#edf1e6;color:#45634e}
+.library-view .rhythm-status{color:var(--muted)!important}
+.input-choices button[aria-pressed=true]{background:#e6efda;border-color:var(--green);color:var(--ink)}
+.connection-modal .connect-bar{background:#edf2e7}
+\n
