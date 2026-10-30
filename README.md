@@ -1,102 +1,50 @@
+<div align="center">
+  <img src="icons/aria.svg" alt="Aria piano icon" width="112" />
+
 # Aria piano
 
-Piano teach web app with a self-contained HTML download, sheet music, local progress, touch, microphone, MIDI and Bluetooth input.
+**Your personal piano room — learn, read music, and practise at your own pace.**
 
-**Stable default: the v5.26 interface and curriculum, with the published app version tracked in `version.json`.** The root `index.html` and `dist/index.html` now compile from modular app sources plus MIDI/YAML/JSON data, preserving the established interface and features. `aria-piano-v5.26.html` remains the immutable historical archive. The v6 source-first rewrite is experimental: it has useful score provenance and timing work, but it is not a feature-complete replacement for v5.26. Its separate downloadable file is `aria-piano-v6.0-candidate.html`; the Pages build also exposes `experimental/v6.html`.
+### [🎹 Open Aria piano — Live app](https://fischerjooo.github.io/Aria-piano/) &nbsp; · &nbsp; [🧪 Try the beta preview](https://fischerjooo.github.io/Aria-piano/beta/)
 
-Next development direction: bring the verified v6 score model and source-bound learning path into the polished v5 experience, preserving existing controls, notation readability, learning flow and input options. Compare both versions in a real browser before changing the stable default. The experimental rewrite must not silently replace the stable app.
+No account required to get started. Open the app in your browser and start exploring.
+</div>
 
-## Branding and icons
+[![Aria piano: learn at your pace, play your way](docs/aria-intro.svg)](https://fischerjooo.github.io/Aria-piano/)
 
-Production is **Aria piano**, while beta is **Aria piano (beta)**. The canonical logo is `icons/aria.svg`, redrawn from the flowing ivory A, golden music note and piano keys. Both stable and beta use **the same SVG artwork** for the homepage, browser favicon and generated Android launcher PNGs (192/512/maskable). The website wordmark is its A icon plus **ria piano**. The build generates 192/512/maskable icons from scripts/branding_icons.py; beta has a blue accent. Feature requests use a new branch and beta validation before user approval and merging, except when the owner explicitly requests a minor direct-main fix.
+## Make time for music
 
-## Local development
+Whether you're just getting comfortable with the keys or returning to piano practice, **Aria piano** brings sheet music and interactive exercises together in one place. Follow along at a pace that works for you, play on a touchscreen, or connect a supported piano and practise hands-on.
 
-Requires Python 3.12+ and Node.js 22+. Build-only Python dependencies are pinned in `requirements-build.txt`; the downloadable application remains self-contained with no runtime dependencies or npm packages.
+### What you can do
 
-```sh
-python -m pip install -r requirements-build.txt
-python scripts/build.py
-python scripts/test.py
-python -m http.server 8000
-```
+- **Follow sheet music.** Read notation while working through piano studies and practice material.
+- **Play your way.** Use on-screen touch controls, a supported MIDI keyboard, or microphone input where your browser allows it.
+- **Connect a piano.** Supported browsers can work with USB MIDI and Bluetooth MIDI instruments.
+- **Pick up where you left off.** Practice progress and settings are saved locally in your browser.
+- **Keep Aria close.** On supported devices, install the website as an app for quick access.
 
-Open `http://localhost:8000/` for stable v5.26 or `http://localhost:8000/aria-piano-v6.0-candidate.html` for the experimental candidate. Microphone, Web MIDI and Web Bluetooth depend on browser support, secure contexts and user permission. Actual hardware testing is still required.
+## Start playing
 
-`build.py` validates and compiles 346 existing studies from Standard MIDI performances, YAML descriptions and JSON notation/bindings, then assembles the stable HTML from `src/app/template.html`, `styles.css` and `runtime.js`. It no longer runs the old music generators. It also rebuilds the two canonical experimental scores from retained LilyPond, compiles the 23 source-bound tasks from YAML/JSON, assembles the separate v6 candidate and stages the minimal `_site/` deployment. Only that directory is published.
+1. **[Launch Aria piano](https://fischerjooo.github.io/Aria-piano/)** on your phone, tablet, or computer.
+2. Choose a study or piece and follow the on-screen sheet music.
+3. Try the touch piano, or connect your own instrument if you prefer.
+4. Return whenever you like — your progress stays on that browser and device.
 
-See [data/README.md](data/README.md) for authoring boundaries, exact legacy timing corrections, schemas and offline MIDI import/export commands. This is a format/build refactor: the historical generated content and fingering are preserved, not relabeled as verified editions or improved teaching material.
+**Want to preview changes?** The [beta version](https://fischerjooo.github.io/Aria-piano/beta/) offers a look at validated work in progress. It can change more often than the live app; avoid relying on beta to store your main practice progress.
 
-`test.py` runs exact materialized catalogue parity against the immutable archive, all 346 MIDI round trips, import/dry-run/apply and negative validation tests, source/publisher-MIDI comparisons, all 23 curriculum bindings, six experimental v6 test files and 13 passing stable regression files (including the 89-case core suite). It does not certify browser appearance or hardware compatibility.
+## Piano connection and browser support
 
-All 24 original v5.26 test files from commit `612273319a4e70a1b9b7b10ff7e5b6fc8f736b76` are preserved byte-for-byte under `archive/tests-v5.26-original/`. Portable copies in `tests/` target the stable root, use the retained v3.1 DSP fixture and write optional diagnostics to ignored `test-results/`. Run `python scripts/test_snapshot.py` to execute every file; it reports 13 passing files and 11 known historical failures, then exits nonzero. See `tests/TEST-STATUS.md`. Assertions were not rewritten to make those historical tests pass.
+Aria runs in the browser. Touch input is the easiest way to try it. Microphone recognition, Web MIDI, and Bluetooth MIDI depend on your device, browser, permissions, and instrument; they are not universally supported. Bluetooth reconnection may require pairing again after a fresh launch. For best results with external MIDI hardware, use a compatible browser and a secure HTTPS connection.
 
-Later v5.27 releases/tests remain in `archive/`; v6 source, research and checks remain under their original development directories. Neither later version replaces the stable v5.26 entrypoint.
+For an app-like experience, use your browser's **Install app** or **Add to Home screen** option if available. On some Android browsers, installing the live and beta versions from the same GitHub Pages hostname may conflict; the beta link is best treated as a browser preview.
 
-## Bluetooth MIDI on Android
+## Explore more
 
-Pair your BLE MIDI piano once with **Connect & pair piano**. Aria remembers the permitted piano locally and reuses the already-authorized `BluetoothDevice` for reconnection if it disconnects while the same app page is still alive. Returning to the active app after switching away attempts that reconnection when needed.
+The app is open source. You can browse the [source code](https://github.com/fischerjooo/Aria-piano), [report a problem or suggest an improvement](https://github.com/fischerjooo/Aria-piano/issues), and read the [technical/developer guide](docs/DEVELOPMENT.md) if you want to build or contribute.
 
-For a fresh launch, Aria can reconnect without the chooser **only if** the browser supports `navigator.bluetooth.getDevices()` and retains permission. Chrome for Android may not expose that API, even though initial pairing works. In that case, press **Connect & pair piano** on each fresh launch; Aria should not claim that session-level reconnection is unavailable. Manually pressing Disconnect disables automatic retries until you connect again.
+Application code is available under the [MIT license](LICENSE). Individual musical works and editions can have separate licensing and attribution requirements; see the source files for details.
 
-A service worker cannot hold or reestablish a Bluetooth connection in the background; Web Bluetooth is unavailable there. The operating system may suspend pages when hidden. Avoid continuous background wake locks or fake worker keep-alive loops. Reliable always-on background BLE would require a native Android app with an appropriate foreground service, not just a GitHub Pages PWA.
+---
 
-## Installable Android beta on a separate hostname
-
-**Important:** Chrome for Android can currently confuse multiple installed PWAs under different subpaths of the same hostname, even with distinct manifest IDs. The existing `https://fischerjooo.github.io/Aria-piano/beta/` remains a convenient browser preview, but **cannot guarantee independent installation** alongside stable `https://fischerjooo.github.io/Aria-piano/`.
-
-To install **Aria (beta)** as a separate Android app, host the exact same validated `beta-preview` branch at a **different HTTPS origin** (for example, a Vercel project's own fixed `*.vercel.app` hostname). The repository includes `vercel.json` to build the current branch with `scripts/build.py`, stamp `Aria (beta)` metadata, set the PWA id/start URL/scope to `/`, and publish `_site` as that project's root. The app automatically checks for updated beta builds via its own root-scoped service worker and never shares Chrome's PWA identity with the GitHub Pages stable installation.
-
-**One-time hosting setup in Vercel (required; cannot be done just by merging GitHub code):**
-
-1. Import `fischerjooo/Aria-piano` into a **new** Vercel project (suggested name `aria-piano-beta` if available).
-2. In Project Settings → Environments → Production → Branch Tracking, set the **Production Branch** to **`beta-preview`** (not `main`). Framework preset should be **Other**; the committed `vercel.json` supplies the build command and `_site` output directory.
-3. Deploy the latest `beta-preview` commit. Confirm that the new project's assigned HTTPS root URL serves `/manifest.webmanifest` with `name: "Aria (beta)"`, `id: "/"`, `start_url: "/"`, `scope: "/"`, and serves `/sw.js` plus `/icons/aria-192.png`.
-4. Install from the **Vercel project URL**, not the GitHub Pages `/beta/` URL. Keep that project's hostname fixed for future releases.
-
-Every passing development-branch push already advances the validated `beta-preview` Git branch. With Vercel's Git integration tracking that as its production branch, each update rebuilds the independent-host beta. The GitHub Pages `/beta/` preview continues to work, but it is not the independently installable Android app. Keep the beta GitHub Pages preview link and the production release process unchanged. Do not share or invent a Vercel URL until a project is actually created and deployed.
-
-## Permanent beta preview
-
-The latest **validated development-branch build** is available at **https://fischerjooo.github.io/Aria-piano/beta/**, while the stable published app stays at **https://fischerjooo.github.io/Aria-piano/**. These are two paths under one GitHub Pages deployment; the production app always lives at the root.
-
-**Every feature-branch push:** The existing **Validate** workflow builds and tests the branch. After a successful *push* run in this repository (not a pull-request workflow or fork), the trusted **Publish validated beta preview** workflow checks out the exact tested commit, builds and retests it, and deploys a combined site: current released `main` in the root and the branch build in `/beta/`. Failed development builds never replace the last working beta. The shared `pages` concurrency group prevents overlapping beta and stable deployments. The latest successfully validated development branch becomes the rolling beta; successive pushes replace it at the same link. Branch and pull-request tests do not increment `version.json`.
-
-**On normal main releases:** The regular **Build and deploy Pages** workflow keeps the latest beta by rebuilding from the saved `beta-preview` branch reference and overlays that preview under `/beta/`. The `beta-preview` ref is managed by the beta workflow and records the latest validated development commit. Publishing a stable release does not replace beta with stable or remove its fixed URL.
-
-Beta has an unmistakable version such as **v5.29-beta.a1b2c3d4**: the next minor release candidate plus the first eight characters of the validated commit SHA. Beta's page title, visible header label, and HTML application-version metadata all use this suffix. Its web-app manifest and installed Android launcher name both identify it as **Aria (beta)** and its manifest identity/start URL/scope are fixed to `/Aria-piano/beta/`, while its own service worker, icons, and offline cache update independently of the stable app. Beta's browser-local lesson/progress settings are automatically namespaced separately from stable. **Do not treat beta as your primary progress store**, and always test on the correct URL.
-
-**Important:** The repository Settings → Pages must use **GitHub Actions** and Actions must have the required Pages deployment / branch-write permissions. The first beta build appears after the beta workflow is on `main` and a development branch passes validation (or a validated beta source ref is seeded). GitHub Pages deployments do not allow unrelated workflow runs to host two sites independently; both workflows publish a combined artifact.
-
-## Release versioning
-
-The release version has one source of truth: `version.json`, currently starting at `v5.26`. The stable music content is independently preserved byte-for-byte against the frozen v5.26 archive; incrementing a release number does not claim that the content or music has changed.
-
-**Normal development/publishing:** Work on a feature branch and open a pull request. CI builds and tests at the **current** release number; PR checks do not bump versions. After a change is merged or pushed to `main`, **Build and deploy Pages** automatically increments the **minor** version (for example `5.26 → 5.27`), rebuilds and tests the app, commits the version and generated HTML back to `main`, and publishes that same tested build. The GitHub Actions bot uses `GITHUB_TOKEN`; its release commit does not start another publish run, so it cannot loop.
-
-**Major release option:** Open **Actions → Build and deploy Pages → Run workflow** on `main` and select **major**. That increments the major number and resets minor to **0** (for example `5.27 → 6.0`). Selecting **minor** instead publishes another minor release. Both options run the same build, validation, commit and GitHub Pages deployment process.
-
-The browser title, home header and HTML application-version metadata are generated from `version.json` by `scripts/build.py`. Do not hand-edit these generated labels or the historical v5.26 archive. For local testing, run `python scripts/version.py show`; to exercise version increments in a temporary copy, run `python scripts/version.py bump --part minor --file /tmp/aria-version-test.json` on a copy of the version file. A published release is recorded on `main` only after checks pass. Release automation requires Actions to have permission to push version commits to `main`.
-
-## GitHub Pages
-
-Branch commits run **Validate** automatically; pull requests also validate the proposed merge. Passing development-branch pushes publish the rolling **/beta/** preview without altering stable. Merges and direct pushes to `main` run **Build and deploy Pages**: build → selected regression/source tests → generated-file consistency check → upload `_site/` → deploy. Any failed check blocks publication. Main commits use the Pages workflow's checks rather than duplicating the branch-push run. Both workflows support manual runs; publication is restricted to `main`. Concurrent branch validations cancel older runs for the same event/ref; Pages deployments run serially. No personal access token is required. The full historical snapshot still contains 11 documented failures; these are preserved in `tests/TEST-STATUS.md`, not silently treated as passing.
-
-One-time repository setup: open **Settings → Pages → Build and deployment → Source → GitHub Actions**. After enabling this source, push to `main` or manually run **Build and deploy Pages** from the Actions tab. The expected project URL is `https://fischerjooo.github.io/Aria-piano/`; it becomes available only after Pages is enabled and deployment succeeds. Repository or organization policy may require an administrator to enable Actions or approve the `github-pages` environment.
-
-## Source and development map
-
-- `src/app/`: stable application markup template, styles and mature runtime engine.
-- `data/`: authored standard MIDI/YAML/JSON catalogue, source-task descriptions/bindings and enforced schemas.
-- `scripts/catalogue.py`: offline validation and MIDI import/export.
-- `v6/`: experimental score engine, input adapters, template, builder, tests and review notes.
-- `src/repertoire/`: retained source editions, hashes, canonical timed scores, conversion and independent source/curriculum validation.
-- `plans/`: repertoire requirements, research catalog, book targets, release scope, engine audit and QA gates.
-- `archive/`: earlier HTML releases from v3.1 through v5.27, release notes and legacy tests. Their generated lesson content is historical and must not be confused with verified source editions.
-- `AGENTS.md`: development continuity and acceptance requirements.
-
-## Repertoire and licenses
-
-The experimental candidate imports one complete published main-theme piano arrangement of Blue Danube (Mutopia 519), one complete soprano extraction from an Ode to Joy SATB setting (Mutopia 528), and 23 exact-source practice tasks. This is not the complete orchestral Blue Danube, an original piano Ode arrangement, a complete beginner course, or all 37 book targets.
-
-The repository's existing MIT `LICENSE` is preserved for application code. Music editions and derived score data retain their own terms and attribution; the repository license does not override them. Blue Danube's arrangement and typesetting are © 2014 Nikos Kouremenos, based on Christian Mondrup / WIMA, Mutopia-2014/03/24-519, CC BY-SA 4.0; conversion changes representation, not musical notes. Ode to Joy's SATB setting is typeset by Peter Chubb, Mutopia-2009/08/05-528, Public Domain; the soprano is extracted unchanged. Source headers, per-score `license`, `licenseUrl`, `sourceAttribution`, `sourceUrl`, and `source-manifest.json` are retained. Other editions in the research catalog have individual terms; reference status does not establish embedding permission.
+<div align="center"><strong>Ready to play?</strong> <a href="https://fischerjooo.github.io/Aria-piano/">Open Aria piano →</a></div>
