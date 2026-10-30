@@ -2,15 +2,16 @@
 
 Piano teach web app with a self-contained HTML download, sheet music, local progress, touch, microphone, MIDI and Bluetooth input.
 
-**Stable default: v5.26.** The root `index.html`, `dist/index.html` and `aria-piano-v5.26.html` preserve the established interface and features. The v6 source-first rewrite is experimental: it has useful score provenance and timing work, but it is not a feature-complete replacement for v5.26. Its separate downloadable file is `aria-piano-v6.0-candidate.html`; the Pages build also exposes `experimental/v6.html`.
+**Stable default: v5.26.** The root `index.html` and `dist/index.html` now compile from modular app sources plus MIDI/YAML/JSON data, preserving the established interface and features. `aria-piano-v5.26.html` remains the immutable historical archive. The v6 source-first rewrite is experimental: it has useful score provenance and timing work, but it is not a feature-complete replacement for v5.26. Its separate downloadable file is `aria-piano-v6.0-candidate.html`; the Pages build also exposes `experimental/v6.html`.
 
 Next development direction: bring the verified v6 score model and source-bound learning path into the polished v5 experience, preserving existing controls, notation readability, learning flow and input options. Compare both versions in a real browser before changing the stable default. The experimental rewrite must not silently replace the stable app.
 
 ## Local development
 
-Requires Python 3.12+ and Node.js 22+. No package installation, third-party Python modules or npm dependencies are needed.
+Requires Python 3.12+ and Node.js 22+. Build-only Python dependencies are pinned in `requirements-build.txt`; the downloadable application remains self-contained with no runtime dependencies or npm packages.
 
 ```sh
+python -m pip install -r requirements-build.txt
 python scripts/build.py
 python scripts/test.py
 python -m http.server 8000
@@ -18,9 +19,11 @@ python -m http.server 8000
 
 Open `http://localhost:8000/` for stable v5.26 or `http://localhost:8000/aria-piano-v6.0-candidate.html` for the experimental candidate. Microphone, Web MIDI and Web Bluetooth depend on browser support, secure contexts and user permission. Actual hardware testing is still required.
 
-`build.py` deterministically rebuilds the two canonical v6 score JSON files from retained LilyPond and assembles the v6 download from `v6/template.html`, `input.js`, `player.js`, the scores and learning path. It copies v5.26 to both stable entrypoints and stages a minimal deployment in `_site/`. Only this deployment directory is published, rather than the development workspace or archived tests.
+`build.py` validates and compiles 346 existing studies from Standard MIDI performances, YAML descriptions and JSON notation/bindings, then assembles the stable HTML from `src/app/template.html`, `styles.css` and `runtime.js`. It no longer runs the old music generators. It also rebuilds the two canonical experimental scores from retained LilyPond, compiles the 23 source-bound tasks from YAML/JSON, assembles the separate v6 candidate and stages the minimal `_site/` deployment. Only that directory is published.
 
-`test.py` runs source/publisher-MIDI comparisons, all 23 curriculum bindings, the six experimental v6 test files, 13 passing stable v5.26 regression files (including the 89-case core suite), and entrypoint consistency checks. It does not certify browser appearance or hardware compatibility.
+See [data/README.md](data/README.md) for authoring boundaries, exact legacy timing corrections, schemas and offline MIDI import/export commands. This is a format/build refactor: the historical generated content and fingering are preserved, not relabeled as verified editions or improved teaching material.
+
+`test.py` runs exact materialized catalogue parity against the immutable archive, all 346 MIDI round trips, import/dry-run/apply and negative validation tests, source/publisher-MIDI comparisons, all 23 curriculum bindings, six experimental v6 test files and 13 passing stable regression files (including the 89-case core suite). It does not certify browser appearance or hardware compatibility.
 
 All 24 original v5.26 test files from commit `612273319a4e70a1b9b7b10ff7e5b6fc8f736b76` are preserved byte-for-byte under `archive/tests-v5.26-original/`. Portable copies in `tests/` target the stable root, use the retained v3.1 DSP fixture and write optional diagnostics to ignored `test-results/`. Run `python scripts/test_snapshot.py` to execute every file; it reports 13 passing files and 11 known historical failures, then exits nonzero. See `tests/TEST-STATUS.md`. Assertions were not rewritten to make those historical tests pass.
 
@@ -34,6 +37,9 @@ One-time repository setup: open **Settings → Pages → Build and deployment �
 
 ## Source and development map
 
+- `src/app/`: stable application markup template, styles and mature runtime engine.
+- `data/`: authored standard MIDI/YAML/JSON catalogue, source-task descriptions/bindings and enforced schemas.
+- `scripts/catalogue.py`: offline validation and MIDI import/export.
 - `v6/`: experimental score engine, input adapters, template, builder, tests and review notes.
 - `src/repertoire/`: retained source editions, hashes, canonical timed scores, conversion and independent source/curriculum validation.
 - `plans/`: repertoire requirements, research catalog, book targets, release scope, engine audit and QA gates.

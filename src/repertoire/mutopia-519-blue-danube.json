@@ -11,6 +11,7 @@
     "right",
     "left"
   ],
+  "sourceAttribution": "The Blue Danube Waltz (main theme), Op. 314, Johann Strauss II; piano arrangement and typesetting © 2014 Nikos Kouremenos, based on Christian Mondrup / WIMA. Mutopia-2014/03/24-519. CC BY-SA 4.0. Converted to timed events; musical notes unchanged.",
   "title": "The Blue Danube Waltz — published main-theme piano arrangement",
   "meter": {
     "beats": 3,
@@ -4207,6 +4208,5 @@
       "value": "f",
       "source": "middleDynamics"
     }
-  ],
-  "sourceAttribution": "The Blue Danube Waltz (main theme), Op. 314, Johann Strauss II; piano arrangement and typesetting © 2014 Nikos Kouremenos, based on Christian Mondrup / WIMA. Mutopia-2014/03/24-519. CC BY-SA 4.0. Converted to timed events; musical notes unchanged."
+  ]
 }

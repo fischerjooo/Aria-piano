@@ -10,6 +10,7 @@
   "parts": [
     "soprano"
   ],
+  "sourceAttribution": "Ode to Joy, Ludwig van Beethoven; SATB hymn setting typeset by Peter Chubb, Mutopia-2009/08/05-528, Public Domain. Soprano line extracted unchanged for a reading study.",
   "title": "Ode to Joy — unchanged soprano reading line from SATB setting",
   "meter": {
     "beats": 4,
@@ -1392,6 +1393,5 @@
     "transformation": "Extract soprano unchanged; source transpose c c-prime retained",
     "script": "convert_exact_sources.py",
     "sourceAuthoritative": true
-  },
-  "sourceAttribution": "Ode to Joy, Ludwig van Beethoven; SATB hymn setting typeset by Peter Chubb, Mutopia-2009/08/05-528, Public Domain. Soprano line extracted unchanged for a reading study."
+  }
 }
