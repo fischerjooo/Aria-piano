@@ -8,8 +8,8 @@ const root = path.resolve(__dirname, '..');
 const output = path.join(root, 'docs', 'screenshots');
 const capture = process.argv.includes('--capture');
 const profiles = {
-  mobile: { viewport:{width:915,height:412},deviceScaleFactor:1,isMobile:true,hasTouch:true },
-  tablet: { viewport:{width:1280,height:800},deviceScaleFactor:1,isMobile:true,hasTouch:true }
+  tablet: { viewport:{width:1280,height:800},deviceScaleFactor:1,isMobile:true,hasTouch:true },
+  mobile: { viewport:{width:915,height:412},deviceScaleFactor:1,isMobile:true,hasTouch:true }
 };
 const portraits = {mobile:{width:412,height:915},tablet:{width:800,height:1280}};
 const names = [
@@ -112,14 +112,17 @@ async function flow(browser,url,device,options){
     await page.locator('#liveSheet').click();
     await visible(page,'#sheetScreen:not([hidden]) #staticScore svg');
     await take(page,device,'lesson-sheet');
-    await page.locator('#sheetSizing').evaluate(el=>el.click());
-    await page.waitForTimeout(120);
-    await take(page,device,'sheet-controls');
+    // Capture the clean sheet in portrait before opening any controls.
     await page.setViewportSize(portraits[device]);
     await page.waitForTimeout(350);
     await visible(page,'#sheetScreen:not([hidden]) #staticScore svg');
     await take(page,device,'sheet-portrait');
     await page.setViewportSize(original);
+    await page.waitForTimeout(250);
+    // Controls appear once, in landscape only.
+    await page.locator('#sheetSizing').evaluate(el=>el.click());
+    await page.waitForTimeout(120);
+    await take(page,device,'sheet-controls');
     if(capture)for(const name of names){
       const file=path.join(output,device,name+'.png');
       if(!fs.existsSync(file)||fs.statSync(file).size<1500)throw new Error('Missing screenshot '+device+'/'+name);

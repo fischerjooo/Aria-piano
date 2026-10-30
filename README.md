@@ -14,15 +14,15 @@ No account required to get started. Open the app in your browser and start explo
 
 ## See Aria in action
 
-Real-device-inspired screenshots are captured automatically in Chromium at phone and tablet **landscape** sizes; sheet music is captured in **landscape and portrait**.
+Real-device-inspired screenshots are captured automatically in Chromium at tablet and phone **landscape** sizes; sheet music is captured in **landscape and portrait**.
 
-| Phone · Welcome | Tablet · Practice |
+| Tablet · Practice | Tablet · Sheet music, portrait |
 |:--:|:--:|
-| ![Aria mobile home](docs/screenshots/mobile/home.png) | ![Aria tablet lesson](docs/screenshots/tablet/lesson-running.png) |
-| Phone · Melodies | Tablet · Sheet music |
-| ![Aria mobile melodies](docs/screenshots/mobile/melodies-scrolled.png) | ![Aria tablet sheet](docs/screenshots/tablet/lesson-sheet.png) |
+| ![Aria tablet lesson](docs/screenshots/tablet/lesson-running.png) | ![Aria tablet sheet portrait](docs/screenshots/tablet/sheet-portrait.png) |
+| Mobile · Welcome | Mobile · Melodies |
+| ![Aria mobile home](docs/screenshots/mobile/home.png) | ![Aria mobile melodies](docs/screenshots/mobile/melodies-scrolled.png) |
 
-**[Explore all 32 mobile and tablet screenshots, including portrait sheet music](docs/SCREENSHOTS.md)**
+**[Explore all 32 tablet and mobile screenshots, with sheet music in both orientations](docs/SCREENSHOTS.md)**
 
 ## Make time for music
 
