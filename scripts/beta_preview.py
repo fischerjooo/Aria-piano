@@ -50,7 +50,7 @@ def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
     html = entry.read_text(encoding="utf-8")
     if BETA_STORAGE_SHIM.split('"')[1] in html:
         raise ValueError("Beta branding already applied")
-    title = re.compile(r"(<title>Aria piano v)[^<]+?(?=\s*[—-])")
+    title = re.compile(r"<title>Aria(?: piano)? v[^<]+?(?=\s*[—-])")
     html, changed = title.subn(lambda m: "<title>Aria piano (beta) v" + beta, html, count=1)
     if changed != 1:
         raise ValueError("Cannot find Aria page title for beta branding")
