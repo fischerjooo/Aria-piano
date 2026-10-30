@@ -8,7 +8,7 @@ Next development direction: bring the verified v6 score model and source-bound l
 
 ## Branding and icons
 
-Production is **Aria piano**, while beta is **Aria piano (beta)**. The app icon is a broad A monogram and the website wordmark is its A icon plus **ria piano**. The build generates 192/512/maskable icons from scripts/branding_icons.py; beta has a blue accent. Feature requests use a new branch and beta validation before user approval and merging, except when the owner explicitly requests a minor direct-main fix.
+Production is **Aria piano**, while beta is **Aria piano (beta)**. The canonical logo is `icons/aria.svg`, redrawn from the flowing ivory A, golden music note and piano keys. Both stable and beta use **the same SVG artwork** for the homepage, browser favicon and generated Android launcher PNGs (192/512/maskable). The website wordmark is its A icon plus **ria piano**. The build generates 192/512/maskable icons from scripts/branding_icons.py; beta has a blue accent. Feature requests use a new branch and beta validation before user approval and merging, except when the owner explicitly requests a minor direct-main fix.
 
 ## Local development
 
