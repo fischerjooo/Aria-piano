@@ -58,6 +58,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Capture and validate release screenshots
         run: node e2e/capture.cjs --capture
+      - name: End-to-end functional browser flows
+        run: node e2e/flows.cjs
       - name: Keep the latest validated beta on the fixed /beta/ URL
         run: |
           if git ls-remote --exit-code --heads origin beta-preview >/dev/null; then
