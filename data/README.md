@@ -1,19 +1,19 @@
-# Editable lesson and song packages
+# Lesson and song packages
 
-Aria's library is **folder-based**. There are no central song/lesson JSON, YAML or MIDI catalogues.
-`python scripts/build.py` discovers packages, validates them and compiles the one stable player
-(`index.html` and `dist/index.html`). Source data is entirely within each item folder.
+Aria's authored music is package-based. There are no central lesson/song catalogues, binding files, migration layers, or compatibility schemas.
 
-## On-disk structure
+`python scripts/build.py` discovers every package under `data/lessons/` and `data/songs/`, validates it, orders it from package attributes, and builds `index.html` plus `dist/index.html`.
+
+## Structure
 
 ```text
 data/
   lessons/
     meet-middle-c/
-      lesson.yaml                 # immutable id; difficulty: 1..100
-      metadata.yaml               # title, instructions, finger guidance, source, tempo
-      notation.json               # written beats, finger numbers and MIDI timing corrections
-      performance.mid             # actual sounding pitches and timings
+      lesson.yaml
+      metadata.yaml
+      notation.json
+      performance.mid
       levels/
         2/
           metadata.yaml
@@ -25,65 +25,73 @@ data/
           performance.mid
   songs/
     mary-had-a-little-lamb/
-      song.yaml                   # id, libraryOrder, optional gameOrder
+      song.yaml
       metadata.yaml
       notation.json
       performance.mid
-  provenance.yaml                 # frozen archive provenance only, not a catalogue
-  schemas/                        # validation contracts, not lesson data
 ```
 
-**68 lessons** each contain three independent level records; **142 songs** are individually
-editable. All **346** canonical MIDI files are byte-for-byte the same as before the migration.
-No alternative score engine or second song database is created.
+Each lesson is self-contained and has exactly three levels. Each song is self-contained in one folder.
 
-### Adding, editing and removing items
+## Ordering
 
-- **Lesson:** copy one folder under `data/lessons/`; give it a unique stable `id` in
-  `lesson.yaml` (the readable folder name can change without changing this ID) and its level-1 `metadata.yaml`. Provide all three level folders/files and
-  different record IDs for each variant. Choose `difficulty` between **1 (easiest)** and
-  **100 (hardest)**. The builder discovers it automatically and sorts lessons strictly by that value. Difficulty values must be unique; a collision is a validation error. Readable folder names never affect ordering, so no central binding or course-index list needs updating.
-- **Song:** copy one folder under `data/songs/`, provide `song.yaml` with a unique stable `id` independent of the folder name
-  and a unique positive `libraryOrder`, and put YAML, JSON and
-  `performance.mid` alongside it. To include a game song in the game-library picker,
-  additionally assign a unique `gameOrder`. Duplicate lesson difficulties, record IDs, song `libraryOrder` values or `gameOrder` values are reported as validation errors. The builder discovers every song folder automatically.
-- **Edit:** change only the desired item's metadata, notation or MIDI; unrelated items
-  are not rewritten. Run `python scripts/catalogue.py validate` before committing.
-- **Remove:** delete the entire item folder. Never recycle IDs used by released records:
-  users' locally saved progress keys depend on those IDs. Folder names may change independently. Migration preserves all
-  existing lesson/song IDs and their original order via the 1..100 difficulty and
-  `libraryOrder` values.
+Lesson order comes only from `lesson.yaml`:
 
-Metadata holds lesson instructions, attribution, hand, level and display flags. Notation
-holds fingerings, written beat values, timing-correction flags and references only its local
-`performance.mid`. MIDI holds exact sounding pitches, onsets and key-contact durations;
-the builder never guesses fingers or written notation from a MIDI performance.
-`data/provenance.yaml` retains the original frozen archive hash, without storing
-duplicated per-item records. Original repertoire studies have historical/generated
-arrangements; this migration does not assert certified score-edition provenance.
+```yaml
+id: lesson-1
+difficulty: 1
+```
 
-## Build and import
+- `difficulty` must be an integer from **1 to 100**.
+- Every lesson difficulty must be unique.
+- Lower difficulty values appear first.
+- Folder names do not affect ordering.
+- Duplicate IDs or difficulty values are validation errors.
+
+Song order comes only from `song.yaml`:
+
+```yaml
+id: repertoire-mary-had-a-little-lamb
+libraryOrder: 2
+gameOrder: 4
+```
+
+- `libraryOrder` must be a unique positive integer.
+- `gameOrder` is optional and must be a unique positive integer when present.
+- Folder names do not affect ordering.
+- Duplicate IDs, `libraryOrder`, or `gameOrder` values are validation errors.
+
+## Package files
+
+`metadata.yaml` contains display and teaching metadata. Base lesson records must include their own `nav` label; the UI does not provide position-based or title fallbacks.
+
+`notation.json` contains fingering, written beat values, timing metadata, and the local MIDI filename. MIDI must be named `performance.mid` and live in the same package folder.
+
+`performance.mid` contains sounding pitches, onset timing, durations, and optional second-hand lane data. The builder validates MIDI and notation together and does not infer written fingering or notation from MIDI.
+
+## Validate and build
 
 ```sh
 python -m pip install -r requirements-build.txt
 python scripts/catalogue.py validate
 python scripts/build.py
 python scripts/test.py
+```
 
+To inspect or edit one package MIDI:
+
+```sh
 python scripts/catalogue.py export-midi lesson-1 /tmp/lesson-1.mid
 python scripts/catalogue.py import-midi lesson-1 /tmp/lesson-1.mid
 python scripts/catalogue.py import-midi lesson-1 /tmp/lesson-1.mid --apply
 ```
 
-An import validates a temporary copy of the whole package library before replacing
-the selected item's MIDI, notation and metadata. `--apply` is required to write.
-Use `--written-values path/to/values.json` only when supplying independently reviewed
-written beat values. Preserve the existing PPQ 9600 MIDI format and two-lane boundary:
-staggered/unequal secondary parts are unsupported by the current stable engine.
+MIDI import validates a temporary copy of the complete package library before applying the selected package change. `--apply` is required to write.
 
-The one-off `scripts/migrate_stable_data.py` is **historical** and must never be rerun:
-it generates the removed central legacy files from a frozen snapshot.
-Keep the `aria-piano-v5.26.html` archive unchanged. Built catalogue parity is checked
-against that archive before accepting migrations, but legitimate future repertoire
-changes must update the expected parity test explicitly rather than silently rewriting
-the archive. The GitHub Actions checks include full regressions and responsive browser tests.
+## Add, edit, remove
+
+To add content, create one new lesson or song folder with all required local files and a unique stable ID plus ordering attribute.
+
+To edit content, modify only that package.
+
+To remove content, delete the package folder. Do not reuse IDs that may already exist in saved user progress.
