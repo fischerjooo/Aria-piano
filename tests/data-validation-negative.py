@@ -20,7 +20,7 @@ class NegativeCatalog(unittest.TestCase):
         if relative.startswith('lessons/lesson-1/'):
             target = catalogue.load_packages(self.base)['locations']['lesson-1'] / relative.split('/', 2)[2]
         elif relative.startswith('songs/repertoire-hot-cross-buns/'):
-            target = catalogue.load_packages(self.base)[3]['repertoire-hot-cross-buns'] / relative.split('/', 2)[2]
+            target = catalogue.load_packages(self.base)['locations']['repertoire-hot-cross-buns'] / relative.split('/', 2)[2]
         else:
             target = self.base / relative
         before = target.read_bytes()
@@ -46,7 +46,7 @@ class NegativeCatalog(unittest.TestCase):
             self.modify('lessons/lesson-1/lesson.yaml', lambda p: p.write_text('id: lesson-1\ndifficulty: ' + score + '\n'))
 
     def test_lesson_difficulty_collision(self):
-        locations = catalogue.load_packages(self.base)[3]
+        locations = catalogue.load_packages(self.base)['locations']
         first = locations['lesson-1'] / 'lesson.yaml'
         second = locations['lesson-2'] / 'lesson.yaml'
         first_config, second_config = catalogue.read_yaml(first), catalogue.read_yaml(second)
