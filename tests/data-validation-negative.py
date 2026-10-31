@@ -45,6 +45,51 @@ class NegativeCatalog(unittest.TestCase):
         for score in ['0', '101', 'true']:
             self.modify('lessons/lesson-1/lesson.yaml', lambda p: p.write_text('id: lesson-1\ndifficulty: ' + score + '\n'))
 
+    def test_lesson_difficulty_collision(self):
+        locations = catalogue.load_packages(self.base)[3]
+        first = locations['lesson-1'] / 'lesson.yaml'
+        second = locations['lesson-2'] / 'lesson.yaml'
+        first_config, second_config = catalogue.read_yaml(first), catalogue.read_yaml(second)
+        before = second.read_bytes()
+        try:
+            second.write_text(f"id: {second_config['id']}\ndifficulty: {first_config['difficulty']}\n")
+            with self.assertRaisesRegex(ValueError, 'Lesson difficulty collision'):
+                catalogue.load_packages(self.base)
+        finally:
+            second.write_bytes(before)
+
+    def test_song_library_order_collision(self):
+        song_folders = sorted((self.base / 'songs').iterdir())
+        first, second = song_folders[:2]
+        a, b = catalogue.read_yaml(first / 'song.yaml'), catalogue.read_yaml(second / 'song.yaml')
+        before = (second / 'song.yaml').read_bytes()
+        try:
+            b['libraryOrder'] = a['libraryOrder']
+            (second / 'song.yaml').write_text(__import__('yaml').safe_dump(b, sort_keys=False))
+            with self.assertRaisesRegex(ValueError, 'Song libraryOrder collision'):
+                catalogue.load_packages(self.base)
+        finally:
+            (second / 'song.yaml').write_bytes(before)
+
+    def test_song_game_order_collision(self):
+        game = []
+        for folder in sorted((self.base / 'songs').iterdir()):
+            config = catalogue.read_yaml(folder / 'song.yaml')
+            if 'gameOrder' in config:
+                game.append((folder, config))
+            if len(game) == 2:
+                break
+        self.assertEqual(len(game), 2)
+        (first, a), (second, b) = game
+        before = (second / 'song.yaml').read_bytes()
+        try:
+            b['gameOrder'] = a['gameOrder']
+            (second / 'song.yaml').write_text(__import__('yaml').safe_dump(b, sort_keys=False))
+            with self.assertRaisesRegex(ValueError, 'Song gameOrder collision'):
+                catalogue.load_packages(self.base)
+        finally:
+            (second / 'song.yaml').write_bytes(before)
+
     def test_missing_song_config_field(self):
         self.modify('songs/repertoire-hot-cross-buns/song.yaml',
                     lambda p: p.write_text('id: repertoire-hot-cross-buns\n'))
