@@ -106,6 +106,7 @@ def load_packages(directory):
         raise ValueError('Expected data/lessons and data/songs package directories')
     descriptions, notations, locations = {}, {}, {}
     courses, songs = [], []
+    lesson_difficulties, song_orders, game_orders = {}, {}, {}
 
     def collect(package, level=None, expected_id=None, kind=None):
         metadata_file, notation_file = package / 'metadata.yaml', package / 'notation.json'
@@ -139,6 +140,10 @@ def load_packages(directory):
             raise ValueError('Lesson config needs id and difficulty: ' + package.name)
         if not isinstance(config['id'], str) or type(config['difficulty']) is not int or not 1 <= config['difficulty'] <= 100:
             raise ValueError('Lesson id must be text and difficulty must be 1..100: ' + package.name)
+        difficulty = config['difficulty']
+        if difficulty in lesson_difficulties:
+            raise ValueError(f'Lesson difficulty collision {difficulty}: {lesson_difficulties[difficulty]} and {package.name}')
+        lesson_difficulties[difficulty] = package.name
         ids = [collect(package, level=0, expected_id=config['id'], kind='lesson')]
         for level in (1, 2):
             ids.append(collect(package / 'levels' / str(level + 1), level=level, kind='lesson'))
@@ -162,8 +167,16 @@ def load_packages(directory):
         order = config['libraryOrder']
         if type(order) is not int or order < 1:
             raise ValueError('Invalid song libraryOrder: ' + package.name)
+        if order in song_orders:
+            raise ValueError(f'Song libraryOrder collision {order}: {song_orders[order]} and {package.name}')
+        song_orders[order] = package.name
         if 'gameOrder' in config and (type(config['gameOrder']) is not int or config['gameOrder'] < 1):
             raise ValueError('Invalid song gameOrder: ' + package.name)
+        if 'gameOrder' in config:
+            game_order = config['gameOrder']
+            if game_order in game_orders:
+                raise ValueError(f'Song gameOrder collision {game_order}: {game_orders[game_order]} and {package.name}')
+            game_orders[game_order] = package.name
         record_id = collect(package, expected_id=config['id'], kind='melody')
         songs.append((order, record_id, config.get('gameOrder')))
     songs.sort(key=lambda entry: (entry[0], entry[1]))
