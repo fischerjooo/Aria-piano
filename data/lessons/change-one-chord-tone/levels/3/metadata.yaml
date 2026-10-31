@@ -1,0 +1,34 @@
+slug: major-minor-third
+title: Change one chord tone · Original application
+curriculumUnit: harmony-and-transposition
+concept: A minor and A major share A and E. Changing their middle note changes chord quality.
+learningSteps:
+- Play A–C–E and name C as the third.
+- In the second group, replace C with C sharp while keeping A and E.
+- Listen before deciding how the two colours feel; major and minor do not require a single emotion.
+selfCheck: Can you identify which one note changed?
+transferTask: ''
+accidentals: true
+id: bpb-major-minor-third-level-3
+nav: Change one chord tone
+sub: An original phrasing variation using this lesson’s notes and movements.
+focus: Apply the skill while reading a new rhythmic shape.
+time: 6–10 min
+hand: Right hand
+normalBpm: 60
+application: true
+kind: lesson
+rhythmReady: true
+rhythmLabel: Original study · mapped rhythm
+courseIndex: 35
+level: 2
+levelName: Original application
+instruction: Play this longer original application with the live score. Keep the familiar route and fingerings,
+  and follow the changed note lengths. Repeat slowly until the phrase connects comfortably.
+fingering: 'Right hand: thumb 1 to little finger 5. Follow the printed numbers. Fingers are not fixed to particular
+  keys; let the hand travel with the forearm at position changes.'
+tip: Preview the longer notes first. Then shape the phrase by ear; expression and physical ease are self-assessed.
+source: https://openbooks.library.baylor.edu/pianobasics/
+curriculumCredit: Original Aria exercise and explanation informed by Michael Clark, Baylor Piano Basics. CC
+  BY-NC-SA 4.0 educational adaptation; no source score reproduced.
+original: true

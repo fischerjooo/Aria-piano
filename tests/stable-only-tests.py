@@ -12,6 +12,8 @@ for relative in (
 build=(ROOT/'scripts/build.py').read_text()
 for reference in ('v6/build.py','export_engine_scores.py','aria-piano-v6.0-candidate.html','experimental/v6.html'):
     assert reference not in build, reference
+for removed in ['data/stable/descriptions.yaml', 'data/stable/notation.json', 'data/stable/bindings.json']:
+    assert not (ROOT / removed).exists(), 'Central legacy catalogue reappeared: ' + removed
 assert (ROOT/'index.html').read_bytes() == (ROOT/'dist/index.html').read_bytes()
 site=ROOT/'_site'
 assert (site/'index.html').read_bytes()==(ROOT/'index.html').read_bytes()

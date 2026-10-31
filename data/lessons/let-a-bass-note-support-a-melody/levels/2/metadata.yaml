@@ -1,0 +1,34 @@
+slug: melody-and-bass
+title: Let a bass note support a melody · Connect
+curriculumUnit: harmony-and-transposition
+concept: 'Two hands can have different jobs: the melody carries the phrase while the bass marks its foundation.'
+learningSteps:
+- Practise the right-hand melody alone.
+- Choose Both hands with MIDI or touch input. At each step, sound the melody note and bass note together.
+- Play the highlighted notes slowly with the suggested fingers, then repeat the connected phrase.
+selfCheck: Can the right-hand line remain easy to hear over the bass?
+transferTask: ''
+hand: Both hands
+id: bpb-melody-and-bass-level-2
+nav: Let a bass note support a melody
+sub: Connect two complete phrases without losing the pulse.
+focus: Connect the learned movement into a longer, even phrase.
+time: 6–10 min
+normalBpm: 60
+application: false
+kind: lesson
+rhythmReady: true
+rhythmLabel: Original study · mapped rhythm
+courseIndex: 42
+level: 1
+levelName: Connect & refine
+instruction: Practise the complete pattern twice. Between phrases, release the old position and prepare the
+  next first note while maintaining your count. Play the highlighted notes slowly with the suggested fingers,
+  then repeat the connected phrase.
+fingering: Practise each hand separately first. Right and left finger numbers are printed on their own staves.
+  Bring the two indicated notes together only after each hand is comfortable.
+tip: Keep the second phrase as relaxed and deliberate as the first. Can the right-hand line remain easy to hear
+  over the bass?
+source: https://openbooks.library.baylor.edu/pianobasics/
+curriculumCredit: Original Aria exercise and explanation informed by Michael Clark, Baylor Piano Basics. CC
+  BY-NC-SA 4.0 educational adaptation; no source score reproduced.

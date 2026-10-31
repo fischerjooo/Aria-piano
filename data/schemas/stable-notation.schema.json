@@ -16,7 +16,7 @@
         "properties": {
           "midi": {
             "type": "string",
-            "pattern": "^midi/[a-z0-9-]+\\.mid$"
+            "const": "performance.mid"
           },
           "stepCount": {
             "type": "integer",

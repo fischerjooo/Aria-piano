@@ -1,0 +1,31 @@
+id: lesson-32-level-3
+title: 'Music study: Amazing Grace'
+nav: Three beats in a note
+sub: Level 3 · Amazing Grace · longer application study
+composer: Traditional
+difficulty: Easy
+kind: lesson
+required: 32
+hand: Right hand
+time: 8–12 min
+instruction: 'A short, transposed study of the recognizable opening. Rhythm is simplified to a steady pulse;
+  this is not the complete original score. Both hands play the melody one octave apart. First learn each hand,
+  then select Both. Bluetooth MIDI or the on-screen keys checks both pitches; use one hand at a time with a
+  microphone. This arrangement has mapped note values, note-start spacing and detached/connected touch. Follow
+  the example rhythm; it is an arranged study, not a claim of an original performance tempo. Apply this lesson:
+  A dotted half note lasts three beats. Repeated phrases let you settle the skill. Rhythm and accompaniment
+  are simplified; variations are labelled.'
+fingering: Use the suggested finger numbers. Learn one phrase, then join it to the next. Adapt position shifts
+  to your hand with a teacher.
+tip: Count 1–2–3 through each hollow dotted note. Clap the pattern before playing; timing is not scored.
+accidentals: true
+source: https://www.mutopiaproject.org/
+arrangement: Simplified pitch study · original rhythm not reproduced
+normalBpm: 84
+category: classical
+rhythmReady: true
+rhythmLabel: Lesson rhythm variation
+articulation: connected
+level: 2
+courseIndex: 58
+application: true

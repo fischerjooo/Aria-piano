@@ -1,0 +1,33 @@
+slug: pulse-and-space
+title: Keep the pulse through silence · Original application
+curriculumUnit: body-and-reading
+concept: Silence takes musical time. Releasing a note does not stop the pulse.
+learningSteps:
+- Count a steady one-two-three-four before starting.
+- After the marked rests, wait for the next onset instead of filling the space with another note.
+- Play the highlighted notes slowly with the suggested fingers, then repeat the connected phrase.
+selfCheck: Do the gaps have a deliberate length rather than an uncertain pause?
+transferTask: ''
+id: bpb-pulse-and-space-level-3
+nav: Keep the pulse through silence
+sub: An original phrasing variation using this lesson’s notes and movements.
+focus: Apply the skill while reading a new rhythmic shape.
+time: 6–10 min
+hand: Right hand
+normalBpm: 60
+application: true
+kind: lesson
+rhythmReady: true
+rhythmLabel: Original study · mapped rhythm
+courseIndex: 13
+level: 2
+levelName: Original application
+instruction: Play this longer original application with the live score. Keep the familiar route and fingerings,
+  and follow the changed note lengths. Repeat slowly until the phrase connects comfortably.
+fingering: 'Right hand: thumb 1 to little finger 5. Follow the printed numbers. Fingers are not fixed to particular
+  keys; let the hand travel with the forearm at position changes.'
+tip: Preview the longer notes first. Then shape the phrase by ear; expression and physical ease are self-assessed.
+source: https://openbooks.library.baylor.edu/pianobasics/
+curriculumCredit: Original Aria exercise and explanation informed by Michael Clark, Baylor Piano Basics. CC
+  BY-NC-SA 4.0 educational adaptation; no source score reproduced.
+original: true
