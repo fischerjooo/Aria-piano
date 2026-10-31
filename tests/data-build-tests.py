@@ -50,17 +50,21 @@ with tempfile.TemporaryDirectory(prefix='aria-data-test-') as temporary:
     assert target['f'] == old['f'], 'MIDI import cannot invent fingering'
     assert target['beats'] == old['beats'], 'MIDI import cannot guess written note length'
 
-# A lesson's own difficulty number must control its ordering, not a central binding list.
+# A lesson's own unique 1..100 difficulty controls ordering, not a central binding list.
 with tempfile.TemporaryDirectory(prefix='aria-difficulty-test-') as temporary:
     directory = Path(temporary) / 'data'
     shutil.copytree(DATA, directory)
-    first = load_packages(directory)[3]['lesson-1'] / 'lesson.yaml'
-    second = load_packages(directory)[3]['lesson-2'] / 'lesson.yaml'
-    first.write_text('id: lesson-1\ndifficulty: 99\n')
-    second.write_text('id: lesson-2\ndifficulty: 1\n')
+    locations = load_packages(directory)[3]
+    first = locations['lesson-1'] / 'lesson.yaml'
+    second = locations['lesson-2'] / 'lesson.yaml'
+    first_config, second_config = read_yaml(first), read_yaml(second)
+    before_ids = [row[0]['id'] for row in compile_stable(directory)['lessonLevels']]
+    first.write_text(f"id: lesson-1\ndifficulty: {second_config['difficulty']}\n")
+    second.write_text(f"id: lesson-2\ndifficulty: {first_config['difficulty']}\n")
     reordered = compile_stable(directory)
-    assert reordered['lessonLevels'][0][0]['id'] == 'lesson-2'
-    assert reordered['lessonLevels'][0][0]['courseIndex'] == 0
+    after_ids = [row[0]['id'] for row in reordered['lessonLevels']]
+    assert (before_ids.index('lesson-1') < before_ids.index('lesson-2')) != (after_ids.index('lesson-1') < after_ids.index('lesson-2'))
+    assert reordered['lessonLevels'][after_ids.index('lesson-1')][0]['courseIndex'] == after_ids.index('lesson-1')
     assert sorted(l['id'] for l in reordered['melodyData']) == sorted(l['id'] for l in catalogue['melodyData'])
 
 # Renaming readable package folders must never change course/library ordering.
