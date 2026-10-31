@@ -1,44 +1,66 @@
-"""Exercise authoring validation against corrupted copies of real catalog data."""
+"""Adversarial package validation across self-contained study folders."""
 from pathlib import Path
-import copy, json, shutil, sys, tempfile, unittest
+import json, shutil, sys, tempfile, unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from lib import catalogue
+
 
 class NegativeCatalog(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
-        cls.base = Path(cls.tmp.name) / 'stable'
-        shutil.copytree(ROOT / 'data/stable', cls.base)
-        cls.original = {name: (cls.base / name).read_bytes() for name in ('notation.json','bindings.json','descriptions.yaml')}
+        cls.base = Path(cls.tmp.name) / 'data'
+        shutil.copytree(catalogue.DATA, cls.base)
     @classmethod
-    def tearDownClass(cls): cls.tmp.cleanup()
-    def tearDown(self):
-        for name, content in self.original.items(): (self.base / name).write_bytes(content)
-    def reject_json(self, name, mutate):
-        doc = json.loads(self.original[name]); mutate(doc)
-        (self.base / name).write_text(json.dumps(doc))
-        with self.assertRaises((ValueError, FileNotFoundError)): catalogue.compile_stable(self.base)
-    def test_duplicate_yaml_key(self):
-        with (self.base / 'descriptions.yaml').open('ab') as f: f.write(b'\nschemaVersion: 1\n')
-        with self.assertRaises(ValueError): catalogue.compile_stable(self.base)
-    def test_unknown_and_missing_fields(self):
-        self.reject_json('bindings.json', lambda d: d.update(unexpected=True))
-        self.tearDown()
-        self.reject_json('bindings.json', lambda d: d.pop('courseLength'))
-    def test_bad_reference(self):
-        self.reject_json('bindings.json', lambda d: d['lessonIds'].__setitem__(0, 'nonexistent'))
-    def test_bad_midi_path(self):
-        self.reject_json('notation.json', lambda d: d['records']['lesson-1'].__setitem__('midi', '../outside.mid'))
-    def test_invalid_notation(self):
-        self.reject_json('notation.json', lambda d: d['records']['lesson-1']['notation']['f'].__setitem__(0, 6))
-    def test_invalid_duration_or_onset(self):
-        self.reject_json('notation.json', lambda d: d['records']['lesson-1']['timing'].__setitem__('spacingEndTick', -1))
-    def test_bad_midi_bytes(self):
-        target = self.base / 'midi/lesson-1.mid'; original = target.read_bytes()
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def modify(self, relative, update):
+        target = self.base / relative
+        before = target.read_bytes()
         try:
-            target.write_bytes(original + b'bad')
-            with self.assertRaises(ValueError): catalogue.compile_stable(self.base)
-        finally: target.write_bytes(original)
-if __name__ == '__main__': unittest.main()
+            update(target)
+            with self.assertRaises((ValueError, FileNotFoundError, KeyError)):
+                catalogue.compile_stable(self.base)
+        finally:
+            target.write_bytes(before)
+
+    def corrupt_json(self, relative, mutate):
+        def change(path):
+            value = json.loads(path.read_text())
+            mutate(value)
+            path.write_text(json.dumps(value))
+        self.modify(relative, change)
+
+    def test_duplicate_yaml_key(self):
+        self.modify('lessons/lesson-1/metadata.yaml', lambda p: p.write_text(p.read_text() + '\nid: duplicated\n'))
+
+    def test_bad_difficulty(self):
+        for score in ['0', '101', 'true']:
+            self.modify('lessons/lesson-1/lesson.yaml', lambda p: p.write_text('id: lesson-1\ndifficulty: ' + score + '\n'))
+
+    def test_missing_song_config_field(self):
+        self.modify('songs/repertoire-hot-cross-buns/song.yaml',
+                    lambda p: p.write_text('id: repertoire-hot-cross-buns\n'))
+
+    def test_bad_package_identity(self):
+        self.modify('lessons/lesson-1/lesson.yaml',
+                    lambda p: p.write_text('id: nonexistent\ndifficulty: 1\n'))
+
+    def test_bad_midi_path(self):
+        self.corrupt_json('lessons/lesson-1/notation.json', lambda d: d.__setitem__('midi', '../outside.mid'))
+
+    def test_invalid_notation(self):
+        self.corrupt_json('lessons/lesson-1/notation.json', lambda d: d['notation']['f'].__setitem__(0, 6))
+
+    def test_invalid_duration(self):
+        self.corrupt_json('lessons/lesson-1/notation.json', lambda d: d['timing'].__setitem__('spacingEndTick', -1))
+
+    def test_bad_midi_bytes(self):
+        self.modify('lessons/lesson-1/performance.mid',
+                    lambda p: p.write_bytes(p.read_bytes() + b'bad'))
+
+
+if __name__ == '__main__':
+    unittest.main()

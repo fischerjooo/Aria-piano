@@ -1,6 +1,6 @@
 # Aria development continuity
 
-Production is the stable `index.html` and `dist/index.html` assembled from `src/app/`, `data/stable/`, and `version.json`. Preserve the established UI, 68 lessons with three existing levels, 142 song records, progress identifiers and all touch, MIDI, Bluetooth MIDI and microphone controls. The versioned `aria-piano-v5.26.html` snapshot and `archive/` are historical evidence and should not be altered.
+Production is the stable `index.html` and `dist/index.html` assembled from `src/app/`, discovered packages in `data/lessons/` and `data/songs/`, and `version.json`. Preserve the established UI, 68 lessons with three existing levels, 142 song records, progress identifiers and all touch, MIDI, Bluetooth MIDI and microphone controls. The versioned `aria-piano-v5.26.html` snapshot and `archive/` are historical evidence and should not be altered.
 
 There is only one active player and one catalog model. Do not recreate or publish a second experimental score engine, separate lesson browser or unrelated playable song database. The formerly separate prototype, its staging files, score imports and standalone build/tests have been removed at the owner's request. New changes should improve the released player and be reviewed before merging.
 
@@ -14,7 +14,7 @@ python scripts/build.py
 python scripts/test.py
 ```
 
-The builder regenerates the stable `index.html` and `dist/index.html`, PNG brand icons and a production-only `_site/` tree. `_site/` is disposable and ignored by Git. Build does not change `data/stable/` and does not stage independent players or unpublished score editions. Retain the exact MIDI/YAML/JSON migration boundaries in `data/README.md`. Do not use the one-time `scripts/migrate_stable_data.py` to perform normal edits.
+The builder regenerates the stable `index.html` and `dist/index.html`, PNG brand icons and a production-only `_site/` tree. `_site/` is disposable and ignored by Git. Build does not change authored item packages in `data/lessons/` or `data/songs/` and does not stage independent players or unpublished score editions. Retain the exact MIDI/YAML/JSON boundaries and difficulty-based dynamic package discovery in `data/README.md`. Do not use the one-time `scripts/migrate_stable_data.py` to perform normal edits.
 
 `scripts/test.py` runs data, version, PWA/BLE and the 24 maintained stable regression tests. `python scripts/test_snapshot.py` runs those same 24 portable stable tests; frozen originals are kept separately under `archive/tests-v5.26-original/`. CI also runs responsive Playwright screenshot and functional browser checks. Automated tests do not certify physical hardware or screen quality on actual devices.
 
