@@ -124,7 +124,9 @@ def load_packages(directory):
         if kind and description.get('kind') != kind:
             raise ValueError('Unexpected package kind: ' + record_id)
         if kind == 'lesson':
-            required_text = ('title', 'nav', 'sub', 'time', 'hand', 'instruction', 'fingering', 'tip')
+            required_text = ('title', 'sub', 'time', 'hand', 'instruction', 'fingering', 'tip')
+            if level == 0:
+                required_text += ('nav',)
             missing = [key for key in required_text if not isinstance(description.get(key), str) or not description[key].strip()]
             if missing:
                 raise ValueError(record_id + ': missing required lesson display fields: ' + ', '.join(missing))
