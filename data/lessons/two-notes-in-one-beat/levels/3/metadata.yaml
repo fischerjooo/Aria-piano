@@ -1,0 +1,31 @@
+id: lesson-13-level-3
+title: 'Music study: Frère Jacques'
+nav: Eighth notes & dots
+sub: Level 3 · Frère Jacques · longer application study
+composer: Traditional
+difficulty: Beginner
+kind: lesson
+required: 13
+hand: Right hand
+time: 8–12 min
+instruction: 'A short, transposed study of the recognizable opening. Rhythm is simplified to a steady pulse;
+  this is not the complete original score. Listen first, read a small group, then join the groups. This arrangement
+  has mapped note values, note-start spacing and detached/connected touch. Follow the example rhythm; it is
+  an arranged study, not a claim of an original performance tempo. Apply this lesson: Read flags and dotted
+  rhythms. Repeated phrases let you settle the skill. Rhythm and accompaniment are simplified; variations are
+  labelled.'
+fingering: Use the suggested finger numbers. Learn one phrase, then join it to the next. Adapt position shifts
+  to your hand with a teacher.
+tip: Keep the underlying pulse steady. The half-beat notes fit between clicks; they do not make the beat itself
+  faster.
+accidentals: true
+source: https://www.mutopiaproject.org/
+arrangement: Simplified pitch study · original rhythm not reproduced
+normalBpm: 100
+category: classical
+rhythmReady: true
+rhythmLabel: Lesson rhythm variation
+articulation: connected
+level: 2
+courseIndex: 14
+application: true

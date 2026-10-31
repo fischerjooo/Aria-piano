@@ -1,4 +1,4 @@
-"""Run all maintained portable stable regressions; preserve frozen originals separately."""
+"""Run all maintained portable application regressions."""
 from pathlib import Path
 import subprocess
 import sys
@@ -9,5 +9,5 @@ for test in sorted((ROOT / 'tests').glob('*-tests.cjs')):
     if result.returncode:
         failed.append(test.name)
 total = len(list((ROOT / 'tests').glob('*-tests.cjs')))
-print(f'{total-len(failed)}/{total} portable stable test files passed; failing files: {", ".join(failed) or "none"}')
+print(f'{total-len(failed)}/{total} portable test files passed; failing files: {", ".join(failed) or "none"}')
 sys.exit(bool(failed))

@@ -1,4 +1,4 @@
-"""Inspect, validate, export and import canonical stable MIDI, entirely offline."""
+"""Inspect, validate, export and import folder-based lesson and song packages."""
 import argparse
 from copy import deepcopy
 import json
@@ -7,7 +7,7 @@ import shutil
 import tempfile
 
 import yaml
-from lib.catalogue import DATA, PPQ, compile_stable, read_json, read_yaml, safe_path
+from lib.catalogue import DATA, PPQ, build_catalogue, load_packages, read_json, read_yaml
 from lib.midi import decode, encode
 
 
@@ -16,56 +16,59 @@ def write_json(path, value):
 
 
 def import_midi(directory, record_id, midi_bytes, written_values=None, apply=False):
-    """Import a reviewed performance without inferring notation or fingering.
+    """Edit only the selected package, keeping MIDI, notation and metadata together.
 
-    Stable v5 steps require one primary event, optionally one simultaneous second
-    event. More complex polyphony is unsupported by this stable importer.
+    A reviewed import may change note pitches and their onset/hold timing.
+    Written beat values and fingering are never guessed from MIDI contact.
     """
-    compile_stable(directory)
-    descriptions = read_yaml(directory / 'descriptions.yaml')
-    notation = read_json(directory / 'notation.json')
-    if record_id not in notation['records']:
-        raise ValueError('Unknown study ID')
-    item = notation['records'][record_id]
-    relative = item['midi']
-    existing = safe_path(directory, relative).read_bytes()
+    directory = Path(directory)
+    build_catalogue(directory)
+    locations = load_packages(directory)['locations']
+    if record_id not in locations:
+        raise ValueError('Unknown study ID: ' + record_id)
+    folder = locations[record_id]
+    notation_file = folder / 'notation.json'
+    metadata_file = folder / 'metadata.yaml'
+    midi_file = folder / 'performance.mid'
+    item = read_json(notation_file)
+    description = read_yaml(metadata_file)
+    existing = midi_file.read_bytes()
     if midi_bytes == existing and written_values is None:
         return False
     midi = decode(midi_bytes)
     if midi['ticksPerQuarter'] != PPQ or len(midi['tempos']) != 1 or midi['tempos'][0]['tick'] != 0:
-        raise ValueError('Import requires PPQ 9600 and one initial tempo; tempo maps are unsupported by stable v5')
+        raise ValueError('Import requires PPQ 9600 and one initial tempo')
     primary = [event for event in midi['events'] if event['channel'] == 0]
     secondary = [event for event in midi['events'] if event['channel'] == 1]
     if len(primary) != item['stepCount'] or len(secondary) != (len(primary) if item['secondaryLane'] else 0):
-        raise ValueError('Import changes step count or lane count: author explicit notation/fingering first')
+        raise ValueError('Import changes step count or lane count; update notation first')
     if len(primary) + len(secondary) != len(midi['events']):
-        raise ValueError('Import supports primary channel 0 and secondary channel 1 only')
+        raise ValueError('Import supports channel 0 and simultaneous channel 1 only')
     if any(event['velocity'] != 80 for event in midi['events']):
-        raise ValueError('Legacy studies use velocity 80; varying performance velocities require another engine')
+        raise ValueError('Performance velocities other than 80 require explicit review')
     for a, b in zip(primary, secondary):
         if (a['tick'], a['duration']) != (b['tick'], b['duration']):
-            raise ValueError('Stable v5 cannot express staggered or unequal-duration secondary notes')
-    # Preserve the imported end-of-track as the final written onset spacing.
-    # The MIDI must include the final release and any intended trailing silence.
+            raise ValueError('Staggered or unequal-duration secondary notes are unsupported')
     item['timing'] = dict(spacingEndTick=midi['endTick'], stepsPresent=True,
                           holdsPresent=True, stepCorrections={}, holdCorrections={})
     if written_values is not None:
         item['notation']['beats'] = written_values
-    old_bpm = descriptions['records'][record_id].get('normalBpm', 60)
     tempo = midi['tempos'][0]['microsecondsPerQuarter']
+    old_bpm = description.get('normalBpm', 60)
     if tempo != round(60000000 / old_bpm):
-        descriptions['records'][record_id]['normalBpm'] = round(60000000 / tempo, 6)
-    # Validate staged files completely before applying any authoring changes.
-    with tempfile.TemporaryDirectory(prefix='aria-midi-import-') as temporary:
-        staging = Path(temporary) / 'stable'
-        shutil.copytree(directory, staging)
-        safe_path(staging, relative).write_bytes(midi_bytes)
-        write_json(staging / 'notation.json', notation)
-        (staging / 'descriptions.yaml').write_text(yaml.safe_dump(descriptions, sort_keys=False, allow_unicode=True, width=110))
-        compile_stable(staging)
+        description['normalBpm'] = round(60000000 / tempo, 6)
+
+    with tempfile.TemporaryDirectory(prefix='aria-package-import-') as temporary:
+        staged = Path(temporary) / 'data'
+        shutil.copytree(directory, staged)
+        copy = staged / folder.relative_to(directory)
+        (copy / 'performance.mid').write_bytes(midi_bytes)
+        write_json(copy / 'notation.json', item)
+        (copy / 'metadata.yaml').write_text(yaml.safe_dump(description, sort_keys=False, allow_unicode=True, width=110))
+        build_catalogue(staged)
         if apply:
-            for name in (relative, 'notation.json', 'descriptions.yaml'):
-                shutil.copyfile(safe_path(staging, name), safe_path(directory, name))
+            for name in ('performance.mid', 'notation.json', 'metadata.yaml'):
+                shutil.copyfile(copy / name, folder / name)
     return True
 
 
@@ -85,20 +88,20 @@ def main():
     importer.add_argument('--apply', action='store_true', help='Write after validating the complete staged catalogue (default: validate only)')
     args = parser.parse_args()
     if args.command == 'validate':
-        stable = compile_stable()
-        print(f"PASS {len(stable['lessonLevels']) * 3} course levels, {len(stable['melodyData'])} melodies")
+        catalogue = build_catalogue()
+        print(f"PASS {len(catalogue['lessonLevels']) * 3} course levels, {len(catalogue['melodyData'])} melodies")
     elif args.command == 'inspect-midi':
         print(json.dumps(decode(args.file.read_bytes()), indent=2))
     elif args.command == 'export-midi':
-        compile_stable()
-        records = read_json(DATA / 'stable/notation.json')['records']
-        if args.id not in records:
+        build_catalogue()
+        locations = load_packages(DATA)['locations']
+        if args.id not in locations:
             raise ValueError('Unknown study ID')
-        args.output.write_bytes(safe_path(DATA / 'stable', records[args.id]['midi']).read_bytes())
+        args.output.write_bytes((locations[args.id] / 'performance.mid').read_bytes())
         print(args.output)
     else:
         written = read_json(args.written_values) if args.written_values else None
-        changed = import_midi(DATA / 'stable', args.id, args.file.read_bytes(), written, args.apply)
+        changed = import_midi(DATA, args.id, args.file.read_bytes(), written, args.apply)
         print('Imported and validated' if args.apply and changed else 'Validated; no files written')
 
 

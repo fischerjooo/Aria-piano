@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-from lib.catalogue import compile_stable, runtime_js
+from lib.catalogue import build_catalogue, runtime_js
 from version import read_version, display_version
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,7 +12,7 @@ def run(*args):
     subprocess.run([sys.executable, *map(str, args)], cwd=ROOT, check=True)
 
 run(ROOT / 'scripts/branding_icons.py')
-catalogue = compile_stable()
+catalogue = build_catalogue()
 app = ROOT / 'src/app'
 script = (app / 'runtime.js').read_text().replace('/*__CATALOGUE__*/', runtime_js(catalogue))
 html = (app / 'template.html').read_text().replace('/*__STYLES__*/', (app / 'styles.css').read_text()).replace('/*__RUNTIME__*/', script).replace('/*__PWA__*/', (app / 'pwa.js').read_text()).replace('__ARIA_VERSION__', display_version(read_version()))
@@ -25,8 +25,7 @@ site = ROOT / '_site'
 if site.exists():
     shutil.rmtree(site)
 site.mkdir()
-for name in ['index.html', 'aria-piano-v5.26.html']:
-    shutil.copyfile(ROOT / name, site / name)
+shutil.copyfile(ROOT / 'index.html', site / 'index.html')
 # Install assets are deployed beside the stable GitHub Pages entrypoint.
 shutil.copyfile(ROOT / 'manifest.webmanifest', site / 'manifest.webmanifest')
 shutil.copyfile(ROOT / 'sw.js', site / 'sw.js')
