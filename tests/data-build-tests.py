@@ -62,4 +62,19 @@ with tempfile.TemporaryDirectory(prefix='aria-difficulty-test-') as temporary:
     assert reordered['lessonLevels'][0][0]['id'] == 'lesson-2'
     assert reordered['lessonLevels'][0][0]['courseIndex'] == 0
     assert sorted(l['id'] for l in reordered['melodyData']) == sorted(l['id'] for l in catalogue['melodyData'])
-print('PASS 346 distributed packages, source/archive parity, per-song MIDI, imports and 1-100 difficulty ordering')
+
+# Renaming readable package folders must never change course/library ordering.
+with tempfile.TemporaryDirectory(prefix='aria-folder-rename-test-') as temporary:
+    directory = Path(temporary) / 'data'
+    shutil.copytree(DATA, directory)
+    before = compile_stable(directory)
+    locations = load_packages(directory)[3]
+    lesson_path = locations['lesson-1']
+    song_path = locations['repertoire-mary-had-a-little-lamb']
+    lesson_path.rename(lesson_path.with_name('zzz-readable-lesson-folder'))
+    song_path.rename(song_path.with_name('zzz-readable-song-folder'))
+    after = compile_stable(directory)
+    assert [[item['id'] for item in row] for row in after['lessonLevels']] == [[item['id'] for item in row] for row in before['lessonLevels']]
+    assert [item['id'] for item in after['melodyData']] == [item['id'] for item in before['melodyData']]
+
+print('PASS 346 distributed packages, source/archive parity, per-song MIDI, imports and 1-100 difficulty ordering and folder-rename stability')
