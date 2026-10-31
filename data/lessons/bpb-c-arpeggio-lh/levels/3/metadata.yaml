@@ -1,0 +1,33 @@
+slug: c-arpeggio-lh
+title: A travelling bass arpeggio · Original application
+curriculumUnit: scales-and-movement
+concept: Left-hand arpeggios need preparation and sideways movement, just as right-hand ones do.
+learningSteps:
+- Start with left finger 5 on C3 and find E3 with 3.
+- Move through G3 with 2 toward C4 with 1; allow the elbow to follow the direction.
+- Reverse the route slowly and arrive back on C3 without dropping the wrist.
+selfCheck: Is the upper C a prepared destination rather than a reach?
+transferTask: ''
+hand: Left hand
+id: bpb-c-arpeggio-lh-level-3
+nav: A travelling bass arpeggio
+sub: An original phrasing variation using this lesson’s notes and movements.
+focus: Apply the skill while reading a new rhythmic shape.
+time: 6–10 min
+normalBpm: 60
+application: true
+kind: lesson
+rhythmReady: true
+rhythmLabel: Original study · mapped rhythm
+courseIndex: 28
+level: 2
+levelName: Original application
+instruction: Play this longer original application with the live score. Keep the familiar route and fingerings,
+  and follow the changed note lengths. Repeat slowly until the phrase connects comfortably.
+fingering: 'Left hand: thumb 1 to little finger 5. Follow the printed numbers; they describe this exercise,
+  not permanent key assignments. Move the hand and forearm together for a new position.'
+tip: Preview the longer notes first. Then shape the phrase by ear; expression and physical ease are self-assessed.
+source: https://openbooks.library.baylor.edu/pianobasics/
+curriculumCredit: Original Aria exercise and explanation informed by Michael Clark, Baylor Piano Basics. CC
+  BY-NC-SA 4.0 educational adaptation; no source score reproduced.
+original: true

@@ -1,0 +1,62 @@
+{
+  "midi": "performance.mid",
+  "stepCount": 22,
+  "secondaryLane": false,
+  "notation": {
+    "f": [
+      4,
+      3,
+      3,
+      3,
+      2,
+      1,
+      2,
+      3,
+      1,
+      2,
+      3,
+      5,
+      4,
+      3,
+      2,
+      1,
+      2,
+      1,
+      2,
+      3,
+      2,
+      1
+    ],
+    "beats": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0.5,
+      0.5,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2
+    ]
+  },
+  "timing": {
+    "spacingEndTick": 220800,
+    "stepsPresent": true,
+    "holdsPresent": true,
+    "stepCorrections": {},
+    "holdCorrections": {}
+  }
+}

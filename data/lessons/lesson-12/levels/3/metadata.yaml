@@ -1,0 +1,31 @@
+id: lesson-12-level-3
+title: 'Music study: Au Clair de la Lune'
+nav: Note values
+sub: Level 3 · Au Clair de la Lune · longer application study
+composer: Traditional
+difficulty: Beginner
+kind: lesson
+required: 12
+hand: Right hand
+time: 8–12 min
+instruction: 'A short, transposed study of the recognizable opening. Rhythm is simplified to a steady pulse;
+  this is not the complete original score. Listen first, read a small group, then join the groups. This arrangement
+  has mapped note values, note-start spacing and detached/connected touch. Follow the example rhythm; it is
+  an arranged study, not a claim of an original performance tempo. Apply this lesson: Recognize quarter, half,
+  and whole notes. Repeated phrases let you settle the skill. Rhythm and accompaniment are simplified; variations
+  are labelled.'
+fingering: Use the suggested finger numbers. Learn one phrase, then join it to the next. Adapt position shifts
+  to your hand with a teacher.
+tip: The demonstration shows the intended durations. In microphone practice the app checks pitch, not how long
+  you hold a note.
+accidentals: true
+source: https://www.mutopiaproject.org/
+arrangement: Simplified pitch study · original rhythm not reproduced
+normalBpm: 100
+category: classical
+rhythmReady: true
+rhythmLabel: Lesson rhythm variation
+articulation: connected
+level: 2
+courseIndex: 12
+application: true

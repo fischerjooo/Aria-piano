@@ -1,0 +1,34 @@
+slug: triad-inversions
+title: The same triad in new order.
+curriculumUnit: harmony-and-transposition
+concept: An inversion puts a different chord tone at the bottom while keeping the same pitch classes.
+learningSteps:
+- Read the groups C–E–G, E–G–C and G–C–E separately.
+- Release and reposition between groups. The printed fingers are suggestions for each small shape.
+- Name the lowest note of each group, then recognise that all three are C major.
+selfCheck: Can you say root position, first inversion and second inversion in order?
+transferTask: ''
+id: bpb-triad-inversions
+nav: The same triad in new order
+sub: An inversion puts a different chord tone at the bottom while keeping the same pitch classes.
+focus: An inversion puts a different chord tone at the bottom while keeping the same pitch classes.
+time: 6–10 min
+hand: Right hand
+normalBpm: 60
+application: false
+kind: lesson
+rhythmReady: true
+rhythmLabel: Original study · mapped rhythm
+courseIndex: 36
+level: 0
+levelName: Introduction
+instruction: An inversion puts a different chord tone at the bottom while keeping the same pitch classes. Read
+  the groups C–E–G, E–G–C and G–C–E separately. Release and reposition between groups. The printed fingers are
+  suggestions for each small shape. Name the lowest note of each group, then recognise that all three are C
+  major.
+fingering: 'Right hand: thumb 1 to little finger 5. Follow the printed numbers. Fingers are not fixed to particular
+  keys; let the hand travel with the forearm at position changes.'
+tip: Can you say root position, first inversion and second inversion in order?
+source: https://openbooks.library.baylor.edu/pianobasics/
+curriculumCredit: Original Aria exercise and explanation informed by Michael Clark, Baylor Piano Basics. CC
+  BY-NC-SA 4.0 educational adaptation; no source score reproduced.
