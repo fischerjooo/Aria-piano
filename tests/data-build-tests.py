@@ -54,8 +54,8 @@ with tempfile.TemporaryDirectory(prefix='aria-data-test-') as temporary:
 with tempfile.TemporaryDirectory(prefix='aria-difficulty-test-') as temporary:
     directory = Path(temporary) / 'data'
     shutil.copytree(DATA, directory)
-    first = directory / 'lessons/lesson-1/lesson.yaml'
-    second = directory / 'lessons/lesson-2/lesson.yaml'
+    first = load_packages(directory)[3]['lesson-1'] / 'lesson.yaml'
+    second = load_packages(directory)[3]['lesson-2'] / 'lesson.yaml'
     first.write_text('id: lesson-1\ndifficulty: 99\n')
     second.write_text('id: lesson-2\ndifficulty: 1\n')
     reordered = compile_stable(directory)

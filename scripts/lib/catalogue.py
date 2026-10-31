@@ -137,8 +137,8 @@ def load_packages(directory):
         config = read_yaml(package / 'lesson.yaml')
         if not isinstance(config, dict) or set(config) != {'id', 'difficulty'}:
             raise ValueError('Lesson config needs id and difficulty: ' + package.name)
-        if config['id'] != package.name or type(config['difficulty']) is not int or not 1 <= config['difficulty'] <= 100:
-            raise ValueError('Lesson difficulty must be 1..100 and id must match folder: ' + package.name)
+        if not isinstance(config['id'], str) or type(config['difficulty']) is not int or not 1 <= config['difficulty'] <= 100:
+            raise ValueError('Lesson id must be text and difficulty must be 1..100: ' + package.name)
         ids = [collect(package, level=0, expected_id=config['id'], kind='lesson')]
         for level in (1, 2):
             ids.append(collect(package / 'levels' / str(level + 1), level=level, kind='lesson'))
@@ -155,7 +155,7 @@ def load_packages(directory):
         if not package.is_dir():
             raise ValueError('Unexpected file in songs: ' + package.name)
         config = read_yaml(package / 'song.yaml')
-        if not isinstance(config, dict) or config.get('id') != package.name:
+        if not isinstance(config, dict) or not isinstance(config.get('id'), str):
             raise ValueError('Invalid song folder identity: ' + package.name)
         if not {'id', 'libraryOrder'} <= set(config) or set(config) - {'id', 'libraryOrder', 'gameOrder'}:
             raise ValueError('Song config needs id and libraryOrder: ' + package.name)

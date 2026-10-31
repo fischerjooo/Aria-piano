@@ -9,7 +9,7 @@ Aria's library is **folder-based**. There are no central song/lesson JSON, YAML 
 ```text
 data/
   lessons/
-    lesson-1/
+    meet-middle-c/
       lesson.yaml                 # immutable id; difficulty: 1..100
       metadata.yaml               # title, instructions, finger guidance, source, tempo
       notation.json               # written beats, finger numbers and MIDI timing corrections
@@ -24,7 +24,7 @@ data/
           notation.json
           performance.mid
   songs/
-    repertoire-mary-had-a-little-lamb/
+    mary-had-a-little-lamb/
       song.yaml                   # id, libraryOrder, optional gameOrder
       metadata.yaml
       notation.json
@@ -40,18 +40,18 @@ No alternative score engine or second song database is created.
 ### Adding, editing and removing items
 
 - **Lesson:** copy one folder under `data/lessons/`; give it a unique stable `id` in
-  `lesson.yaml` and its level-1 `metadata.yaml`. Provide all three level folders/files and
+  `lesson.yaml` (the readable folder name can change without changing this ID) and its level-1 `metadata.yaml`. Provide all three level folders/files and
   different record IDs for each variant. Choose `difficulty` between **1 (easiest)** and
   **100 (hardest)**. The builder discovers it automatically and sorts lessons by difficulty,
   then by ID for deterministic ties; no central binding or course-index list to update.
-- **Song:** copy one folder under `data/songs/`, provide `song.yaml` with a unique `id`
+- **Song:** copy one folder under `data/songs/`, provide `song.yaml` with a unique stable `id` independent of the folder name
   and a positive `libraryOrder` (tie-breaking is alphabetical), and put YAML, JSON and
   `performance.mid` alongside it. To include a game song in the game-library picker,
   additionally assign `gameOrder`. The builder discovers every song folder automatically.
 - **Edit:** change only the desired item's metadata, notation or MIDI; unrelated items
   are not rewritten. Run `python scripts/catalogue.py validate` before committing.
 - **Remove:** delete the entire item folder. Never recycle IDs used by released records:
-  users' locally saved progress keys depend on those IDs. Migration preserves all
+  users' locally saved progress keys depend on those IDs. Folder names may change independently. Migration preserves all
   existing lesson/song IDs and their original order via the 1..100 difficulty and
   `libraryOrder` values.
 

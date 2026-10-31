@@ -17,7 +17,12 @@ class NegativeCatalog(unittest.TestCase):
         cls.tmp.cleanup()
 
     def modify(self, relative, update):
-        target = self.base / relative
+        if relative.startswith('lessons/lesson-1/'):
+            target = catalogue.load_packages(self.base)[3]['lesson-1'] / relative.split('/', 2)[2]
+        elif relative.startswith('songs/repertoire-hot-cross-buns/'):
+            target = catalogue.load_packages(self.base)[3]['repertoire-hot-cross-buns'] / relative.split('/', 2)[2]
+        else:
+            target = self.base / relative
         before = target.read_bytes()
         try:
             update(target)
