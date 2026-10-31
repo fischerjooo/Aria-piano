@@ -1,4 +1,4 @@
-"""Inspect, validate, export and import canonical stable MIDI, entirely offline."""
+"""Inspect, validate, export and import folder-based lesson and song packages."""
 import argparse
 from copy import deepcopy
 import json
@@ -7,7 +7,7 @@ import shutil
 import tempfile
 
 import yaml
-from lib.catalogue import DATA, PPQ, compile_stable, load_packages, read_json, read_yaml, safe_path
+from lib.catalogue import DATA, PPQ, build_catalogue, load_packages, read_json, read_yaml
 from lib.midi import decode, encode
 
 
@@ -22,8 +22,8 @@ def import_midi(directory, record_id, midi_bytes, written_values=None, apply=Fal
     Written beat values and fingering are never guessed from MIDI contact.
     """
     directory = Path(directory)
-    compile_stable(directory)
-    _, _, _, locations = load_packages(directory)
+    build_catalogue(directory)
+    locations = load_packages(directory)['locations']
     if record_id not in locations:
         raise ValueError('Unknown study ID: ' + record_id)
     folder = locations[record_id]
@@ -65,7 +65,7 @@ def import_midi(directory, record_id, midi_bytes, written_values=None, apply=Fal
         (copy / 'performance.mid').write_bytes(midi_bytes)
         write_json(copy / 'notation.json', item)
         (copy / 'metadata.yaml').write_text(yaml.safe_dump(description, sort_keys=False, allow_unicode=True, width=110))
-        compile_stable(staged)
+        build_catalogue(staged)
         if apply:
             for name in ('performance.mid', 'notation.json', 'metadata.yaml'):
                 shutil.copyfile(copy / name, folder / name)
@@ -88,13 +88,13 @@ def main():
     importer.add_argument('--apply', action='store_true', help='Write after validating the complete staged catalogue (default: validate only)')
     args = parser.parse_args()
     if args.command == 'validate':
-        stable = compile_stable()
-        print(f"PASS {len(stable['lessonLevels']) * 3} course levels, {len(stable['melodyData'])} melodies")
+        catalogue = build_catalogue()
+        print(f"PASS {len(catalogue['lessonLevels']) * 3} course levels, {len(catalogue['melodyData'])} melodies")
     elif args.command == 'inspect-midi':
         print(json.dumps(decode(args.file.read_bytes()), indent=2))
     elif args.command == 'export-midi':
-        compile_stable()
-        _, _, _, locations = load_packages(DATA)
+        build_catalogue()
+        locations = load_packages(DATA)['locations']
         if args.id not in locations:
             raise ValueError('Unknown study ID')
         args.output.write_bytes((locations[args.id] / 'performance.mid').read_bytes())
