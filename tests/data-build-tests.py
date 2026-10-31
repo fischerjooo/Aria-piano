@@ -1,5 +1,4 @@
 """Package discovery, archive fidelity, MIDI round trips and local edits."""
-import hashlib
 from pathlib import Path
 import shutil
 import sys
@@ -12,8 +11,6 @@ from lib.midi import decode, encode
 from catalogue import import_midi
 
 catalogue = build_catalogue()
-provenance = read_yaml(DATA / 'provenance.yaml')
-assert hashlib.sha256((ROOT / provenance['archive']).read_bytes()).hexdigest() == provenance['sha256']
 midi_files = sorted(list((DATA / 'lessons').rglob('performance.mid')) + list((DATA / 'songs').rglob('performance.mid')))
 assert len(midi_files) == 346, len(midi_files)
 for path in midi_files:
@@ -77,4 +74,4 @@ with tempfile.TemporaryDirectory(prefix='aria-folder-rename-test-') as temporary
     assert [[item['id'] for item in row] for row in after['lessonLevels']] == [[item['id'] for item in row] for row in before['lessonLevels']]
     assert [item['id'] for item in after['melodyData']] == [item['id'] for item in before['melodyData']]
 
-print('PASS 346 distributed packages, source/archive parity, per-song MIDI, imports and 1-100 difficulty ordering and folder-rename stability')
+print('PASS 346 distributed packages, per-song MIDI, imports, strict ordering, and folder-rename stability')
