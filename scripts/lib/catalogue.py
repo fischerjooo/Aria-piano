@@ -123,6 +123,11 @@ def load_packages(directory):
             raise ValueError('Duplicate package record ID: ' + record_id)
         if kind and description.get('kind') != kind:
             raise ValueError('Unexpected package kind: ' + record_id)
+        if kind == 'lesson':
+            required_text = ('title', 'nav', 'sub', 'time', 'hand', 'instruction', 'fingering', 'tip')
+            missing = [key for key in required_text if not isinstance(description.get(key), str) or not description[key].strip()]
+            if missing:
+                raise ValueError(record_id + ': missing required lesson display fields: ' + ', '.join(missing))
         if level is not None and description.get('level') != level:
             raise ValueError('Unexpected lesson level: ' + record_id)
         if notation.get('midi') != 'performance.mid':
