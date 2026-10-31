@@ -142,7 +142,7 @@ def load_packages(directory):
         ids = [collect(package, level=0, expected_id=config['id'], kind='lesson')]
         for level in (1, 2):
             ids.append(collect(package / 'levels' / str(level + 1), level=level, kind='lesson'))
-        courses.append((config['difficulty'], package.name, ids))
+        courses.append((config['difficulty'], ids[0], ids))
     if not courses:
         raise ValueError('No lessons found')
     courses.sort(key=lambda value: (value[0], value[1]))
@@ -165,10 +165,10 @@ def load_packages(directory):
         if 'gameOrder' in config and (type(config['gameOrder']) is not int or config['gameOrder'] < 1):
             raise ValueError('Invalid song gameOrder: ' + package.name)
         record_id = collect(package, expected_id=config['id'], kind='melody')
-        songs.append((order, package.name, record_id, config.get('gameOrder')))
+        songs.append((order, record_id, config.get('gameOrder')))
     songs.sort(key=lambda entry: (entry[0], entry[1]))
-    melody_ids = [entry[2] for entry in songs]
-    game_ids = [entry[2] for entry in sorted((s for s in songs if s[3] is not None), key=lambda s: (s[3], s[1]))]
+    melody_ids = [entry[1] for entry in songs]
+    game_ids = [entry[1] for entry in sorted((s for s in songs if s[2] is not None), key=lambda s: (s[2], s[1]))]
     bindings = {'schemaVersion': 1, 'courseLength': len(level_ids),
                 'lessonIds': [row[0] for row in level_ids] + melody_ids,
                 'melodyIds': melody_ids, 'gameIds': game_ids, 'levelIds': level_ids,
