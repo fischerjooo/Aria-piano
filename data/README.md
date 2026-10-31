@@ -43,9 +43,9 @@ No alternative score engine or second song database is created.
   `lesson.yaml` (the readable folder name can change without changing this ID) and its level-1 `metadata.yaml`. Provide all three level folders/files and
   different record IDs for each variant. Choose `difficulty` between **1 (easiest)** and
   **100 (hardest)**. The builder discovers it automatically and sorts lessons by difficulty,
-  then by ID for deterministic ties; no central binding or course-index list to update.
+  then by stable lesson ID for deterministic ties; readable folder names never affect ordering, so no central binding or course-index list needs updating.
 - **Song:** copy one folder under `data/songs/`, provide `song.yaml` with a unique stable `id` independent of the folder name
-  and a positive `libraryOrder` (tie-breaking is alphabetical), and put YAML, JSON and
+  and a positive `libraryOrder` (ties use the stable song ID, never the folder name), and put YAML, JSON and
   `performance.mid` alongside it. To include a game song in the game-library picker,
   additionally assign `gameOrder`. The builder discovers every song folder automatically.
 - **Edit:** change only the desired item's metadata, notation or MIDI; unrelated items
