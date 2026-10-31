@@ -25,8 +25,7 @@ site = ROOT / '_site'
 if site.exists():
     shutil.rmtree(site)
 site.mkdir()
-for name in ['index.html', 'aria-piano-v5.26.html']:
-    shutil.copyfile(ROOT / name, site / name)
+shutil.copyfile(ROOT / 'index.html', site / 'index.html')
 # Install assets are deployed beside the stable GitHub Pages entrypoint.
 shutil.copyfile(ROOT / 'manifest.webmanifest', site / 'manifest.webmanifest')
 shutil.copyfile(ROOT / 'sw.js', site / 'sw.js')
