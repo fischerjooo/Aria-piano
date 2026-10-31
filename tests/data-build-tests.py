@@ -47,7 +47,7 @@ with tempfile.TemporaryDirectory(prefix='aria-data-test-') as temporary:
 with tempfile.TemporaryDirectory(prefix='aria-difficulty-test-') as temporary:
     directory = Path(temporary) / 'data'
     shutil.copytree(DATA, directory)
-    locations = load_packages(directory)[3]
+    locations = load_packages(directory)['locations']
     first = locations['lesson-1'] / 'lesson.yaml'
     second = locations['lesson-2'] / 'lesson.yaml'
     first_config, second_config = read_yaml(first), read_yaml(second)
@@ -65,7 +65,7 @@ with tempfile.TemporaryDirectory(prefix='aria-folder-rename-test-') as temporary
     directory = Path(temporary) / 'data'
     shutil.copytree(DATA, directory)
     before = build_catalogue(directory)
-    locations = load_packages(directory)[3]
+    locations = load_packages(directory)['locations']
     lesson_path = locations['lesson-1']
     song_path = locations['repertoire-mary-had-a-little-lamb']
     lesson_path.rename(lesson_path.with_name('zzz-readable-lesson-folder'))
