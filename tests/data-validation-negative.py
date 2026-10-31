@@ -18,7 +18,7 @@ class NegativeCatalog(unittest.TestCase):
 
     def modify(self, relative, update):
         if relative.startswith('lessons/lesson-1/'):
-            target = catalogue.load_packages(self.base)[3]['lesson-1'] / relative.split('/', 2)[2]
+            target = catalogue.load_packages(self.base)['locations']['lesson-1'] / relative.split('/', 2)[2]
         elif relative.startswith('songs/repertoire-hot-cross-buns/'):
             target = catalogue.load_packages(self.base)[3]['repertoire-hot-cross-buns'] / relative.split('/', 2)[2]
         else:
@@ -27,7 +27,7 @@ class NegativeCatalog(unittest.TestCase):
         try:
             update(target)
             with self.assertRaises((ValueError, FileNotFoundError, KeyError)):
-                catalogue.compile_stable(self.base)
+                catalogue.build_catalogue(self.base)
         finally:
             target.write_bytes(before)
 
