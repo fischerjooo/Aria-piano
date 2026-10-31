@@ -42,12 +42,11 @@ No alternative score engine or second song database is created.
 - **Lesson:** copy one folder under `data/lessons/`; give it a unique stable `id` in
   `lesson.yaml` (the readable folder name can change without changing this ID) and its level-1 `metadata.yaml`. Provide all three level folders/files and
   different record IDs for each variant. Choose `difficulty` between **1 (easiest)** and
-  **100 (hardest)**. The builder discovers it automatically and sorts lessons by difficulty,
-  then by stable lesson ID for deterministic ties; readable folder names never affect ordering, so no central binding or course-index list needs updating.
+  **100 (hardest)**. The builder discovers it automatically and sorts lessons strictly by that value. Difficulty values must be unique; a collision is a validation error. Readable folder names never affect ordering, so no central binding or course-index list needs updating.
 - **Song:** copy one folder under `data/songs/`, provide `song.yaml` with a unique stable `id` independent of the folder name
-  and a positive `libraryOrder` (ties use the stable song ID, never the folder name), and put YAML, JSON and
+  and a unique positive `libraryOrder`, and put YAML, JSON and
   `performance.mid` alongside it. To include a game song in the game-library picker,
-  additionally assign `gameOrder`. The builder discovers every song folder automatically.
+  additionally assign a unique `gameOrder`. Duplicate lesson difficulties, record IDs, song `libraryOrder` values or `gameOrder` values are reported as validation errors. The builder discovers every song folder automatically.
 - **Edit:** change only the desired item's metadata, notation or MIDI; unrelated items
   are not rewritten. Run `python scripts/catalogue.py validate` before committing.
 - **Remove:** delete the entire item folder. Never recycle IDs used by released records:
