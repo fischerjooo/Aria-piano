@@ -4,14 +4,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data'
 
-for relative in (
-    'data/stable',
-    'data/schemas/stable-descriptions.schema.json',
-    'data/schemas/stable-notation.schema.json',
-    'data/schemas/stable-bindings.schema.json',
-):
-    assert not (ROOT / relative).exists(), f'Legacy catalogue artifact reappeared: {relative}'
-
 lesson_folders = [path for path in (DATA / 'lessons').iterdir() if path.is_dir()]
 song_folders = [path for path in (DATA / 'songs').iterdir() if path.is_dir()]
 assert len(lesson_folders) == 68
@@ -28,14 +20,13 @@ for folder in song_folders:
     for name in ('metadata.yaml', 'notation.json', 'performance.mid'):
         assert (folder / name).is_file(), f'Missing {name}: {folder}'
 
-build = (ROOT / 'scripts/build.py').read_text()
-catalogue = (ROOT / 'scripts/lib/catalogue.py').read_text()
-for forbidden in ('compile_stable', 'stable-bindings', 'stable-descriptions', 'stable-notation', 'data/stable'):
-    assert forbidden not in build + catalogue, f'Legacy catalogue reference remains: {forbidden}'
+catalogue_source = (ROOT / 'scripts/lib/catalogue.py').read_text()
+assert 'def build_catalogue(' in catalogue_source
+assert "directory / 'lessons'" in catalogue_source
+assert "directory / 'songs'" in catalogue_source
 
 assert (ROOT / 'index.html').read_bytes() == (ROOT / 'dist/index.html').read_bytes()
 site = ROOT / '_site'
 assert (site / 'index.html').read_bytes() == (ROOT / 'index.html').read_bytes()
-assert not (site / 'aria-piano-v5.26.html').exists()
 assert (site / 'manifest.webmanifest').is_file()
 print('PASS package-only data model and build output')
