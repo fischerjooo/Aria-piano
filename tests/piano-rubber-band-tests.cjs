@@ -8,7 +8,8 @@ const styles=fs.readFileSync(path.join(root,'src/app/styles.css'),'utf8');
 assert(template.includes('id="lessonScrubber"'), 'practice room must expose the full-width lesson scrubber');
 assert(template.includes('step="0.01"'), 'scrubber must use fractional steps for continuous dragging');
 assert(styles.includes('.lesson-scrubber'), 'lesson scrubber must have dedicated full-width styling');
-assert(styles.includes('height:44px')&&styles.includes('width:24px'), 'scrubber must provide a large touch target and visible thumb');
+assert(styles.includes('height:44px')&&styles.includes('width:26px'), 'scrubber must provide a large touch target and visible thumb');
+assert(styles.includes('top:9px')&&styles.includes('padding-top:48px!important'), 'scrubber must occupy its own lane above transport controls');
 assert(styles.includes('z-index:9'), 'nearby transport controls must remain above the scrubber touch layer');
 assert(runtime.includes('function nextFollowRate('), 'rubber-band follower must smooth its playback rate');
 assert(runtime.includes('function animateScoreCatchup('), 'rubber-band follower must animate from the current visual position');
@@ -16,6 +17,7 @@ assert(runtime.includes('cubic-bezier(.22,.61,.36,1)'), 'catch-up movement must 
 assert(!runtime.includes('if(jumpAhead){scrollScore(pos)'), 'early notes must not hard-jump the score');
 assert(runtime.includes("$('lessonScrubber').oninput"), 'scrubber drag must preview the selected position');
 assert(runtime.includes('a.x+(b.x-a.x)*mix'), 'scrubber preview must interpolate continuously between note positions');
+assert(runtime.includes('requestAnimationFrame(runScrubPreview)')&&runtime.includes('scrubPreviewCurrent+=(scrubPreviewTarget-scrubPreviewCurrent)*.38'), 'scrubber preview must ease frame-by-frame instead of jumping to raw pointer events');
 assert(runtime.includes("$('lessonScrubber').onchange"), 'scrubber release must seek the lesson');
 assert(html.includes('id="lessonScrubber"')&&html.includes('function nextFollowRate('), 'generated app must include the feature');
 console.log('Rubber-band follower and full-width lesson scrubber regressions pass');
