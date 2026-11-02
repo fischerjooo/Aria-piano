@@ -29,7 +29,7 @@ for(const [w,h] of [[412,915],[915,412],[1280,800],[800,1280]]){
  el('timingFeedback').checked=false;const without=sandbox.viewportMetrics().dock;
  el('timingFeedback').checked=true;assert.equal(sandbox.viewportMetrics().dock,without,'timing option reserves no meter space');
 }
-sandbox.selectLesson(0);run('mode="ble";screen="studio";running=true');el('tempo').value=60;
+sandbox.selectLesson(0);run('mode="ble";screen="studio";running=true');el('allowEarlyNotes').checked=false;el('tempo').value=60;
 sandbox.tickPracticeTiming(90000);assert.equal(run('mistakes'),0);assert.equal(run('timingState'),null);
 sandbox.receiveMidi(0x90,60,64);sandbox.performance.now=()=>10100;
 sandbox.refreshScoreMotion();assert.match(el('scoreSvg').style.transition,/linear/);
