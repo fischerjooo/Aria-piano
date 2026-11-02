@@ -428,3 +428,7 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
   #studioScreen .melody-speed-row{grid-column:1/4;grid-row:2;justify-self:center}
   #studioScreen #liveSheet{grid-column:3;grid-row:2;justify-self:end}
 }
+
+/* Reserve the full song/lesson transport height so controls cannot be clipped by the fixed studio viewport. */
+#studioScreen .transport{box-sizing:border-box}
+#studioScreen .studio-header{box-sizing:border-box;align-items:center}

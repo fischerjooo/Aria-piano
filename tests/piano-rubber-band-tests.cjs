@@ -19,6 +19,8 @@ assert(transportMarkup.includes('id="melodySpeedRow"'), 'melody speed selector m
 assert(template.includes('class="icon-button transport-icon"')&&template.includes('class="transport-action"'), 'transport controls must use the compact unified dock styles');
 assert(styles.includes('border-radius:18px!important')&&styles.includes('background:#fffef9!important')&&styles.includes('#studioScreen .transport-icon'), 'lesson part, playback and edge controls must share one visible control island');
 assert(!runtime.includes('dock.insertBefore')&&!runtime.includes("appendChild?.(row)"), 'responsive and modal layout must never move the lesson selector out of the transport row');
+assert(!runtime.includes("li>=courseLength?(compact?58:64)"), 'songs must not receive a shorter dock than lessons');
+assert(runtime.includes("hasSpeed=lessons[li].kind==='melody'||!!lessons[li].application")&&runtime.includes("hasSpeed?148:106"), 'phone dock sizing must account for the extra song speed row');
 assert(runtime.includes('seekStartPending=true'), 'scrubbing practice must arm the selected note as a fresh start');
 assert(runtime.includes('if(pos===0||seekStartPending)')&&runtime.includes("seekStartPending=false;const completedIndex=pos"), 'after a scrub the clock must wait for the highlighted note before progression resumes');
 assert(!new RegExp('function seekLesson\\\\(value\\\\)\\\\{[^}]*scheduleProgression\\\\(pos','s').test(runtime), 'seek must never immediately schedule timed progression');
