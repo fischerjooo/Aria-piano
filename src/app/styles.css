@@ -383,5 +383,6 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 #studioScreen #lessonScrubber::-moz-range-thumb{width:20px;height:20px;border:3px solid #fff;border-radius:50%;background:#c39445;box-shadow:0 1px 4px rgba(18,46,41,.35)}
 #studioScreen #lessonScrubber:focus-visible{outline:2px solid #315f52;outline-offset:-4px;border-radius:8px}
 @media (pointer:coarse){#studioScreen .lesson-scrubber{height:38px}#studioScreen #lessonScrubber{height:52px;bottom:-18px}#studioScreen #lessonScrubber::-webkit-slider-thumb{width:28px;height:28px;margin-top:-10.5px}#studioScreen #lessonScrubber::-moz-range-thumb{width:24px;height:24px}}
+#studioScreen .transport-row,#studioScreen .lesson-levels-row,#studioScreen .melody-speed-row{position:relative;z-index:9}
 #studioScreen .transport{padding-bottom:18px!important}
 .phone-room #studioScreen .transport{padding-bottom:18px!important}
