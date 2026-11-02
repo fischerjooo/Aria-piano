@@ -372,18 +372,19 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 .connection-modal .connect-bar{background:#edf2e7}
 
 /* Full-width lesson timeline: visible progress plus a transparent, touch-friendly scrub handle. */
-#studioScreen .lesson-scrubber{position:absolute;left:3vw;right:3vw;top:9px;bottom:auto;width:auto;height:30px;background:transparent;z-index:8;overflow:visible}
-#studioScreen .lesson-scrubber::before{content:"";position:absolute;left:0;right:0;top:11px;height:8px;border-radius:999px;background:#dce3d8}
-#studioScreen .lesson-scrubber>i{position:absolute;left:0;top:11px;height:8px;border-radius:999px;background:#c39445;pointer-events:none;transition:none}
-#studioScreen #lessonScrubber{position:absolute;left:0;right:0;top:-7px;width:100%;height:44px;margin:0;cursor:pointer;touch-action:none;background:transparent;-webkit-appearance:none;appearance:none}
+#studioScreen .score-area{position:relative;z-index:1}
+#studioScreen .transport{position:relative;z-index:12;overflow:visible!important;padding-top:58px!important;padding-bottom:10px!important}
+#studioScreen .lesson-scrubber{position:absolute;left:3vw;right:3vw;top:16px;bottom:auto;width:auto;height:32px;background:#fffef8;z-index:13;overflow:visible;border-radius:14px}
+#studioScreen .lesson-scrubber::before{content:"";position:absolute;left:0;right:0;top:12px;height:8px;border-radius:999px;background:#cfd8ca;box-shadow:inset 0 0 0 1px #bcc8b7}
+#studioScreen .lesson-scrubber>i{position:absolute;left:0;top:12px;height:8px;border-radius:999px;background:#c39445;pointer-events:none;transition:none;z-index:1}
+#studioScreen #lessonScrubber{position:absolute;left:0;right:0;top:-6px;width:100%;height:44px;margin:0;cursor:pointer;touch-action:none;background:transparent;-webkit-appearance:none;appearance:none;z-index:2}
 #studioScreen #lessonScrubber::-webkit-slider-runnable-track{height:8px;background:transparent;border:0}
 #studioScreen #lessonScrubber::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;margin-top:-9px;border:3px solid #fff;border-radius:50%;background:#c39445;box-shadow:0 2px 6px rgba(18,46,41,.35)}
 #studioScreen #lessonScrubber::-moz-range-track{height:8px;background:transparent;border:0}
 #studioScreen #lessonScrubber::-moz-range-progress{height:8px;background:transparent}
 #studioScreen #lessonScrubber::-moz-range-thumb{width:22px;height:22px;border:3px solid #fff;border-radius:50%;background:#c39445;box-shadow:0 2px 6px rgba(18,46,41,.35)}
 #studioScreen #lessonScrubber:focus-visible{outline:2px solid #315f52;outline-offset:-3px;border-radius:10px}
-#studioScreen .transport-row,#studioScreen .lesson-levels-row,#studioScreen .melody-speed-row{position:relative;z-index:9}
-#studioScreen .transport{padding-top:48px!important;padding-bottom:10px!important}
-@media (pointer:coarse){#studioScreen .lesson-scrubber{top:8px;height:34px}#studioScreen #lessonScrubber{height:52px;top:-9px}#studioScreen #lessonScrubber::-webkit-slider-thumb{width:30px;height:30px;margin-top:-11px}#studioScreen #lessonScrubber::-moz-range-thumb{width:26px;height:26px}}
-.phone-room #studioScreen .lesson-scrubber{left:12px;right:12px;top:7px}
-.phone-room #studioScreen .transport{padding-top:46px!important;padding-bottom:8px!important}
+#studioScreen .transport-row,#studioScreen .lesson-levels-row,#studioScreen .melody-speed-row{position:relative;z-index:14}
+@media (pointer:coarse){#studioScreen .lesson-scrubber{top:15px;height:36px}#studioScreen #lessonScrubber{height:52px;top:-8px}#studioScreen #lessonScrubber::-webkit-slider-thumb{width:30px;height:30px;margin-top:-11px}#studioScreen #lessonScrubber::-moz-range-thumb{width:26px;height:26px}}
+.phone-room #studioScreen .lesson-scrubber{left:12px;right:12px;top:13px}
+.phone-room #studioScreen .transport{padding-top:56px!important;padding-bottom:8px!important}
