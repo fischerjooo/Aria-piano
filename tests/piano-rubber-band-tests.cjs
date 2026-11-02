@@ -11,7 +11,7 @@ assert(styles.includes('.lesson-scrubber'), 'lesson scrubber must have dedicated
 assert(styles.includes('height:44px')&&styles.includes('width:26px'), 'scrubber must provide a large touch target and visible thumb');
 assert(styles.includes('top:16px')&&styles.includes('padding-top:58px!important'), 'scrubber must occupy its own visible lane above transport controls');
 assert(styles.includes('z-index:12')&&styles.includes('z-index:13')&&styles.includes('overflow:visible!important'), 'scrubber rail must stay in front of the score panel instead of being clipped behind it');
-assert(styles.includes('z-index:9'), 'nearby transport controls must remain above the scrubber touch layer');
+assert(styles.includes('z-index:14'), 'nearby transport controls must remain above the scrubber touch layer');
 assert(runtime.includes('function nextFollowRate('), 'rubber-band follower must smooth its playback rate');
 assert(runtime.includes('function animateScoreCatchup('), 'rubber-band follower must animate from the current visual position');
 assert(runtime.includes('cubic-bezier(.22,.61,.36,1)'), 'catch-up movement must ease rather than jump');
