@@ -23,7 +23,7 @@ assert(!runtime.includes("li>=courseLength?(compact?58:64)"), 'songs must not re
 assert(runtime.includes("hasSpeed=lessons[li].kind==='melody'||!!lessons[li].application")&&runtime.includes("hasSpeed?148:106"), 'phone dock sizing must account for the extra song speed row');
 assert(runtime.includes('seekStartPending=true'), 'scrubbing practice must arm the selected note as a fresh start');
 assert(runtime.includes('if(pos===0||seekStartPending)')&&runtime.includes("seekStartPending=false;const completedIndex=pos"), 'after a scrub the clock must wait for the highlighted note before progression resumes');
-assert(!new RegExp('function seekLesson\\\\(value\\\\)\\\\{[^}]*scheduleProgression\\\\(pos','s').test(runtime), 'seek must never immediately schedule timed progression');
+const seekBody=runtime.slice(runtime.indexOf('function seekLesson'),runtime.indexOf('function resetExercise'));assert(!seekBody.includes('scheduleProgression(pos'), 'seek must never immediately schedule timed progression');
 assert(runtime.includes('function nextFollowRate('), 'rubber-band follower must smooth its playback rate');
 assert(runtime.includes('function animateScoreCatchup('), 'rubber-band follower must animate from the current visual position');
 assert(runtime.includes('cubic-bezier(.22,.61,.36,1)'), 'catch-up movement must ease rather than jump');
