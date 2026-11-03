@@ -1,0 +1,3 @@
+interface:
+  display_name: "CI Green Loop"
+  short_description: "Wait for exact-SHA GitHub Actions CI and loop on failures until green."

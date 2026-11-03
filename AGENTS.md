@@ -24,6 +24,25 @@ Some repertoire arrangements and fingering do not establish exact score-edition 
 
 Keep the current app's navigation, score readability, fixed-center playhead, full-sheet view, tempo/hands controls, touch, MIDI/Bluetooth MIDI, microphone fallback, local progress and installability. Test UI changes visually on mobile and tablet.
 
+## Mandatory CI green loop
+
+For every repository change that creates or updates a commit on a feature/fix branch or pull request, the agent must use the repo-local `ci-green-loop` skill at `skills/ci-green-loop/SKILL.md` and its helper script `skills/ci-green-loop/scripts/wait_for_ci.py`.
+
+After committing changes, run the required local build/tests, then wait for GitHub Actions on the **exact current commit SHA**:
+
+```
+python skills/ci-green-loop/scripts/wait_for_ci.py \
+  --repo fischerjooo/Aria-piano \
+  --sha "$(git rev-parse HEAD)" \
+  --workflow Validate
+```
+
+Do not report a task complete, ready, fixed, or green while the required CI run is queued, pending, or in progress. A green run from an older SHA does not count.
+
+If the required CI run fails, inspect the failing job and step logs, fix the underlying issue, commit the fix, run local checks again, and invoke the CI poller again for the new exact SHA. Stay in this fix -> commit -> wait -> inspect loop until the required workflow has finished with conclusion `success` for the current SHA. Do not weaken valid tests merely to make CI pass.
+
+Only stop without a green result when a genuine external blocker prevents CI from completing; in that case, state the blocker explicitly and do not claim CI passed.
+
 ## Publishing and owner approval
 
 The production root site lives at `https://fischerjooo.github.io/Aria-piano/`. `pages.yml` builds, tests, increments `version.json` on a normal main release and deploys one Pages artifact. Beta preview at `/Aria-piano/beta/` is a separately branded preview of the same production player, not a second experimental engine. Its progress is namespaced and its PWA identity scoped. A separately installable Android beta still requires a different HTTPS origin; GitHub Pages `/beta/` may collide with the root PWA.

@@ -7,6 +7,8 @@ import argparse
 import json
 import re
 import shutil
+import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 
 from version import display_version, next_version, read_version
@@ -38,14 +40,35 @@ BETA_STORAGE_SHIM = """<script id="aria-beta-storage-isolation">
 </script>"""
 
 
-def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/"):
+def beta_timestamp(sha, timestamp=None):
+    """Return a stable UTC timestamp for the beta source commit."""
+    value = timestamp
+    if value is None:
+        try:
+            value = subprocess.check_output(
+                ["git", "show", "-s", "--format=%cI", sha],
+                text=True,
+                stderr=subprocess.DEVNULL,
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            value = datetime.now(timezone.utc).isoformat()
+    if isinstance(value, datetime):
+        moment = value
+    else:
+        moment = datetime.fromisoformat(str(value).strip().replace("Z", "+00:00"))
+    if moment.tzinfo is None:
+        moment = moment.replace(tzinfo=timezone.utc)
+    return moment.astimezone(timezone.utc).strftime("%Y%m%d-%H%M%SZ")
+
+
+def mark_beta(site, version_path, sha, install_base="/Aria-piano/beta/", timestamp=None):
     # Same-origin /beta/ is retained for previewing, but a distinct PWA on
     # Android Chrome requires an independent origin to avoid an install collision.
     if not install_base.startswith("/") or not install_base.endswith("/") or "//" in install_base:
         raise ValueError("install_base must be a path beginning and ending in /")
     site = Path(site)
     version = display_version(next_version(read_version(version_path), "minor"))
-    suffix = re.sub(r"[^a-fA-F0-9]", "", sha)[:8].lower() or "preview"
+    suffix = beta_timestamp(sha, timestamp)
     beta = f"{version}-beta.{suffix}"
     entry = site / "index.html"
     html = entry.read_text(encoding="utf-8")
@@ -132,10 +155,11 @@ def main():
     parser.add_argument("--site", required=True, type=Path)
     parser.add_argument("--version-file", required=True, type=Path)
     parser.add_argument("--sha", required=True)
+    parser.add_argument("--timestamp", help="Optional ISO-8601 beta source timestamp; defaults to the commit timestamp")
     parser.add_argument("--install-base", default="/Aria-piano/beta/",
                         help="PWA install scope on the deployment origin; use / on a dedicated beta hostname")
     args = parser.parse_args()
-    mark_beta(args.site, args.version_file, args.sha, args.install_base)
+    mark_beta(args.site, args.version_file, args.sha, args.install_base, args.timestamp)
 
 
 if __name__ == "__main__":

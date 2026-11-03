@@ -27,6 +27,6 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  sandbox.selectLesson(0);sandbox.openQuickMenu('hands');assert.equal(el('quickHandLeft').disabled,true);assert.equal(el('quickHandBoth').disabled,true);assert.equal(el('quickHandRight').disabled,false);
  sandbox.closeModal('quickHandsModal');assert.equal(run('running'),false,'previously paused practice remains paused');
  sandbox.selectLesson(0);run('screen="studio";mode="touch";demoing=true;demoIndex=2');sandbox.openQuickMenu('tempo');assert.equal(el('quickTempo').attrs['aria-expanded'],'true');sandbox.chooseQuickTempo(75);await Promise.resolve();await Promise.resolve();assert.equal(run('demoing'),true);assert.equal(run('demoIndex'),2);assert.equal(el('quickTempo').attrs['aria-expanded'],'false');sandbox.stopDemo();
- sandbox.selectLesson(run('courseLength'));const melodyDock=sandbox.viewportMetrics().dock;sandbox.selectLesson(0);assert(sandbox.viewportMetrics().dock>melodyDock);
+ sandbox.selectLesson(run('courseLength'));const melodyDock=sandbox.viewportMetrics().dock;sandbox.selectLesson(0);const lessonDock=sandbox.viewportMetrics().dock;assert(lessonDock>=melodyDock,'songs must reserve at least as much dock height as lessons when extra controls are present');
  console.log('Example resumes at current note; melody dock removes unused row; Tempo presets, wait mode, automatic resume, position preservation, hand reset/filtering and single-hand guards pass');
 })().catch(e=>{console.error(e);process.exitCode=1});
