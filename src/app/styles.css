@@ -236,7 +236,7 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 .connection-modal{max-width:530px}
 .connection-modal h2{font-size:29px}
 .connection-modal>.modal-scroll>p{margin:12px 0}
-.input-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.input-choices{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0}
 .input-choices button{display:grid;justify-items:center;gap:12px;padding:21px 8px;border-radius:14px}
 .input-choices button[aria-pressed=true]{background:#e2edcb;border-color:#618644;color:#284b29}
 .input-choices .ui-icon{width:28px;height:28px}
@@ -244,7 +244,6 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 .connection-modal .connect-bar>div{width:100%}
 .connection-modal .connect-bar strong{display:none}
 .connection-modal .connect-bar p{font-size:12px}
-.connection-modal #micFallback{font-size:11px}
 .connection-modal #connectionDone{float:right;margin-left:10px}
 .connection-modal .context-details{clear:both;padding-top:18px}
 .setting-help{font-size:12px;margin:5px 0;color:var(--muted)}
