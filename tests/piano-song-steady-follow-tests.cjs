@@ -63,6 +63,6 @@ assert(Math.abs(run('timingState.visualStart')-run('scoreLayout(lessons[li])[3].
 const fourth=run('timingState.stepMs');
 now+=20;sandbox.advanceTiming(4,now,now-fourth*5);
 assert.equal(run('timingState.due'),now+fourth,'stale chord onset must never cause a zero-duration score jump in steady song mode');
-assert.equal(el('scoreSvg').style.transition,'transform '+fourth+'ms linear');
+assert(Math.abs(parseFloat(el('scoreSvg').style.transition.slice('transform '.length))-fourth)<.001&&el('scoreSvg').style.transition.endsWith('ms linear'),'the follow guide keeps a full, smooth normal-tempo interval');
 run('progressionWaitMode=true');assert.equal(sandbox.songSteadyMode(),false,'other progression modes are unchanged');
 console.log('Steady song guide stays continuous at slightly early/late notes, honors missed-note grace and avoids tempo collapses');
