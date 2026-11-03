@@ -24,11 +24,13 @@ assert(runtime.includes("hasSpeed=lessons[li].kind==='melody'||!!lessons[li].app
 assert(runtime.includes('seekStartPending=true'), 'scrubbing practice must arm the selected note as a fresh start');
 assert(runtime.includes('if(pos===0||seekStartPending)')&&runtime.includes("seekStartPending=false;const completedIndex=pos"), 'after a scrub the clock must wait for the highlighted note before progression resumes');
 const seekBody=runtime.slice(runtime.indexOf('function seekLesson'),runtime.indexOf('function resetExercise'));assert(!seekBody.includes('scheduleProgression(pos'), 'seek must never immediately schedule timed progression');
-assert(runtime.includes("if(quickModeEnabled()){clearTimeout(timingDueTimer)")&&runtime.includes("animateScoreCatchup(completedIndex,quickScrollMs)"), 'Quick mode must be player-driven and smoothly move only after accepted notes');
+assert(runtime.includes("if(quickModeEnabled()){clearTimeout(timingDueTimer)")&&runtime.includes("startQuickFollow(completedIndex)"), 'Quick mode must be player-driven and start the continuous follower only after accepted notes');
 assert(runtime.includes("if(waitModeEnabled()||quickModeEnabled())"), 'Quick mode must never auto-skip an unplayed highlighted note');
 assert(runtime.includes('function nextFollowRate('), 'rubber-band follower must smooth its playback rate');
-assert(runtime.includes('function animateScoreCatchup('), 'rubber-band follower must animate from the current visual position');
-assert(runtime.includes('cubic-bezier(.22,.61,.36,1)'), 'catch-up movement must ease rather than jump');
+assert(runtime.includes('function tickQuickFollow(')&&runtime.includes('requestAnimationFrame(tickQuickFollow)'), 'Quick mode must use a continuous frame-by-frame follower');
+assert(runtime.includes('desiredRate=1+Math.min(2.2,aheadRatio*1.65)')&&runtime.includes('quickFollowRate+=(desiredRate-quickFollowRate)*blend'), 'Quick mode speed must increase with lead distance and be smoothed over time');
+assert(runtime.includes('tau=desiredRate>quickFollowRate?180:420'), 'Quick mode must ease acceleration and deceleration instead of snapping speed');
+assert(runtime.includes('quickFollowX=Math.min(target.x,quickFollowX+baseSpeed*quickFollowRate*dt)'), 'Quick mode must never jump or overshoot the current player target');
 assert(!runtime.includes('if(jumpAhead){scrollScore(pos)'), 'early notes must not hard-jump the score');
 assert(runtime.includes("$('lessonScrubber').oninput"), 'scrubber drag must preview the selected position');
 assert(runtime.includes('a.x+(b.x-a.x)*mix'), 'scrubber preview must interpolate continuously between note positions');
