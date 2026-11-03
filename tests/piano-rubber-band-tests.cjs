@@ -28,7 +28,7 @@ assert(runtime.includes("if(quickModeEnabled()){clearTimeout(timingDueTimer)")&&
 assert(runtime.includes("if(waitModeEnabled()||quickModeEnabled())"), 'Quick mode must never auto-skip an unplayed highlighted note');
 assert(runtime.includes('function nextFollowRate('), 'rubber-band follower must smooth its playback rate');
 assert(runtime.includes('function tickQuickFollow(')&&runtime.includes('requestAnimationFrame(tickQuickFollow)'), 'Quick mode must use a continuous frame-by-frame follower');
-assert(runtime.includes('desiredRate=1+Math.min(2.8,aheadRatio*2.1)')&&runtime.includes('quickFollowRate+=(desiredRate-quickFollowRate)*blend'), 'Quick mode speed must increase with lead distance and be smoothed over time');
+assert(runtime.includes('engageGap=normalGap*.25')&&runtime.includes('lead=Math.max(0,target.x-quickFollowX-engageGap)'),'Quick mode rubber band must engage before the guide falls a full note behind');assert(runtime.includes('desiredRate=1+Math.min(2.8,aheadRatio*2.1)')&&runtime.includes('quickFollowRate+=(desiredRate-quickFollowRate)*blend'), 'Quick mode speed must increase with lead distance and be smoothed over time');
 assert(runtime.includes('tau=desiredRate>quickFollowRate?140:520'), 'Quick mode must ease acceleration and deceleration instead of snapping speed');
 assert(runtime.includes('quickFollowX=Math.min(target.x,quickFollowX+baseSpeed*quickFollowRate*dt)'), 'Quick mode must never jump or overshoot the current player target');
 assert(!runtime.includes('if(jumpAhead){scrollScore(pos)'), 'early notes must not hard-jump the score');
