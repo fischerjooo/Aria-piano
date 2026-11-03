@@ -59,7 +59,7 @@ now=thirdDue;fireTimer(thirdTimer);
 const skippedTimer=run('timingDueTimer');now=thirdDue+run('songLateGrace(timingState.stepMs)')+1;fireTimer(skippedTimer);
 assert.equal(run('pos'),4,'unplayed song note still advances once after the grace window');
 assert.equal(run('mistakes'),1,'missed note is counted once');
-assert(Math.abs(run('timingState.visualStart')-run('scoreLayout(lessons[li])[4].x'))<.001,'auto advance starts at the end of the prior guide, without jumping');
+assert(Math.abs(run('timingState.visualStart')-run('scoreLayout(lessons[li])[3].x'))<.001,'auto advance starts at the end of the prior guide, without jumping');
 const fourth=run('timingState.stepMs');
 now+=20;sandbox.advanceTiming(4,now,now-fourth*5);
 assert.equal(run('timingState.due'),now+fourth,'stale chord onset must never cause a zero-duration score jump in steady song mode');
