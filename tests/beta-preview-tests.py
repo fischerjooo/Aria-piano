@@ -72,9 +72,10 @@ assert "github.event.workflow_run.head_repository.full_name == github.repository
 assert "git worktree add --detach" in pipeline
 assert 'git push --force origin "$TESTED_SHA":refs/heads/beta-preview' in pipeline
 assert "cp -a" in pipeline and "_site/beta" in pipeline
+assert '"$RUNNER_TEMP/aria-beta-source/scripts/beta_preview.py"' in pipeline, "Beta publication must use the formatter from the exact tested commit"
 assert "path: _site" in pipeline and "actions/deploy-pages@v4" in pipeline
 assert "group: pages" in pipeline and "group: pages" in pages, "Serialize both deployments"
-assert "beta-preview" in pages and "scripts/beta_preview.py" in pages
+assert "beta-preview" in pages and '"$RUNNER_TEMP/aria-beta-source/scripts/beta_preview.py"' in pages
 assert "_site/beta" in pages
 assert "python scripts/version.py bump" in pages, "Stable releases still increment"
 assert "beta-preview" not in (ROOT / ".github/workflows/ci.yml").read_text(), "Beta branch is only created after successful validation"
