@@ -317,7 +317,7 @@ function usbMidiMessage(event){
 }
 function syncUSBInputs(){
  if(!usbAccess)return;
- const next=new Map([...usbAccess.inputs.values()].filter(input=>input.state==='connected'));
+ const next=new Map([...usbAccess.inputs.values()].filter(input=>input.state==='connected').map(input=>[input.id,input]));
  let newlyConnected=false;
  for(const [id,input] of usbInputs)if(next.get(id)!==input)input.removeEventListener?.('midimessage',usbMidiMessage);
  for(const [id,input] of next)if(usbInputs.get(id)!==input){input.addEventListener?.('midimessage',usbMidiMessage);newlyConnected=true}
