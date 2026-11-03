@@ -28,7 +28,7 @@ assert.equal(run('pos'),1);
 let state=run('timingState');const firstDue=state.due,firstTimer=run('timingDueTimer'),firstStep=state.stepMs;
 assert.equal(state.started,now,'first note starts a complete song beat');
 assert.equal(state.visualStart,run('scoreLayout(lessons[li])[0].x'));
-const lead=run('scoreGuidePosition(firstDue-firstStep*.08)'),nextX=run('scoreLayout(lessons[li])[1].x');
+const lead=run('scoreGuidePosition('+(firstDue-firstStep*.08)+')'),nextX=run('scoreLayout(lessons[li])[1].x');
 assert(lead<nextX&&lead>run('scoreLayout(lessons[li])[0].x'),'the guide interpolates continuously');
 now=firstDue-firstStep*.08;
 sandbox.accept(notes[1],now);
