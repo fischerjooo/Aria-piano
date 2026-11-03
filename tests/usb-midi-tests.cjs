@@ -19,7 +19,7 @@ function port(id,name){const handlers=new Map();return{id,name,state:'connected'
 const inputA=port('p1','Piano USB'),inputB=port('p2','Second keyboard');
 const access={inputs:new Map([['p1',inputA]]),addEventListener(type,fn){accessListeners[type]=fn}};
 let requests=0,runsStopped=0,resetCount=0;
-const ctx={console,Map,Promise,Uint8Array,mode:'mic',screen:'studio',resultReplay:null,document:{querySelectorAll:()=>[],hidden:false},window:{isSecureContext:true},navigator:{requestMIDIAccess(opts){requests++;assert.equal(opts.sysex,false);return Promise.resolve(access)}},midiHeld:new Set(),midiPedals:new Set(),stepHits:new Set(),bleReleaseTimer:null,clearTimeout(){},stopRun(){runsStopped++},initialiseResultsReplay(){},syncConnectionPicker(){},receiveMidi(status,note,velocity){events.push([status,note,velocity])},chooseMode(value){this.mode=value;resetCount++;},$:el};
+const ctx={console,Map,Promise,Uint8Array,mode:'mic',screen:'studio',resultReplay:null,document:{querySelectorAll:()=>[],hidden:false},window:{isSecureContext:true},navigator:{requestMIDIAccess(opts){requests++;assert.equal(opts.sysex,false);return Promise.resolve(access)}},midiHeld:new Set(),midiPedals:new Set(),stepHits:new Set(),bleReleaseTimer:null,clearTimeout(){},stopRun(){runsStopped++},initialiseResultsReplay(){},syncConnectionPicker(){},receiveMidi(status,note,velocity){events.push([status,note,velocity])},chooseMode(value){ctx.mode=value;resetCount++;},$:el};
 vm.createContext(ctx);
 // Top-level state in the extracted code is evaluated in the same realm as the mocks.
 vm.runInContext(code,ctx);
