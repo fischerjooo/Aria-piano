@@ -86,7 +86,8 @@ async function test(browser,base,device,viewport){
     await page.locator('#studioScreen:not([hidden]) #scoreSvg').waitFor();
     await page.locator('#quickTempo').click();
     await page.locator('#quickTempoModal:not([hidden])').waitFor();
-    assert.equal((await page.locator('#quickTempoTitle').textContent()).trim(),'Progression mode');
+    assert.equal(await page.locator('#quickTempoModal [role="dialog"]').getAttribute('aria-label'),'Tempo and progression options');
+    assert.equal(await page.locator('#quickTempoModal .eyebrow, #quickTempoTitle').count(),0);
     assert.equal(await page.locator('#quickWait').getAttribute('aria-pressed'),'true');
     assert.equal(await page.locator('#quickQuick').getAttribute('aria-pressed'),'true');
     assert.equal(await page.locator('#quickTempoModal .quick-choice-icon').count(),3);
