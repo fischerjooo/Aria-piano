@@ -34,7 +34,7 @@ now=firstDue-firstStep*.08;sandbox.accept(notes[1],now);
 assert.equal(run('pos'),1,'early direct-next note is buffered instead of jumping');
 assert.equal(run('timingDueTimer'),firstTimer);assert.equal(run('pendingEarlyStep.pos'),1);
 now=firstDue;fireTimer(firstTimer);assert.equal(run('pos'),2);assert.equal(run('steadyClock'),clock);
-state=run('timingState');assert.equal(state.started,firstDue-firstStep);assert.equal(state.due,firstDue+state.stepMs);
+state=run('timingState');assert.equal(state.started,firstDue,'subsequent note keeps its original metronome start');assert.equal(state.due,firstDue+state.stepMs);
 assert.equal(run('steadyCueIndex('+(firstDue+1)+')'),2);
 const secondDue=state.due,secondTimer=run('timingDueTimer');
 now=secondDue;fireTimer(secondTimer);assert.equal(run('pos'),2,'late note grace does not skip immediately');
