@@ -21,11 +21,11 @@ with tempfile.TemporaryDirectory() as folder:
     (site / "manifest.webmanifest").write_text(json.dumps({"name": "Aria piano", "short_name": "Aria", "id": "./", "start_url": "./", "scope": "./", "display": "fullscreen", "icons": [{"src": "icons/aria-192.png"}]}))
     version = base / "version.json"
     version.write_text('{"major":5,"minor":27}')
-    mark_beta(site, version, "a1b2c3d4e5")
+    mark_beta(site, version, "a1b2c3d4e5", timestamp="2026-11-02T18:43:15Z")
     beta_html = (site / "index.html").read_text()
-    assert "Aria piano (beta) v5.28-beta.a1b2c3d4" in beta_html
-    assert 'class="brand-version">v5.28-beta.a1b2c3d4</span>' in beta_html
-    assert 'name="application-version" content="5.28-beta.a1b2c3d4"' in beta_html
+    assert "Aria piano (beta) v5.28-beta.20261102-184315Z" in beta_html
+    assert 'class="brand-version">v5.28-beta.20261102-184315Z</span>' in beta_html
+    assert 'name="application-version" content="5.28-beta.20261102-184315Z"' in beta_html
     assert 'id="aria-beta-storage-isolation"' in beta_html
     assert beta_html.index('id="aria-beta-storage-isolation"') < beta_html.index('localStorage.setItem("aria-progress-v1"')
     assert "aria-beta::" in beta_html, "Separate lesson progress from live stable app"
@@ -50,14 +50,14 @@ with tempfile.TemporaryDirectory() as folder:
     # restore the fixture's production title and worker before stamping again
     (other_site / "index.html").write_text(entry, encoding="utf-8")
     (other_site / "sw.js").write_text("const CACHE = 'aria-piano-shell-v1';\\nconst HOME = new URL('./', self.registration.scope).href;\\nconst cleanup = name.startsWith('aria-piano-shell-');\\nconst message = 'ARIA_CHECK_UPDATE';\\n")
-    mark_beta(other_site, version, "b1c2d3e4f5", install_base="/")
+    mark_beta(other_site, version, "b1c2d3e4f5", install_base="/", timestamp="2026-11-02T19:01:02+01:00")
     separate_manifest = json.loads((other_site / "manifest.webmanifest").read_text())
     assert separate_manifest["id"] == separate_manifest["start_url"] == separate_manifest["scope"] == "/"
     assert separate_manifest["name"] == separate_manifest["short_name"] == "Aria piano (beta)"
-    assert "Aria piano (beta) v5.28-beta.b1c2d3e4" in (other_site / "index.html").read_text()
+    assert "Aria piano (beta) v5.28-beta.20261102-180102Z" in (other_site / "index.html").read_text()
     assert "aria-piano-beta-shell-v1" in (other_site / "sw.js").read_text()
     try:
-        mark_beta(other_site, version, "e7f6", install_base="not-rooted")
+        mark_beta(other_site, version, "e7f6", install_base="not-rooted", timestamp="2026-11-02T18:43:15Z")
     except ValueError:
         pass
     else:
@@ -85,5 +85,6 @@ assert "--install-base /" in vercel["buildCommand"]
 assert "scripts/beta_preview.py" in vercel["buildCommand"]
 assert "scripts/build.py" in vercel["buildCommand"]
 assert "VERCEL_GIT_COMMIT_SHA" in vercel["buildCommand"]
+assert "beta." in beta_html and "a1b2c3d4" not in beta_html, "Visible beta version uses a timestamp, not a commit hash"
 assert "installCommand" in vercel
-print("PASS separate-origin beta PWA install, beta version suffix, independent data and normal beta publishing")
+print("PASS separate-origin beta PWA install, timestamped beta version, independent data and normal beta publishing")
