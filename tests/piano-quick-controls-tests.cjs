@@ -18,15 +18,19 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  sandbox.selectLesson(0);run('screen="studio";mode="touch";studioPhase="practice";running=true;pos=1');
  sandbox.openQuickMenu('tempo');assert.equal(run('running'),false);assert.equal(el('quickTempoModal').hidden,false);
  sandbox.chooseQuickTempo(50);await Promise.resolve();await Promise.resolve();
- assert.equal(+el('tempo').value,40);assert.equal(el('quickTempoModal').hidden,true);assert.equal(run('running'),true);assert.equal(run('pos'),1);
+ assert.equal(+el('tempo').value,40);assert.equal(el('quickTempoModal').hidden,false,'tempo choices do not dismiss the menu');assert.equal(run('running'),false,'practice stays paused while choosing');assert.equal(run('pos'),1);
+ assert.equal(el('quickSpeed50').attrs['aria-pressed'],'true');sandbox.chooseQuickTempo(75);assert.equal(el('quickSpeed75').attrs['aria-pressed'],'true');assert.equal(el('quickSpeed50').attrs['aria-pressed'],'false');assert.equal(el('quickTempoModal').hidden,false);
+ sandbox.closeModal('quickTempoModal');await Promise.resolve();await Promise.resolve();assert.equal(run('running'),true);assert.equal(run('pos'),1);
  sandbox.openQuickMenu('tempo');assert.equal(sandbox.waitModeEnabled(),true);assert.equal(sandbox.quickModeEnabled(),true);sandbox.toggleQuickWait();assert.equal(sandbox.waitModeEnabled(),false);assert.equal(sandbox.timingEnabled(),true);assert.equal(el('quickTempoLabel').textContent,'40 BPM');sandbox.toggleQuickMode();assert.equal(sandbox.quickModeEnabled(),false);sandbox.closeModal('quickTempoModal');await Promise.resolve();await Promise.resolve();
- sandbox.openQuickMenu('tempo');sandbox.chooseQuickTempo(100);await Promise.resolve();await Promise.resolve();assert.equal(+el('tempo').value,80);assert.equal(sandbox.timingEnabled(),true);
+ sandbox.openQuickMenu('tempo');sandbox.chooseQuickTempo(100);assert.equal(el('quickTempoModal').hidden,false);sandbox.closeModal('quickTempoModal');await Promise.resolve();await Promise.resolve();assert.equal(+el('tempo').value,80);assert.equal(sandbox.timingEnabled(),true);
  const index=run('lessons.findIndex(l=>l.left)');assert(index>=0);sandbox.selectLesson(index);run('screen="studio";mode="touch";studioPhase="practice";running=true;pos=3');
  sandbox.openQuickMenu('hands');assert.equal(el('quickHandLeft').disabled,false);sandbox.chooseQuickHand('left');await Promise.resolve();await Promise.resolve();
- assert.equal(run('practiceHand'),'left');assert.equal(run('pos'),0);assert.equal(run('running'),true);assert.equal(run('stepNotes(lessons[li],0).length'),1);
+ assert.equal(run('practiceHand'),'left');assert.equal(run('pos'),0);assert.equal(run('running'),false,'hand choices remain paused until the menu is closed');assert.equal(el('quickHandsModal').hidden,false);assert.equal(el('quickHandLeft').attrs['aria-pressed'],'true');assert.equal(el('quickHandRight').attrs['aria-pressed'],'false');
+ sandbox.chooseQuickHand('right');assert.equal(el('quickHandsModal').hidden,false);assert.equal(el('quickHandRight').attrs['aria-pressed'],'true');sandbox.chooseQuickHand('left');assert.equal(el('quickHandLeft').attrs['aria-pressed'],'true');sandbox.closeModal('quickHandsModal');await Promise.resolve();await Promise.resolve();
+ assert.equal(run('running'),true);assert.equal(run('stepNotes(lessons[li],0).length'),1);
  sandbox.selectLesson(0);sandbox.openQuickMenu('hands');assert.equal(el('quickHandLeft').disabled,true);assert.equal(el('quickHandBoth').disabled,true);assert.equal(el('quickHandRight').disabled,false);
  sandbox.closeModal('quickHandsModal');assert.equal(run('running'),false,'previously paused practice remains paused');
- sandbox.selectLesson(0);run('screen="studio";mode="touch";demoing=true;demoIndex=2');sandbox.openQuickMenu('tempo');assert.equal(el('quickTempo').attrs['aria-expanded'],'true');sandbox.chooseQuickTempo(75);await Promise.resolve();await Promise.resolve();assert.equal(run('demoing'),true);assert.equal(run('demoIndex'),2);assert.equal(el('quickTempo').attrs['aria-expanded'],'false');sandbox.stopDemo();
+ sandbox.selectLesson(0);run('screen="studio";mode="touch";demoing=true;demoIndex=2');sandbox.openQuickMenu('tempo');assert.equal(el('quickTempo').attrs['aria-expanded'],'true');sandbox.chooseQuickTempo(75);assert.equal(el('quickTempoModal').hidden,false);assert.equal(run('demoing'),false,'demo waits while menu remains open');sandbox.closeModal('quickTempoModal');await Promise.resolve();await Promise.resolve();assert.equal(run('demoing'),true);assert.equal(run('demoIndex'),2);assert.equal(el('quickTempo').attrs['aria-expanded'],'false');sandbox.stopDemo();
  sandbox.selectLesson(run('courseLength'));const melodyDock=sandbox.viewportMetrics().dock;sandbox.selectLesson(0);const lessonDock=sandbox.viewportMetrics().dock;assert(lessonDock>=melodyDock,'songs must reserve at least as much dock height as lessons when extra controls are present');
 
  // Custom range must include 10% without clamping up to 20 BPM and preserve the chosen mode.
@@ -34,9 +38,9 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  assert.equal(el('quickCustomSpeedValue').textContent,'10%');
  el('quickCustomSpeed').onchange({target:{value:'10'}});await Promise.resolve();await Promise.resolve();
  assert.equal(+el('tempo').value,Math.round(run('normalTempo(lessons[li])')*.1));
- sandbox.openQuickMenu('tempo');assert.equal(el('quickSpeedCustom').attrs['aria-pressed'],'true');
- sandbox.chooseQuickTempo(50);await Promise.resolve();await Promise.resolve();
- assert.equal(+el('tempo').value,Math.round(run('normalTempo(lessons[li])')*.5));
+ assert.equal(el('quickTempoModal').hidden,false);assert.equal(el('quickSpeedCustom').attrs['aria-pressed'],'true');
+ sandbox.chooseQuickTempo(50);assert.equal(el('quickTempoModal').hidden,false);assert.equal(el('quickSpeed50').attrs['aria-pressed'],'true');
+ assert.equal(+el('tempo').value,Math.round(run('normalTempo(lessons[li])')*.5));sandbox.closeModal('quickTempoModal');await Promise.resolve();await Promise.resolve();
  // Playing on tempo must never increase quick-follow playback rate.
  el('allowEarlyNotes').checked=true;assert.equal(sandbox.quickModeEnabled(),true,'enable Quick mode for the follower tests');
  sandbox.selectLesson(0);run('mode="touch";running=true;pos=1;stopQuickFollow()');sandbox.startQuickFollow(0);
