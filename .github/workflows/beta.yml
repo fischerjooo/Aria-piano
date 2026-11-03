@@ -63,7 +63,7 @@ jobs:
         env:
           TESTED_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
-          python scripts/beta_preview.py --site "$RUNNER_TEMP/aria-beta-source/_site" --version-file version.json --sha "$TESTED_SHA"
+          python "$RUNNER_TEMP/aria-beta-source/scripts/beta_preview.py" --site "$RUNNER_TEMP/aria-beta-source/_site" --version-file version.json --sha "$TESTED_SHA"
           cp -a "$RUNNER_TEMP/aria-beta-source/_site" _site/beta
           test -f _site/beta/index.html
           test -f _site/beta/manifest.webmanifest
