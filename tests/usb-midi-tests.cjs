@@ -4,6 +4,7 @@ const source=fs.readFileSync(path.join(root,'src/app/runtime.js'),'utf8');
 const template=fs.readFileSync(path.join(root,'src/app/template.html'),'utf8');
 assert.equal((template.match(/data-input-choice=/g)||[]).length,4);
 assert.match(template,/data-input-choice="usb"/);
+assert.match(template,/data-input-choice="ble"[^>]*><span data-icon="piano"><\/span>Bluetooth<\/button>/);
 assert.match(template,/id="usbConnect"/);
 assert.doesNotMatch(template,/id="micFallback"/);
 assert.match(source,/function isMidiMode\(\)\{return mode==='ble'\|\|mode==='usb'\}/);
