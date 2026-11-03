@@ -45,8 +45,9 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  // A real player lead should accelerate smoothly, then pay down the distance.
  sandbox.stopQuickFollow();run('running=true;pos=1;quickFollowX=scoreLayout(lessons[li])[0].x-(scoreLayout(lessons[li])[1].x-scoreLayout(lessons[li])[0].x)*.8');
  sandbox.startQuickFollow(0);const initialDebt=run('quickFollowDebt');assert(initialDebt>0);
- for(let i=0;i<14;i++)sandbox.tickQuickFollow(4000+i*16.67);
- assert(run('quickFollowRate')>1.05,'significant lead must trigger catch-up');
+ let peakCatchupRate=1;
+ for(let i=0;i<14;i++){sandbox.tickQuickFollow(4000+i*16.67);peakCatchupRate=Math.max(peakCatchupRate,run('quickFollowRate'));}
+ assert(peakCatchupRate>1.05,'significant lead must trigger catch-up before the guide reaches its target');
  assert(run('quickFollowDebt')<initialDebt,'catch-up debt must decay rather than perpetually speeding up');
  console.log('Tempo custom 10–50%, normal-speed quick follow, real-lead catch-up, presets and resumed controls pass');
 })().catch(e=>{console.error(e);process.exitCode=1});
