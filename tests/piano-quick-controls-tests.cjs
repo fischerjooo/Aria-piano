@@ -28,5 +28,25 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  sandbox.closeModal('quickHandsModal');assert.equal(run('running'),false,'previously paused practice remains paused');
  sandbox.selectLesson(0);run('screen="studio";mode="touch";demoing=true;demoIndex=2');sandbox.openQuickMenu('tempo');assert.equal(el('quickTempo').attrs['aria-expanded'],'true');sandbox.chooseQuickTempo(75);await Promise.resolve();await Promise.resolve();assert.equal(run('demoing'),true);assert.equal(run('demoIndex'),2);assert.equal(el('quickTempo').attrs['aria-expanded'],'false');sandbox.stopDemo();
  sandbox.selectLesson(run('courseLength'));const melodyDock=sandbox.viewportMetrics().dock;sandbox.selectLesson(0);const lessonDock=sandbox.viewportMetrics().dock;assert(lessonDock>=melodyDock,'songs must reserve at least as much dock height as lessons when extra controls are present');
- console.log('Example resumes at current note; melody dock removes unused row; Tempo presets, wait mode, automatic resume, position preservation, hand reset/filtering and single-hand guards pass');
+
+ // Custom range must include 10% without clamping up to 20 BPM and preserve the chosen mode.
+ sandbox.selectLesson(0);sandbox.openQuickMenu('tempo');el('quickCustomSpeed').oninput({target:{value:'10'}});
+ assert.equal(el('quickCustomSpeedValue').textContent,'10%');
+ el('quickCustomSpeed').onchange({target:{value:'10'}});await Promise.resolve();await Promise.resolve();
+ assert.equal(+el('tempo').value,Math.round(run('normalTempo(lessons[li])')*.1));
+ sandbox.openQuickMenu('tempo');assert.equal(el('quickSpeedCustom').attrs['aria-pressed'],'true');
+ sandbox.chooseQuickTempo(50);await Promise.resolve();await Promise.resolve();
+ assert.equal(+el('tempo').value,Math.round(run('normalTempo(lessons[li])')*.5));
+ // Playing on tempo must never increase quick-follow playback rate.
+ sandbox.selectLesson(0);run('mode="touch";running=true;pos=1;stopQuickFollow()');sandbox.startQuickFollow(0);
+ for(let i=0;i<35;i++)sandbox.tickQuickFollow(2000+i*16.67);
+ assert.equal(run('quickFollowRate'),1,'normal tempo keeps the guide at exactly 1x');
+ assert.equal(run('quickFollowDebt'),0,'normal tempo creates no catch-up debt');
+ // A real player lead should accelerate smoothly, then pay down the distance.
+ sandbox.stopQuickFollow();run('running=true;pos=1;quickFollowX=scoreLayout(lessons[li])[0].x-(scoreLayout(lessons[li])[1].x-scoreLayout(lessons[li])[0].x)*.8');
+ sandbox.startQuickFollow(0);const initialDebt=run('quickFollowDebt');assert(initialDebt>0);
+ for(let i=0;i<14;i++)sandbox.tickQuickFollow(4000+i*16.67);
+ assert(run('quickFollowRate')>1.05,'significant lead must trigger catch-up');
+ assert(run('quickFollowDebt')<initialDebt,'catch-up debt must decay rather than perpetually speeding up');
+ console.log('Tempo custom 10–50%, normal-speed quick follow, real-lead catch-up, presets and resumed controls pass');
 })().catch(e=>{console.error(e);process.exitCode=1});
