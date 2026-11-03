@@ -27,3 +27,21 @@ console.log('68 courses / 204 levels: stable IDs, playable sequences, note/finge
 
 for(const [unit,count] of [['starter',36],['body-and-reading',6],['scales-and-movement',8],['minor-colours',5],['harmony-and-transposition',8],['independent-musicianship',5]]){el('curriculumUnit').value=unit;run('courseFilter="all"');sandbox.renderNav();assert.equal((el('lessons').innerHTML.match(/class="lesson-card"/g)||[]).length,count,unit);}el('curriculumUnit').value='all';
 console.log('All6 skill filters pass; no separate activity or time-budget flow');
+
+assert(!html.includes('How the piano training progresses'));
+assert(!html.includes('id="planOpen"'));
+assert(!html.includes('A LITTLE MUSIC, JUST FOR YOU'));
+assert(!html.includes('About these studies'));
+assert(!html.includes('Understanding readiness'));
+assert(!html.includes('id="melodiesBack"'));
+assert(!html.includes('Connection help'));
+assert(!html.includes('Setup & troubleshooting'));
+assert(!html.includes('Choose how you play. Aria remembers your last choice.'));
+assert(!html.includes('MAKE IT YOURS'));
+assert(!html.includes('About this setting'));
+assert(html.includes('id="settingsTitle">Settings</h2>'));
+assert.equal((html.match(/class="fullscreen-toggle icon-button"/g)||[]).length,6);
+assert(!html.includes('id="homeFullscreen"'));
+assert(!html.includes('id="sheetFullscreen"'));
+assert(!html.includes('id="fullscreen" class="icon-button"'));
+assert(!html.includes('id="globalFullscreen"'));console.log('Redundant UI copy removed and fullscreen controls are integrated into each screen action layout');

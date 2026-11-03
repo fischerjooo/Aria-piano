@@ -432,3 +432,5 @@ body:not(.has-level-control) #studioScreen .transport-row{grid-row:1}
 /* Reserve the full song/lesson transport height so controls cannot be clipped by the fixed studio viewport. */
 #studioScreen .transport{box-sizing:border-box}
 #studioScreen .studio-header{box-sizing:border-box;align-items:center}
+
+.fullscreen-toggle{flex:0 0 auto;min-width:44px;min-height:44px}.page-top-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px}.page-top-row h1{margin:0}.page-actions{display:flex;align-items:center;gap:8px}.studio-right .fullscreen-toggle{margin-left:2px}@media(max-width:650px){.fullscreen-toggle{min-width:40px;min-height:40px}.page-top-row{gap:10px}}
