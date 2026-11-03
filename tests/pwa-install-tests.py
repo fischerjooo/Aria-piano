@@ -29,8 +29,8 @@ assert 'class="app-nav home-nav"' in page
 assert 'src="./icons/aria.svg"' in page, 'Home screen should show the canonical SVG A icon'
 assert 'class="brand-name">ria piano</span>' in page
 assert 'class="brand-version">v__ARIA_VERSION__</span>' in page, 'Show the current stable version after Aria'
-assert 'id="globalFullscreen"' in page, 'Fullscreen must be accessible from every screen'
+assert page.count('class="fullscreen-toggle icon-button"') >= 6, 'Fullscreen must be integrated into every screen header/action row'
 runtime = (ROOT / 'src/app/runtime.js').read_text()
-assert "$('globalFullscreen').onclick" in runtime
+assert "document.querySelectorAll('.fullscreen-toggle').forEach" in runtime
 assert "(display-mode: fullscreen)" in runtime, 'Already-fullscreen PWAs must not request fullscreen again'
 print('PASS immersive fullscreen PWA manifest, icons and Pages build configuration')
