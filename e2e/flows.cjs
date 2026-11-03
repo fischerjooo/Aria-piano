@@ -86,7 +86,8 @@ async function test(browser,base,device,viewport){
     await page.locator('#studioScreen:not([hidden]) #scoreSvg').waitFor();
     await page.locator('#quickTempo').click();
     await page.locator('#quickTempoModal:not([hidden])').waitFor();
-    assert.equal((await page.locator('#quickTempoTitle').textContent()).trim(),'Progression mode');
+    assert.equal(await page.locator('#quickTempoModal [role="dialog"]').getAttribute('aria-label'),'Tempo and progression options');
+    assert.equal(await page.locator('#quickTempoModal .eyebrow, #quickTempoTitle').count(),0);
     assert.equal(await page.locator('#quickWait').getAttribute('aria-pressed'),'true');
     assert.equal(await page.locator('#quickQuick').getAttribute('aria-pressed'),'true');
     assert.equal(await page.locator('#quickTempoModal .quick-choice-icon').count(),3);
@@ -97,10 +98,11 @@ async function test(browser,base,device,viewport){
     assert.equal(await page.locator('#quickQuick').getAttribute('aria-pressed'),'false');
     assert.equal(await page.evaluate(()=>localStorage.getItem('aria-allow-early-v1')),'false');
     await page.locator('#quickSpeed75').click();
-    await page.locator('#quickTempoModal').waitFor({state:'hidden'});
-    await page.locator('#quickTempo').click();
     await page.locator('#quickTempoModal:not([hidden])').waitFor();
     assert.equal(await page.locator('#quickSpeed75').getAttribute('aria-pressed'),'true');
+    await page.locator('#quickSpeed50').click();
+    assert.equal(await page.locator('#quickTempoModal').isVisible(),true,'tempo selector stays open after repeated choices');
+    assert.equal(await page.locator('#quickSpeed50').getAttribute('aria-pressed'),'true');
     await page.locator('#quickTempoModal [data-close="quickTempoModal"]').first().click();
     await page.locator('#quickTempoModal').waitFor({state:'hidden'});
     await page.locator('#quickHands').click();
