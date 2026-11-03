@@ -38,6 +38,7 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  sandbox.chooseQuickTempo(50);await Promise.resolve();await Promise.resolve();
  assert.equal(+el('tempo').value,Math.round(run('normalTempo(lessons[li])')*.5));
  // Playing on tempo must never increase quick-follow playback rate.
+ el('allowEarlyNotes').checked=true;assert.equal(sandbox.quickModeEnabled(),true,'enable Quick mode for the follower tests');
  sandbox.selectLesson(0);run('mode="touch";running=true;pos=1;stopQuickFollow()');sandbox.startQuickFollow(0);
  for(let i=0;i<35;i++)sandbox.tickQuickFollow(2000+i*16.67);
  assert.equal(run('quickFollowRate'),1,'normal tempo keeps the guide at exactly 1x');
