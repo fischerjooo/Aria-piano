@@ -70,7 +70,7 @@ jobs:
             python "$RUNNER_TEMP/aria-beta-source/scripts/test.py"
             git -C "$RUNNER_TEMP/aria-beta-source" diff --exit-code -- index.html dist/index.html data
             BETA_SHA="$(git rev-parse refs/remotes/origin/beta-preview)"
-            python scripts/beta_preview.py --site "$RUNNER_TEMP/aria-beta-source/_site" --version-file version.json --sha "$BETA_SHA"
+            python "$RUNNER_TEMP/aria-beta-source/scripts/beta_preview.py" --site "$RUNNER_TEMP/aria-beta-source/_site" --version-file version.json --sha "$BETA_SHA"
             cp -a "$RUNNER_TEMP/aria-beta-source/_site" _site/beta
             test -f _site/beta/index.html
           else
