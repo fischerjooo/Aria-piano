@@ -374,6 +374,7 @@ CASES = [
     },
     {
         "name": "Canon in D",
+        "strict": False,
         "hand": "RH",
         "notes": [78,76,74,73],
         "fingers": [3,2,1,4],
@@ -382,6 +383,7 @@ CASES = [
     },
     {
         "name": "Habanera",
+        "strict": False,
         "strict": False,
         "hand": "RH",
         "notes": [74,73,72,72,72,71,70],
@@ -392,6 +394,7 @@ CASES = [
     {
         "name": "Prelude in C Major BWV 846",
         "strict": False,
+        "strict": False,
         "hand": "RH",
         "notes": [60,64,67,72,76,67,72,76],
         "fingers": [1,2,3,1,2,3,1,2],
@@ -400,6 +403,7 @@ CASES = [
     },
     {
         "name": "America the Beautiful",
+        "strict": False,
         "hand": "RH",
         "notes": [67,64,64,67,67,62,62,64],
         "fingers": [4,2,2,4,4,1,1,2],
@@ -416,6 +420,7 @@ CASES = [
     },
     {
         "name": "Jesus Loves Me",
+        "strict": False,
         "hand": "RH",
         "notes": [67,64,64,62,64,67,67],
         "fingers": [4,3,3,2,3,4,4],
@@ -432,6 +437,7 @@ CASES = [
     },
     {
         "name": "Good King Wenceslas",
+        "strict": False,
         "strict": False,
         "hand": "RH",
         "notes": [72,72,72,74,72,72,67,69,67,69,71,72],
