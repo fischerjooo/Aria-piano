@@ -139,6 +139,19 @@ def _start_cost(notes, finger, hand):
     look = notes[1:min(len(notes), 5)]
     direction = sum(1 if n > notes[0] else -1 if n < notes[0] else 0 for n in look)
     cost = 0.0
+
+    # A common four-note lower-neighbour turn (e.g. Mozart B-A-G#-A)
+    # is naturally centered on 3-2-1-2. Do not let the generic
+    # descending-run start bias push it out to 5-4-3-4.
+    lower_turn = (
+        len(notes) >= 4
+        and notes[0] > notes[1] > notes[2]
+        and notes[3] == notes[1]
+        and 0 < notes[0] - notes[1] <= 2
+        and 0 < notes[1] - notes[2] <= 2
+    )
+    if lower_turn:
+        return 1.4 * abs(finger - 3)
     if direction > 0:
         cost += .32 * (norm - 1)
     elif direction < 0:
