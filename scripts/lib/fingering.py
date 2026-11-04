@@ -81,7 +81,7 @@ def _single_cost(note, finger, hand, index, notes):
     cost = 0.0
     if _is_black(note):
         if finger == 1:
-            cost += 3.2
+            cost += 8.0
         elif finger == 5:
             cost += .45
     if finger == 4:
