@@ -113,9 +113,22 @@ def _fixed_white_position(notes, hand):
     """
     if any(_is_black(note) for note in notes):
         return None
+    unique = sorted(set(notes))
     xs = [_key_x(note) for note in notes]
     lo, hi = min(xs), max(xs)
     width = round(hi - lo, 6)
+
+    # Five distinct white notes fitting inside six adjacent white keys are
+    # commonly treated as one stable hand shape even when one interior key is
+    # skipped (for example Old MacDonald: G-A-C-D-E -> 1-2-3-4-5).
+    # Rank the played notes rather than forcing a literal one-key-per-finger
+    # mapping; this avoids gratuitous repositioning across long repeated phrases.
+    if len(unique) == 5 and width <= 5.0:
+        return {
+            note: (index + 1 if hand == 'RH' else 5 - index)
+            for index, note in enumerate(unique)
+        }
+
     anchor = None
     if abs(width - 4.0) < 1e-6:
         anchor = lo
@@ -124,7 +137,7 @@ def _fixed_white_position(notes, hand):
     if anchor is None:
         return None
     result = {}
-    for note in set(notes):
+    for note in unique:
         offset = round(_key_x(note) - anchor)
         if not 0 <= offset <= 4:
             return None
