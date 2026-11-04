@@ -81,7 +81,14 @@ def _single_cost(note, finger, hand, index, notes):
     cost = 0.0
     if _is_black(note):
         if finger == 1:
-            cost += 8.0
+            # Thumb on a black key is usually less comfortable, but it is
+            # completely legitimate in turns such as Mozart's B-A-G#-A.
+            turn_thumb = (
+                0 < index < len(notes) - 1
+                and notes[index - 1] == notes[index + 1]
+                and 0 < notes[index - 1] - note <= 2
+            )
+            cost += .25 if turn_thumb else 2.4
         elif finger == 5:
             cost += .45
     if finger == 4:
@@ -95,6 +102,34 @@ def _single_cost(note, finger, hand, index, notes):
         if note == lo and hi - lo <= 9:
             cost += 0 if norm == 1 else .85 * (norm - 1)
     return cost
+
+
+def _fixed_white_position(notes, hand):
+    """Return per-pitch fingering for an unambiguous five-white-key position.
+
+    A melody spanning exactly five adjacent white-key centres has one natural
+    no-shift position. Shorter C-rooted beginner fragments also prefer C
+    position. Black-key passages are left to the ergonomic optimizer.
+    """
+    if any(_is_black(note) for note in notes):
+        return None
+    xs = [_key_x(note) for note in notes]
+    lo, hi = min(xs), max(xs)
+    width = round(hi - lo, 6)
+    anchor = None
+    if abs(width - 4.0) < 1e-6:
+        anchor = lo
+    elif width < 4.0 and min(notes) % 12 == 0:
+        anchor = lo
+    if anchor is None:
+        return None
+    result = {}
+    for note in set(notes):
+        offset = round(_key_x(note) - anchor)
+        if not 0 <= offset <= 4:
+            return None
+        result[note] = 1 + offset if hand == 'RH' else 5 - offset
+    return result
 
 
 def _start_cost(notes, finger, hand):
@@ -207,10 +242,14 @@ def generate_fingering(notes, hand='RH', steps=None):
         if len(steps) != len(notes) or any(type(x) not in (int, float) or not isfinite(x) or x <= 0 for x in steps):
             raise ValueError('steps must match notes and contain positive finite values')
 
+    fixed_position = _fixed_white_position(notes, hand)
+
     first_layer = {}
     for finger in range(1, 6):
         key = (0, finger)
         cost = _start_cost(notes, finger, hand) + _single_cost(notes[0], finger, hand, 0, notes)
+        if fixed_position is not None and finger != fixed_position[notes[0]]:
+            cost += 6.0
         first_layer[key] = (cost, None)
     layers = [first_layer]
     states = first_layer
@@ -224,6 +263,8 @@ def generate_fingering(notes, hand='RH', steps=None):
             for finger in range(1, 6):
                 cost = base
                 cost += _single_cost(notes[index], finger, hand, index, notes)
+                if fixed_position is not None and finger != fixed_position[notes[index]]:
+                    cost += 6.0
                 cost += _transition_cost(notes[index - 1], notes[index], prev_finger, finger, hand, previous_step)
                 if index >= 2:
                     cost += _triple_cost(
