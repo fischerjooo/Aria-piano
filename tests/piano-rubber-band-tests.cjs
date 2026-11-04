@@ -29,9 +29,11 @@ assert(runtime.includes("if(waitModeEnabled()||quickModeEnabled())"), 'Quick mod
 assert(runtime.includes('function nextFollowRate('), 'rubber-band follower must smooth its playback rate');
 assert(runtime.includes('function tickQuickFollow(')&&runtime.includes('requestAnimationFrame(tickQuickFollow)'), 'Quick mode must use a continuous frame-by-frame follower');
 assert(runtime.includes('lag=Math.max(0,start.x-quickFollowX)')&&runtime.includes('engageGap=normalGap*.3'), 'Quick mode must engage only once the player has a meaningful actual lead over the guide');
-assert(runtime.includes('desiredRate=quickFollowDebt>0?1+Math.min(2.2,aheadRatio*2.4):1')&&runtime.includes('quickFollowRate+=(desiredRate-quickFollowRate)*blend'), 'Quick mode must stay at 1x without lead, and only accelerate for real lag');
+assert(runtime.includes('desiredRate=1+(quickFollowDebt>0?Math.min(.85,aheadRatio*1.4)*brake:0)')&&runtime.includes('quickFollowRate+=(desiredRate-quickFollowRate)*blend'), 'Quick mode accelerates gently only for real player lead');
+assert(runtime.includes('brakeDistance=normalGap*1.2')&&runtime.includes('brake=approach*approach*(3-2*approach)'), 'Quick mode must begin smoothly braking well before reaching the target note');
+assert(runtime.includes('Math.min(quickFollowRate,1+.85*approach*approach)'), 'approach speed must taper back to configured 1x before catching up');
 assert(runtime.includes('quickFollowDebt=Math.max(0,quickFollowDebt-Math.max(0,quickFollowX-before-baseSpeed*dt))'), 'catch-up debt must shrink as extra distance is travelled');
-assert(runtime.includes('tau=desiredRate>quickFollowRate?240:440'), 'Quick mode must ease acceleration and deceleration instead of snapping speed');
+assert(runtime.includes('tau=desiredRate>quickFollowRate?650:175'), 'Quick mode must ease in slowly and brake more responsively, without sudden bursts');
 assert(runtime.includes('quickFollowX=Math.min(target.x,quickFollowX+baseSpeed*quickFollowRate*dt)'), 'Quick mode must never jump or overshoot the current player target');
 assert(!runtime.includes('if(jumpAhead){scrollScore(pos)'), 'early notes must not hard-jump the score');
 assert(runtime.includes("$('lessonScrubber').oninput"), 'scrubber drag must preview the selected position');
