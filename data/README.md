@@ -65,9 +65,9 @@ gameOrder: 4
 
 `metadata.yaml` contains display and teaching metadata. Base lesson records must include their own `nav` label; the UI does not provide position-based or title fallbacks.
 
-`notation.json` contains fingering, written beat values, timing metadata, and the local MIDI filename. MIDI must be named `performance.mid` and live in the same package folder.
+`notation.json` contains written beat values, timing metadata, and the local MIDI filename. MIDI must be named `performance.mid` and live in the same package folder. Finger numbers are normally generated automatically at build time from the note sequence by `scripts/lib/fingering.py`; packages should omit `f`/`lf`. Explicit `f`/`lf` arrays remain supported only as deliberate editorial overrides for exceptional passages.
 
-`performance.mid` contains sounding pitches, onset timing, durations, and optional second-hand lane data. The builder validates MIDI and notation together and does not infer written fingering or notation from MIDI.
+`performance.mid` contains sounding pitches, onset timing, durations, and optional second-hand lane data. The builder validates MIDI and notation together. It derives fingering from the validated pitch lanes after MIDI/notation timing is materialized; it does not infer written rhythm from MIDI.
 
 ## Validate and build
 
@@ -95,3 +95,7 @@ To add content, create one new lesson or song folder with all required local fil
 To edit content, modify only that package.
 
 To remove content, delete the package folder. Do not reuse IDs that may already exist in saved user progress.
+
+## Automatic fingering
+
+Aria uses a deterministic dynamic-programming fingering optimizer. It evaluates the full melodic hand lane rather than choosing each note independently. The cost model combines practical/comfortable/relaxed finger spans, thumb-crossing behavior, black-key penalties, repeated-note stability, common five-finger anchors, and estimated hand-position movement. Right- and left-hand lanes are optimized separately. The current package library intentionally contains no hard-coded `f` or `lf` arrays.
