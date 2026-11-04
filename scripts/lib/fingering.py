@@ -241,30 +241,14 @@ def _transition_cost(prev_note, note, prev_finger, finger, hand, previous_step):
 def _triple_cost(a, b, c, first, second, third, hand):
     fa, fb, fc = (_norm_finger(f, hand) for f in (first, second, third))
     d1, d2 = b - a, c - b
-    cost = 0.0
-
-    # Prefer one deliberate hand shift followed by a stable position over
-    # continuous re-centering across successive notes. This models hand-state
-    # inertia without prescribing any melody-specific fingering.
-    p1 = _position(a, first, hand)
-    p2 = _position(b, second, hand)
-    p3 = _position(c, third, hand)
-    move1 = abs(p2 - p1)
-    move2 = abs(p3 - p2)
-    if move1 > .65 and move2 > .65:
-        # Large leaps legitimately allow a fresh reposition; the penalty is
-        # aimed at wandering through ordinary melodic motion.
-        leap_discount = .35 if max(abs(d1), abs(d2)) >= 8 else 1.0
-        cost += .70 * min(move1, 2.5) * min(move2, 2.5) * leap_discount
-
     if not d1 or not d2 or d1 * d2 <= 0:
-        return cost
+        return 0.0
     f1, f2 = fb - fa, fc - fb
     if f1 * f2 < 0 and 1 not in (first, second, third):
-        cost += 2.4
+        return 2.4
     if fa == fc and fa != fb and abs(c - a) >= 3:
-        cost += 1.2
-    return cost
+        return 1.2
+    return 0.0
 
 
 def generate_fingering(notes, hand='RH', steps=None):
