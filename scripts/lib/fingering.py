@@ -196,17 +196,12 @@ def _transition_cost(prev_note, note, prev_finger, finger, hand, previous_step):
         return 0.0 if finger == prev_finger else .65
 
     movement = abs(_position(note, finger, hand) - _position(prev_note, prev_finger, hand))
-    cost = max(0.0, movement - .65) * 1.35 * discount
+    cost = max(0.0, movement - .65) * 1.15 * discount
 
     if finger == prev_finger:
         # Sliding the same finger to a neighboring key is possible, but normally
         # less fluent than using a new finger. Large leaps imply repositioning.
-        # Reusing one finger on a different key is a real hand reposition,
-        # not a cheap substitute for choosing a neighboring finger. Keep
-        # repeated notes free (handled above), but make sliding monotonically
-        # expensive until a genuinely large leap provides repositioning time.
-        slide = 6.5 if abs(interval) <= 2 else 5.0 + .30 * abs(interval)
-        return cost + slide * discount
+        return cost + (5.5 if abs(interval) <= 2 else 2.8 + .18 * abs(interval)) * discount
 
     min_rel, max_rel = _limits(prev_finger, finger, hand, MAX_REL)
     min_comf, max_comf = _limits(prev_finger, finger, hand, MAX_COMF)
