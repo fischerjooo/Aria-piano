@@ -89,7 +89,7 @@ The benchmark reports both individual note agreement and exact case agreement. T
 - standard one-octave C-major scale fingering in both hands;
 - no hard-coded fingering arrays in the shipped lesson/song packages.
 
-These aggregate floors are regression baselines, not claims that one publisher's fingering is uniquely correct. The current calibrated result after adding the long-form corpus is **766/911 = 84.1%** overall and **337/386 = 87.3%** on long-form references, with **40/61** cases exact and **5/10** long-form cases exact.
+These aggregate floors are regression baselines, not claims that one publisher's fingering is uniquely correct. The current calibrated result after adding the long-form corpus is **766/911 = 84.1%** overall and **337/386 = 87.3%** on long-form references, with **40/61** cases exact and **5/10** long-form cases exact. The **30 canonical/high-confidence cases are all exact (30/30)**; long arrangements with legitimate publisher-specific shift choices are retained as reference-only cases so their disagreement remains visible in the aggregate score.
 
 The corpus is deliberately stored as reviewable data rather than hidden inside cost weights. New fingering rules should be justified by adding or updating benchmark evidence first.
 
