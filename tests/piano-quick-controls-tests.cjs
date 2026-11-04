@@ -52,7 +52,17 @@ vm.createContext(sandbox);vm.runInContext(script,sandbox);const run=s=>vm.runInC
  sandbox.startQuickFollow(0);const initialDebt=run('quickFollowDebt');assert(initialDebt>0);
  let peakCatchupRate=1;
  for(let i=0;i<14;i++){sandbox.tickQuickFollow(4000+i*16.67);peakCatchupRate=Math.max(peakCatchupRate,run('quickFollowRate'));}
- assert(peakCatchupRate>1.05,'significant lead must trigger catch-up before the guide reaches its target');
+ assert(peakCatchupRate>1.025,'significant lead must still trigger a gentle catch-up');
+ assert(peakCatchupRate<1.45,'speed increase must ramp gradually, not jump at the first detected lead');
  assert(run('quickFollowDebt')<initialDebt,'catch-up debt must decay rather than perpetually speeding up');
- console.log('Tempo custom 10–50%, normal-speed quick follow, real-lead catch-up, presets and resumed controls pass');
+ // Even with outstanding lead, start easing off well before the target note.
+ const gap=run('scoreLayout(lessons[li])[1].x-scoreLayout(lessons[li])[0].x'),target=run('scoreLayout(lessons[li])[1].x');
+ run('quickFollowX='+String(target-gap*.6)+';quickFollowDebt='+String(gap*.7)+';quickFollowRate=1.6;quickFollowLast=6000');
+ sandbox.tickQuickFollow(6016.67);assert(run('quickFollowRate')<1.6,'follower must brake while lead still exists and target is approaching');
+ assert(run('quickFollowRate')>1,'braking must not go below the configured tempo');
+ run('quickFollowX='+String(target-gap*.06)+';quickFollowDebt='+String(gap*.2)+';quickFollowRate=1.3;quickFollowLast=7000');
+ sandbox.tickQuickFollow(7016.67);
+ assert(run('quickFollowRate')<=1.005,'follower must return to the configured tempo just before catch-up');
+ assert(run('quickFollowRate')>=1,'the configured tempo is the lower bound while following');
+ console.log('Quick mode eases into real lead, brakes early and returns to selected 1x tempo; tempo presets, custom range and menu controls pass');
 })().catch(e=>{console.error(e);process.exitCode=1});
