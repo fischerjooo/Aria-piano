@@ -514,7 +514,7 @@ CASES = [
         "fingers": [1,1,1,2,3,3,2,3,4,5,4,4,4,1,1,1,3,3,3,1,1,1,5,4,3,2,1],
         "source": "https://octotune.com/songs/row-row-row-your-boat",
         "skill": "27-note melody with two source-specified phrase position changes",
-        "strict": false,
+        "strict": False,
     },
     {
         "name": "Yankee Doodle — long form",
