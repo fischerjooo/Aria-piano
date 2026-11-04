@@ -40,7 +40,7 @@ with tempfile.TemporaryDirectory(prefix='aria-data-test-') as temporary:
     target = next(l for row in after['lessonLevels'] for l in row if l['id'] == record_id)
     old = next(l for row in before['lessonLevels'] for l in row if l['id'] == record_id)
     assert target['seq'] == [n + 1 for n in old['seq']]
-    assert target['f'] == old['f'], 'MIDI import cannot invent fingering'
+    assert len(target['f']) == len(target['seq']) and all(1 <= n <= 5 for n in target['f']), 'Fingering is regenerated from imported pitches'
     assert target['beats'] == old['beats'], 'MIDI import cannot guess written note length'
 
 # A lesson's own unique 1..100 difficulty controls ordering, not a central binding list.
