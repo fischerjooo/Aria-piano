@@ -51,4 +51,4 @@ for record in records:
         assert len(record['lf']) == len(record['left']), record['id']
         assert all(type(f) is int and 1 <= f <= 5 for f in record['lf']), record['id']
 
-print('PASS automatic ergonomic fingering, 20-melody benchmark, scale anchors, and no hard-coded package finger arrays')
+print('PASS automatic ergonomic fingering, 50-melody benchmark, scale anchors, and no hard-coded package finger arrays')
