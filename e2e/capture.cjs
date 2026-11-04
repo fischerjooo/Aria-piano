@@ -100,12 +100,6 @@ async function flow(browser,url,device,options){
     await visible(page,'#quickHandsModal:not([hidden])');
     await take(page,device,'lesson-hands');
     await close(page,'quickHandsModal');
-    await page.locator('#guide').evaluate(el=>el.click());
-    // The guide may open an overlay; capture only after it appears.
-    await page.waitForTimeout(180);
-    await take(page,device,'lesson-guide');
-    // Dismiss any active informational overlay without guessing the dialog ID.
-    await page.locator('.overlay:not([hidden]) [data-close]').first().click();
     await page.locator('#scoreFocus').click();
     await take(page,device,'lesson-music-focus');
     await page.locator('#scoreFocus').click();
