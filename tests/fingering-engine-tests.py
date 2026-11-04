@@ -33,6 +33,18 @@ if mismatches:
         print(f'FINGERING MISMATCH {name}: expected={expected} actual={actual} source={source}')
 print(f'Corpus exact-note agreement: {matched_notes}/{total_notes} = {accuracy:.1%}; exact cases: {len(CASES)-len(mismatches)}/{len(CASES)}')
 print(f'Canonical strict cases: {len(strict_names)-len(strict_mismatches)}/{len(strict_names)} exact')
+long_cases = [case for case in CASES if 'long form' in case['name']]
+long_matches = 0
+long_total = 0
+long_exact = 0
+for case in long_cases:
+    actual = generate_fingering(case['notes'], case['hand'], steps=case.get('steps'))
+    expected = case['fingers']
+    same = sum(a == b for a, b in zip(actual, expected))
+    long_matches += same
+    long_total += len(expected)
+    long_exact += int(actual == expected)
+print(f'Long-form agreement: {long_matches}/{long_total} = {long_matches/long_total:.1%}; exact cases: {long_exact}/{len(long_cases)}')
 assert accuracy >= .90, f'fingering corpus accuracy {accuracy:.1%} below 90%'
 assert not strict_mismatches, f'canonical fingering cases regressed: {[m[0] for m in strict_mismatches]}'
 
