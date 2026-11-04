@@ -177,16 +177,13 @@ def _transition_cost(prev_note, note, prev_finger, finger, hand, previous_step):
     return cost
 
 
-def _triple_cost(notes, fingers, hand):
-    if len(notes) < 3:
-        return 0.0
-    a, b, c = notes[-3:]
-    fa, fb, fc = (_norm_finger(f, hand) for f in fingers[-3:])
+def _triple_cost(a, b, c, first, second, third, hand):
+    fa, fb, fc = (_norm_finger(f, hand) for f in (first, second, third))
     d1, d2 = b - a, c - b
     if not d1 or not d2 or d1 * d2 <= 0:
         return 0.0
     f1, f2 = fb - fa, fc - fb
-    if f1 * f2 < 0 and 1 not in fingers[-3:]:
+    if f1 * f2 < 0 and 1 not in (first, second, third):
         return 2.4
     if fa == fc and fa != fb and abs(c - a) >= 3:
         return 1.2
@@ -196,8 +193,9 @@ def _triple_cost(notes, fingers, hand):
 def generate_fingering(notes, hand='RH', steps=None):
     """Return an ergonomic 1..5 fingering for one melodic hand lane.
 
-    The search keeps the best path for every final two-finger state, so local
-    choices are evaluated in the context of the full remaining passage.
+    The search keeps the best cost for every final two-finger state and stores
+    back-pointers rather than copying whole paths, making it linear in passage
+    length for the fixed 25-state search space.
     """
     notes = list(notes)
     if hand not in ('RH', 'LH'):
@@ -209,33 +207,47 @@ def generate_fingering(notes, hand='RH', steps=None):
         if len(steps) != len(notes) or any(type(x) not in (int, float) or not isfinite(x) or x <= 0 for x in steps):
             raise ValueError('steps must match notes and contain positive finite values')
 
-    states = {}
+    first_layer = {}
     for finger in range(1, 6):
-        path = (finger,)
+        key = (0, finger)
         cost = _start_cost(notes, finger, hand) + _single_cost(notes[0], finger, hand, 0, notes)
-        states[(0, finger)] = (cost, path)
+        first_layer[key] = (cost, None)
+    layers = [first_layer]
+    states = first_layer
 
     for index in range(1, len(notes)):
         next_states = {}
         previous_step = steps[index - 1] if steps is not None else None
-        for (_, prev_finger), (base, path) in states.items():
+        for prior_key in sorted(states):
+            base, _ = states[prior_key]
+            prev_prev_finger, prev_finger = prior_key
             for finger in range(1, 6):
-                candidate = path + (finger,)
                 cost = base
                 cost += _single_cost(notes[index], finger, hand, index, notes)
                 cost += _transition_cost(notes[index - 1], notes[index], prev_finger, finger, hand, previous_step)
-                cost += _triple_cost(notes[:index + 1], candidate, hand)
+                if index >= 2:
+                    cost += _triple_cost(
+                        notes[index - 2], notes[index - 1], notes[index],
+                        prev_prev_finger, prev_finger, finger, hand,
+                    )
                 key = (prev_finger, finger)
                 current = next_states.get(key)
-                if current is None or (cost, candidate) < (current[0], current[1]):
-                    next_states[key] = (cost, candidate)
+                if current is None or cost < current[0] - 1e-12:
+                    next_states[key] = (cost, prior_key)
+        layers.append(next_states)
         states = next_states
 
-    best = min(
-        (cost + _end_cost(notes, path[-1], hand), path)
-        for cost, path in states.values()
+    final_key = min(
+        states,
+        key=lambda key: (states[key][0] + _end_cost(notes, key[1], hand), key),
     )
-    return list(best[1])
+    path = [final_key[1]]
+    key = final_key
+    for index in range(len(notes) - 1, 0, -1):
+        key = layers[index][key][1]
+        path.append(key[1])
+    path.reverse()
+    return path
 
 
 def hand_for_record(metadata, secondary=False):
