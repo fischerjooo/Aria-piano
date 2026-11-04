@@ -9,7 +9,7 @@ The purpose is not to claim that every passage has one uniquely correct fingerin
 
 ## Coverage
 
-The corpus currently contains 21 cases across 20 distinct melodies:
+The corpus currently contains 51 cases across 50 distinct melodies:
 
 1. Hot Cross Buns
 2. Mary Had a Little Lamb
@@ -32,8 +32,38 @@ The corpus currently contains 21 cases across 20 distinct melodies:
 19. Amazing Grace
 20. Silent Night
 21. Ode to Joy (left hand)
+22. Old MacDonald Had a Farm
+23. Brahms' Lullaby
+24. Auld Lang Syne
+25. Away in a Manger
+26. Deck the Halls
+27. God Rest Ye Merry Gentlemen
+28. Joy to the World
+29. O Christmas Tree
+30. O Come All Ye Faithful
+31. Hark the Herald Angels Sing
+32. Carol of the Bells
+33. The First Noel
+34. We Three Kings
+35. We Wish You a Merry Christmas
+36. O Holy Night
+37. Eine kleine Nachtmusik
+38. Greensleeves
+39. Gymnopédie No. 1
+40. Here Comes the Bride
+41. Swan Lake
+42. Wedding March
+43. William Tell Overture
+44. Canon in D
+45. Habanera
+46. Prelude in C Major, BWV 846
+47. America the Beautiful
+48. Itsy Bitsy Spider
+49. Jesus Loves Me
+50. The Star-Spangled Banner
+51. Good King Wenceslas
 
-This exercises fixed positions, skips, repeated notes, six-note stretches, octave-range shifts, phrase repositioning, black keys, chromatic turns, left-hand mirroring, large intervals, and thumb crossings.
+This exercises fixed positions, skips, repeated notes, six-note stretches, octave-range shifts, phrase repositioning, black keys, chromatic turns, left-hand mirroring, large intervals, thumb crossings, minor-key positions, chromatic descent, broken-chord patterns, repeated-note fanfares, and explicit scale crossings.
 
 ## Current quality gate
 
