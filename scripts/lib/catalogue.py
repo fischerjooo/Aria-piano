@@ -7,6 +7,7 @@ import re
 
 import yaml
 from .midi import PPQ, decode
+from .fingering import generate_fingering, hand_for_record
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / 'data'
@@ -92,7 +93,7 @@ def _validate_notation(record_id, item):
     if type(item['secondaryLane']) is not bool:
         raise ValueError(record_id + ': secondaryLane must be boolean')
     music = item['notation']
-    if not isinstance(music, dict) or not set(music) <= set(MUSICAL_FIELDS) or 'f' not in music:
+    if not isinstance(music, dict) or not set(music) <= set(MUSICAL_FIELDS):
         raise ValueError(record_id + ': invalid notation fields')
     for key, values in music.items():
         if not isinstance(values, list) or len(values) != count:
@@ -103,8 +104,8 @@ def _validate_notation(record_id, item):
         else:
             for value in values:
                 ticks(value)
-    if ('lf' in music) != item['secondaryLane']:
-        raise ValueError(record_id + ': secondary fingering differs from secondaryLane')
+    if 'lf' in music and not item['secondaryLane']:
+        raise ValueError(record_id + ': secondary fingering requires secondaryLane')
     timing = item['timing']
     required_timing = {'spacingEndTick', 'stepsPresent', 'holdsPresent', 'stepCorrections', 'holdCorrections'}
     if not isinstance(timing, dict) or set(timing) != required_timing:
@@ -291,8 +292,18 @@ def _materialize_record(record_id, package):
         raise ValueError(record_id + ': MIDI end loses written trailing spacing')
 
     record = {**deepcopy(description), **music, 'seq': [event['pitch'] for event in lanes[0]]}
+    record['f'] = list(music['f']) if 'f' in music else generate_fingering(
+        record['seq'],
+        hand_for_record(description),
+        steps=step_values,
+    )
     if item['secondaryLane']:
         record['left'] = [event['pitch'] for event in lanes[1]]
+        record['lf'] = list(music['lf']) if 'lf' in music else generate_fingering(
+            record['left'],
+            hand_for_record(description, secondary=True),
+            steps=step_values,
+        )
     return record
 
 

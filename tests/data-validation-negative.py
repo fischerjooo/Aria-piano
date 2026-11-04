@@ -102,7 +102,9 @@ class NegativeCatalog(unittest.TestCase):
         self.corrupt_json('lessons/lesson-1/notation.json', lambda d: d.__setitem__('midi', '../outside.mid'))
 
     def test_invalid_notation(self):
-        self.corrupt_json('lessons/lesson-1/notation.json', lambda d: d['notation']['f'].__setitem__(0, 6))
+        def add_bad_override(data):
+            data['notation']['f'] = [6] * data['stepCount']
+        self.corrupt_json('lessons/lesson-1/notation.json', add_bad_override)
 
     def test_invalid_duration(self):
         self.corrupt_json('lessons/lesson-1/notation.json', lambda d: d['timing'].__setitem__('spacingEndTick', -1))
