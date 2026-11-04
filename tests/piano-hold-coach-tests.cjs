@@ -11,5 +11,5 @@ setup();sandbox.performance.now=()=>10020;sandbox.receiveMidi(0x80,60,0);assert.
 setup();sandbox.tickPracticeTiming(50000);assert.equal(run('mistakes'),0,'very long hold never fails');sandbox.performance.now=()=>50000;sandbox.receiveMidi(0x80,60,0);assert.equal(run('mistakes'),0);
 sandbox.selectLesson(0);run('mode="ble";screen="studio";running=true;pos=3;midiHeld.clear()');sandbox.performance.now=()=>10000;sandbox.receiveMidi(0x90,60,127);assert(run('completionPending'));assert.equal(timerDelays.get(run('completionTimer')),500,'final note completes on fixed short delay');fireTimer(run('completionTimer'));assert.equal(run('screen'),'results');assert.equal(el('resultMistakes').textContent,0);
 setup();sandbox.navigate('course');assert.equal(run('releaseChecks.size'),0);assert.equal(run('holdUiTimer'),null);
-const scale=run('lessonLevels.flat().find(l=>handMoves(l).some(m=>m.kind==="thumb-under"))');assert(scale);const move=sandbox.handMoves(scale).find(m=>m.kind==='thumb-under');assert(move);assert(!/NaN|undefined/.test(sandbox.movementDiagram(move)));sandbox.showBrief(0,0);assert.match(el('briefContent').innerHTML,/velocity and how long the key is held are informational only/);
-console.log('Hold duration and velocity are informational only; final completion, cleanup and lesson guidance pass');
+assert(!html.includes('id="briefModal"'));assert(!html.includes('velocity and how long the key is held are informational only'));
+console.log('Hold duration and velocity remain ungraded; final completion and cleanup pass');
