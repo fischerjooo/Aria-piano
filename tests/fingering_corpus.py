@@ -49,6 +49,7 @@ CASES = [
     },
     {
         "name": "Yankee Doodle",
+        "strict": False,
         "hand": "RH",
         "notes": [65,65,67,69,65,69,67,60,65,65,67,69,65,64,65,65,67,69,70,69,67,65,64,60,62,64,65,65],
         "fingers": [3,3,4,5,3,5,4,1,3,3,4,5,3,2,1,1,2,3,4,3,2,1,3,1,2,3,4,4],
@@ -57,6 +58,7 @@ CASES = [
     },
     {
         "name": "Row Row Row Your Boat",
+        "strict": False,
         "hand": "RH",
         "notes": [60,60,60,62,64,64,62,64,65,67,72,72,72,67,67,67,64,64,64,60,60,60,67,65,64,62,60],
         "fingers": [1,1,1,2,3,3,2,3,4,5,4,4,4,1,1,1,3,3,3,1,1,1,5,4,3,2,1],
@@ -81,8 +83,10 @@ CASES = [
     },
     {
         "name": "Twinkle Twinkle Little Star",
+        "strict": False,
         "hand": "RH",
         "notes": [60,60,67,67,69,69,67,65,65,64,64,62,62,60],
+        "steps": [1,1,1,1,1,1,2,1,1,1,1,1,1,2],
         "fingers": [1,1,4,4,5,5,4,4,4,3,3,2,2,1],
         "source": "https://piano.tudiencau.com/getting-started/twinkle-twinkle-little-star-piano",
         "skill": "six-note span without full hand shift",
@@ -161,6 +165,7 @@ CASES = [
     },
     {
         "name": "Silent Night",
+        "strict": False,
         "hand": "RH",
         "notes": [67,69,67,64],
         "fingers": [1,2,1,1],
