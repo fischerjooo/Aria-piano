@@ -2,16 +2,7 @@
   "midi": "performance.mid",
   "stepCount": 6,
   "secondaryLane": false,
-  "notation": {
-    "f": [
-      1,
-      2,
-      3,
-      3,
-      2,
-      1
-    ]
-  },
+  "notation": {},
   "timing": {
     "spacingEndTick": 57600,
     "stepsPresent": false,
