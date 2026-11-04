@@ -18,12 +18,10 @@ for(let i=0;i<68;i++)for(let level=0;level<3;level++){
  assert(l.f.every(n=>n===''||n>=1&&n<=5),l.id);
  if(l.beats)assert(l.beats.every(n=>n>0));
  sandbox.renderStaticSheet();assert(!/NaN|undefined/.test(el('scoreSvg').innerHTML),l.id);assert(!/NaN|undefined/.test(el('staticScore').innerHTML),l.id);
- const guide=sandbox.curriculumGuide(l);assert(guide.length>500,l.id);assert(guide.includes('<svg'),l.id);
- sandbox.showBrief(i,level);assert(!/NaN|undefined/.test(el('briefContent').innerHTML),l.id);sandbox.closeModal('briefModal');
  run('mode="touch";running=true');for(const n of sandbox.stepNotes(l,0))sandbox.accept(n,10000);assert.equal(run('pos'),1,l.id);
 }
 for(let i=68;i<210;i++){sandbox.selectLesson(i);assert.equal(run('lessons[li].kind'),'melody');}
-console.log('68 courses / 204 levels: stable IDs, playable sequences, note/finger/duration arrays, live/static sheets, illustrated guides, first-step acceptance, and142 melody routing pass');
+console.log('68 courses / 204 levels: stable IDs, playable sequences, note/finger/duration arrays, live/static sheets, first-step acceptance, and142 melody routing pass');
 
 for(const [unit,count] of [['starter',36],['body-and-reading',6],['scales-and-movement',8],['minor-colours',5],['harmony-and-transposition',8],['independent-musicianship',5]]){el('curriculumUnit').value=unit;run('courseFilter="all"');sandbox.renderNav();assert.equal((el('lessons').innerHTML.match(/class="lesson-card"/g)||[]).length,count,unit);}el('curriculumUnit').value='all';
 console.log('All6 skill filters pass; no separate activity or time-budget flow');
@@ -34,7 +32,7 @@ assert(!html.includes('A LITTLE MUSIC, JUST FOR YOU'));
 assert(!html.includes('About these studies'));
 assert(!html.includes('Understanding readiness'));
 assert(!html.includes('id="melodiesBack"'));
-assert(!html.includes('Connection help'));
+assert(!html.includes('Connection help'));assert(!html.includes('id="homeHelp"'));assert(!html.includes('id="briefModal"'));assert(!html.includes('id="helpModal"'));assert(!html.includes('data-info='));
 assert(!html.includes('Setup & troubleshooting'));
 assert(!html.includes('Choose how you play. Aria remembers your last choice.'));
 assert(!html.includes('MAKE IT YOURS'));
