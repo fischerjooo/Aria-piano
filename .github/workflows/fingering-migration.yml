@@ -1,0 +1,31 @@
+name: Migrate generated fingering data
+on:
+  push:
+    branches: [feature/automatic-fingering-engine]
+permissions:
+  contents: write
+jobs:
+  migrate:
+    if: ${{ !contains(github.event.head_commit.message, '[fingering-migrated]') }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: feature/automatic-fingering-engine
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python scripts/remove_fingering_overrides.py
+      - name: Commit migrated packages
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data
+          if git diff --cached --quiet; then
+            echo "No fingering arrays to remove"
+            exit 0
+          fi
+          git commit -m "Remove hard-coded package fingerings [fingering-migrated]"
+          git push origin HEAD:feature/automatic-fingering-engine
