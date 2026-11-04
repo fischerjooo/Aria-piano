@@ -523,7 +523,7 @@ CASES = [
         "fingers": [3,3,4,5,3,5,4,1,3,3,4,5,3,2,1,1,2,3,4,3,2,1,3,1,2,3,4,4],
         "source": "https://octotune.com/songs/yankee-doodle",
         "skill": "28-note F-major melody with B-flat and multiple position shifts",
-        "strict": false,
+        "strict": False,
     },
 
 ]
