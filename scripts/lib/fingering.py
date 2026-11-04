@@ -69,11 +69,8 @@ def _is_black(note):
 def _boundary_discount(interval, previous_step):
     if abs(interval) >= 12:
         return .22
-    if previous_step is not None:
-        if previous_step >= 2:
-            return .35
-        if previous_step >= 1.5:
-            return .65
+    if previous_step is not None and previous_step >= 2:
+        return .35
     if abs(interval) >= 8:
         return .55
     return 1.0
