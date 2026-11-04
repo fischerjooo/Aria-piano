@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-for test in ['pwa-install-tests.py', 'version-tests.py', 'beta-preview-tests.py', 'ble-reconnect-tests.py', 'data-build-tests.py', 'data-midi-negative.py', 'data-validation-negative.py']:
+for test in ['pwa-install-tests.py', 'version-tests.py', 'beta-preview-tests.py', 'ble-reconnect-tests.py', 'data-build-tests.py', 'data-midi-negative.py', 'data-validation-negative.py', 'fingering-engine-tests.py']:
     subprocess.run([sys.executable, str(ROOT / 'tests' / test)], cwd=ROOT, check=True)
 # Run the maintained browser-independent regression suite.
 subprocess.run([sys.executable, str(ROOT / 'scripts/test_snapshot.py')], cwd=ROOT, check=True)
